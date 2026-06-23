@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: lms_db_vps
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root_password}
+      MYSQL_DATABASE: ${DB_NAME:-lms_db}
+      MYSQL_USER: ${DB_USER:-lms_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-root_password}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - lms_vps_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${DB_USER}", "-p${DB_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: lms_redis_vps
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - lms_vps_network
+
+  backend:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: lms_backend_vps
+    restart: always
+    env_file:
+      - .env.production
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/app/uploads
+    networks:
+      - lms_vps_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: lms_nginx_vps
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.vps.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - uploads_data:/var/www/uploads:ro
+    depends_on:
+      - backend
+    networks:
+      - lms_vps_network
+
+volumes:
+  db_data:
+  redis_data:
+  uploads_data:
+
+networks:
+  lms_vps_network:
+    driver: bridge

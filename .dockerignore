@@ -1,0 +1,11 @@
+.git
+.env
+.idea
+.vscode
+node_modules/
+frontend/node_modules/
+dist/
+coverage/
+tmp/
+scratch/
+**/.DS_Store

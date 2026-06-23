@@ -1,0 +1,14 @@
+services:
+  backend:
+    # Use pre-built image instead of building from source
+    image: ghcr.io/${GITHUB_REPOSITORY:-hieulaptrinh04/learning-management-system}/lms-backend:${IMAGE_TAG:-latest}
+    build:
+      context: .
+    restart: always
+
+  frontend:
+    # Use pre-built image instead of building from source
+    image: ghcr.io/${GITHUB_REPOSITORY:-hieulaptrinh04/learning-management-system}/lms-frontend:${IMAGE_TAG:-latest}
+    build:
+      context: ./frontend
+    restart: always
