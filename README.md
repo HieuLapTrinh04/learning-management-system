@@ -1,93 +1,212 @@
-# Learning Management System
+# 🎓 Lumina Academy — Learning Management System
 
+<div align="center">
 
+![Go](https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-7.0-DC382D?style=for-the-badge&logo=redis&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-## Getting started
+**Nền tảng học tập trực tuyến (LMS) hiện đại, đa tenant, hỗ trợ thanh toán VNPay, tích hợp AI chấm bài và hệ thống gamification.**
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+[📖 Tài liệu API](#api) • [🚀 Khởi chạy nhanh](#quick-start) • [🐳 Docker Deploy](#docker)
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+</div>
 
-## Add your files
+---
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## ✨ Tính năng nổi bật
+
+### 👩‍🏫 Dành cho Giảng viên
+- **Course Builder** — Tạo khóa học với Sections, Lessons, Video (Cloudinary), tài liệu đính kèm
+- **Quiz & Assignment** — Tạo bài kiểm tra trắc nghiệm và bài tập nộp file
+- **Course Analytics** — Thống kê doanh thu, số lượng học viên, đánh giá
+- **Payout System** — Yêu cầu rút tiền doanh thu (tỷ lệ 70/30)
+
+### 🎓 Dành cho Học viên
+- **Video Learning** — Xem bài giảng với tracking tiến độ học tập
+- **Quiz Engine** — Làm bài trắc nghiệm với chấm điểm tức thời
+- **Certificate** — Nhận chứng chỉ PDF tự động khi hoàn thành khóa học
+- **Gamification** — Hệ thống điểm thưởng, streak học tập, leaderboard
+- **VNPay Payment** — Thanh toán nội địa qua VNPay (hỗ trợ coupon)
+
+### 🔧 Dành cho Admin
+- **Multi-tenant** — Quản lý nhiều trường/tổ chức độc lập trên cùng hệ thống
+- **User Management** — Quản lý tài khoản, phân quyền, kích hoạt/vô hiệu hóa
+- **Course Approval** — Duyệt khóa học trước khi công khai
+- **Revenue Reports** — Báo cáo doanh thu, thống kê giao dịch
+- **Audit Logs** — Nhật ký toàn bộ hoạt động hệ thống
+- **Real-time Notifications** — Thông báo WebSocket
+
+---
+
+## 🏗 Kiến trúc hệ thống
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/HieuLapTrinh04/learning-management-system.git
-git branch -M main
-git push -uf origin main
+┌─────────────────────────────────────────────────────┐
+│                    NGINX (Gateway)                   │
+│              SSL Termination + Load Balancer         │
+└──────────────┬──────────────────────┬───────────────┘
+               │                      │
+    ┌──────────▼──────┐    ┌──────────▼──────────┐
+    │  React Frontend  │    │   Go Fiber Backend   │
+    │   (Vite + RTK)   │    │   REST API + WebSocket│
+    └──────────────────┘    └──────────┬────────────┘
+                                       │
+                         ┌─────────────┼──────────────┐
+                         │             │              │
+                  ┌──────▼──┐  ┌───────▼──┐  ┌───────▼──┐
+                  │ MySQL 8 │  │ Redis 7  │  │Cloudinary│
+                  │(Primary)│  │(Sessions)│  │(Storage) │
+                  └─────────┘  └──────────┘  └──────────┘
 ```
 
-## Integrate with your tools
+---
 
-* [Set up project integrations](https://gitlab.com/HieuLapTrinh04/learning-management-system/-/settings/integrations)
+## 🛠 Tech Stack
 
-## Collaborate with your team
+| Layer | Technology |
+|-------|-----------|
+| **Backend** | Go 1.22, Fiber v2, GORM v2 |
+| **Frontend** | React 18, Redux Toolkit, Vite, TailwindCSS |
+| **Database** | MySQL 8.0 (GORM AutoMigrate) |
+| **Cache/Session** | Redis 7.0 |
+| **Auth** | JWT (Access + Refresh Token Rotation) |
+| **Storage** | Cloudinary (Images, Videos, Files) |
+| **Email** | Resend API |
+| **Payment** | VNPay (Sandbox + Production) |
+| **PDF** | chromedp (Headless Chrome) |
+| **WebSocket** | Fiber WebSocket (Real-time notifications) |
+| **Infra** | Docker Compose, Nginx, Let's Encrypt SSL |
+| **CI/CD** | GitHub Actions → Auto deploy to VPS |
+| **Monitoring** | Prometheus + Grafana |
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+---
 
-## Test and Deploy
+## 🚀 Khởi chạy nhanh (Local Development) {#quick-start}
 
-Use the built-in continuous integration in GitLab.
+### Yêu cầu
+- Go 1.22+
+- Node.js 20+
+- Docker & Docker Compose
+- MySQL 8.0 + Redis 7.0 (hoặc chạy qua Docker)
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+### 1. Clone và cài đặt
 
-***
+```bash
+git clone https://github.com/HieuLapTrinh04/learning-management-system.git
+cd learning-management-system
+```
 
-# Editing this README
+### 2. Cấu hình môi trường
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+```bash
+cp .env.example .env
+# Chỉnh sửa .env với thông tin của bạn (DB, Redis, JWT, Cloudinary, VNPay, Resend)
+```
 
-## Suggestions for a good README
+### 3. Chạy Backend
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```bash
+go mod download
+go run cmd/api/main.go
+# → Server chạy tại http://localhost:8080
+```
 
-## Name
-Choose a self-explaining name for your project.
+### 4. Chạy Frontend
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+```bash
+cd frontend
+npm install
+npm run dev
+# → App chạy tại http://localhost:5173
+```
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Tài khoản test mặc định
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@lms.edu.vn | securepassword123 |
+| Teacher | teacher@lms.edu.vn | securepassword123 |
+| Student | student@lms.edu.vn | securepassword123 |
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+---
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## 🐳 Docker Deploy (Production) {#docker}
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+```bash
+# 1. Cấu hình production env
+cp .env.production.example .env.production
+nano .env.production
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+# 2. Build và khởi chạy
+docker compose --env-file .env.production up --build -d
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+# 3. Kiểm tra trạng thái
+docker compose ps
+```
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Xem hướng dẫn deploy đầy đủ tại [DEPLOYMENT.md](DEPLOYMENT.md).
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+---
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## 📁 Cấu trúc project
 
-## License
-For open source projects, say how it is licensed.
+```
+learning-management-system/
+├── cmd/api/           # Entry point
+├── internal/
+│   ├── config/        # App configuration
+│   ├── delivery/      # HTTP Handlers, Routes
+│   ├── middleware/     # Auth, Tenant, CORS
+│   ├── models/        # GORM models (20+ entities)
+│   ├── repository/    # Data access layer
+│   └── usecase/       # Business logic layer
+├── pkg/
+│   ├── db/            # MySQL connection + migrations
+│   └── logger/        # Zap structured logger
+├── frontend/          # React app (Vite)
+├── nginx/             # Nginx config + SSL certs
+├── scripts/           # Deploy, backup, rollback scripts
+├── docker-compose.yml
+└── Dockerfile
+```
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+---
+
+## 🔐 Bảo mật
+
+- **JWT Rotation** — Access token (15 phút) + Refresh token (7 ngày), rotate mỗi lần refresh
+- **Bcrypt** — Mã hóa mật khẩu với cost factor 12
+- **Multi-tenant Isolation** — Mỗi tenant có dữ liệu hoàn toàn độc lập
+- **HTTPS** — SSL/TLS qua Nginx + Let's Encrypt
+- **Rate Limiting** — Tích hợp sẵn trong Fiber middleware
+
+---
+
+## 📊 CI/CD Pipeline
+
+```
+git push main
+     │
+     ▼
+GitHub Actions
+     │
+     ├─ 1. Run Go unit tests
+     ├─ 2. Build React app
+     ├─ 3. Build Docker images → push GHCR
+     └─ 4. SSH deploy to VPS → zero-downtime restart
+```
+
+---
+
+## 👨‍💻 Tác giả
+
+**Nguyễn Bùi Minh Hiếu** — [@HieuLapTrinh04](https://github.com/HieuLapTrinh04)
+
+---
+
+## 📄 License
+
+MIT License — Xem [LICENSE](LICENSE) để biết thêm chi tiết.
