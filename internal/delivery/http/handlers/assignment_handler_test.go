@@ -41,6 +41,8 @@ func (m *MockAssignmentUseCase) GetMySubmission(ctx context.Context, studentID, 
 }
 func (m *MockAssignmentUseCase) RunOverdueGradingCron(interval int) {
 }
+func (m *MockAssignmentUseCase) SetAutoCertifier(fn func(studentID, courseID uint)) {
+}
 
 // --- TEST CASES ---
 

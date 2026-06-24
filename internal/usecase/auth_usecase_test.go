@@ -40,6 +40,9 @@ func (m *MockUserRepository) Delete(ctx context.Context, id uint) error {
 func (m *MockUserRepository) GetAllUsers(ctx context.Context, role, status string) ([]models.User, error) {
 	return nil, nil
 }
+func (m *MockUserRepository) GetLeaderboard(ctx context.Context, limit int) ([]models.User, error) {
+	return nil, nil
+}
 
 // --- MOCK TOKEN REPOSITORY ---
 
