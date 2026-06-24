@@ -72,15 +72,18 @@ func (m *MockReviewRepository) ListAllReviews(ctx context.Context, page, limit i
 	return r0, args.Get(1).(int64), args.Error(2)
 }
 
-// MockCourseRepository and MockEnrollmentRepository
-type MockCourseRepository struct {
+// Note: MockCourseRepository and MockEnrollmentRepository are defined in quiz_usecase_test.go (same package)
+// They are reused here without redeclaration.
+
+// reviewCourseRepoMock is a testify-based wrapper used only in review tests
+type reviewCourseRepoMock struct {
 	mock.Mock
 }
 
-func (m *MockCourseRepository) Create(ctx context.Context, course *models.Course) error {
+func (m *reviewCourseRepoMock) Create(ctx context.Context, course *models.Course) error {
 	return nil
 }
-func (m *MockCourseRepository) GetByID(ctx context.Context, id uint) (*models.Course, error) {
+func (m *reviewCourseRepoMock) GetByID(ctx context.Context, id uint) (*models.Course, error) {
 	args := m.Called(ctx, id)
 	var r0 *models.Course
 	if args.Get(0) != nil {
@@ -88,27 +91,39 @@ func (m *MockCourseRepository) GetByID(ctx context.Context, id uint) (*models.Co
 	}
 	return r0, args.Error(1)
 }
-func (m *MockCourseRepository) Update(ctx context.Context, course *models.Course) error {
+func (m *reviewCourseRepoMock) Update(ctx context.Context, course *models.Course) error {
 	return nil
 }
-func (m *MockCourseRepository) Delete(ctx context.Context, id uint) error {
+func (m *reviewCourseRepoMock) Delete(ctx context.Context, id uint) error {
 	return nil
 }
-func (m *MockCourseRepository) ListAll(ctx context.Context, page, limit int, status string) ([]models.Course, int64, error) {
+func (m *reviewCourseRepoMock) GetBySlug(ctx context.Context, slug string) (*models.Course, error) {
+	return nil, nil
+}
+func (m *reviewCourseRepoMock) GetDetails(ctx context.Context, idOrSlug string) (*models.Course, error) {
+	return nil, nil
+}
+func (m *reviewCourseRepoMock) Search(ctx context.Context, c, k, p string, pg, l int) ([]models.Course, int64, error) {
 	return nil, 0, nil
 }
-func (m *MockCourseRepository) ListByTeacherID(ctx context.Context, teacherID uint, page, limit int) ([]models.Course, int64, error) {
-	return nil, 0, nil
+func (m *reviewCourseRepoMock) GetByTeacherID(ctx context.Context, teacherID uint) ([]models.Course, error) {
+	return nil, nil
+}
+func (m *reviewCourseRepoMock) GetAdminCourses(ctx context.Context, status string) ([]models.Course, error) {
+	return nil, nil
 }
 
-type MockEnrollmentRepository struct {
+type reviewEnrollmentRepoMock struct {
 	mock.Mock
 }
 
-func (m *MockEnrollmentRepository) Enroll(ctx context.Context, enrollment *models.Enrollment) error {
+func (m *reviewEnrollmentRepoMock) Create(ctx context.Context, e *models.Enrollment) error {
 	return nil
 }
-func (m *MockEnrollmentRepository) GetByStudentAndCourse(ctx context.Context, studentID, courseID uint) (*models.Enrollment, error) {
+func (m *reviewEnrollmentRepoMock) GetByID(ctx context.Context, id uint) (*models.Enrollment, error) {
+	return nil, nil
+}
+func (m *reviewEnrollmentRepoMock) GetByStudentAndCourse(ctx context.Context, studentID, courseID uint) (*models.Enrollment, error) {
 	args := m.Called(ctx, studentID, courseID)
 	var r0 *models.Enrollment
 	if args.Get(0) != nil {
@@ -116,21 +131,36 @@ func (m *MockEnrollmentRepository) GetByStudentAndCourse(ctx context.Context, st
 	}
 	return r0, args.Error(1)
 }
-func (m *MockEnrollmentRepository) ListByStudentID(ctx context.Context, studentID uint) ([]models.Enrollment, error) {
+func (m *reviewEnrollmentRepoMock) ListByStudent(ctx context.Context, s uint) ([]models.Enrollment, error) {
 	return nil, nil
 }
-func (m *MockEnrollmentRepository) UpdateProgress(ctx context.Context, enrollmentID uint, progress float64) error {
+func (m *reviewEnrollmentRepoMock) Update(ctx context.Context, e *models.Enrollment) error {
 	return nil
 }
-func (m *MockEnrollmentRepository) GetEnrollmentStatsByTeacher(ctx context.Context, teacherID uint) (int64, float64, error) {
-	return 0, 0, nil
+func (m *reviewEnrollmentRepoMock) GetLessonProgress(ctx context.Context, e, l uint) (*models.LessonProgress, error) {
+	return nil, nil
+}
+func (m *reviewEnrollmentRepoMock) CreateLessonProgress(ctx context.Context, p *models.LessonProgress) error {
+	return nil
+}
+func (m *reviewEnrollmentRepoMock) UpdateLessonProgress(ctx context.Context, p *models.LessonProgress) error {
+	return nil
+}
+func (m *reviewEnrollmentRepoMock) CountLessonsInCourse(ctx context.Context, c uint) (int64, error) {
+	return 0, nil
+}
+func (m *reviewEnrollmentRepoMock) CountCompletedLessons(ctx context.Context, e uint) (int64, error) {
+	return 0, nil
+}
+func (m *reviewEnrollmentRepoMock) GetEnrollmentsByCourse(ctx context.Context, c uint) ([]models.Enrollment, error) {
+	return nil, nil
 }
 
 
 func TestSubmitReview(t *testing.T) {
 	mockReviewRepo := new(MockReviewRepository)
-	mockCourseRepo := new(MockCourseRepository)
-	mockEnrollmentRepo := new(MockEnrollmentRepository)
+	mockCourseRepo := new(reviewCourseRepoMock)
+	mockEnrollmentRepo := new(reviewEnrollmentRepoMock)
 	useCase := NewReviewUseCase(mockReviewRepo, mockCourseRepo, mockEnrollmentRepo)
 
 	ctx := context.Background()
@@ -171,8 +201,8 @@ func TestSubmitReview(t *testing.T) {
 
 func TestReplyToReview(t *testing.T) {
 	mockReviewRepo := new(MockReviewRepository)
-	mockCourseRepo := new(MockCourseRepository)
-	mockEnrollmentRepo := new(MockEnrollmentRepository)
+	mockCourseRepo := new(reviewCourseRepoMock)
+	mockEnrollmentRepo := new(reviewEnrollmentRepoMock)
 	useCase := NewReviewUseCase(mockReviewRepo, mockCourseRepo, mockEnrollmentRepo)
 
 	ctx := context.Background()

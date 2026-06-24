@@ -70,6 +70,25 @@ func (m *MockPaymentUseCase) ProcessMockPayment(ctx context.Context, studentID u
 	return nil
 }
 
+func (m *MockPaymentUseCase) GetTeacherBalance(ctx context.Context, teacherID uint) (float64, float64, float64, error) {
+	return 0, 0, 0, nil
+}
+func (m *MockPaymentUseCase) RequestWithdrawal(ctx context.Context, req *models.Withdrawal) error {
+	return nil
+}
+func (m *MockPaymentUseCase) GetTeacherWithdrawals(ctx context.Context, teacherID uint) ([]models.Withdrawal, error) {
+	return nil, nil
+}
+func (m *MockPaymentUseCase) GetAdminWithdrawals(ctx context.Context, status string) ([]models.Withdrawal, error) {
+	return nil, nil
+}
+func (m *MockPaymentUseCase) ProcessWithdrawal(ctx context.Context, id uint, status, adminNote string) error {
+	return nil
+}
+func (m *MockPaymentUseCase) ListTeacherTransactions(ctx context.Context, teacherID uint, page, limit int) ([]models.OrderItem, int64, error) {
+	return nil, 0, nil
+}
+
 // --- TEST CASES ---
 
 func TestPaymentHandler_HandleIPN(t *testing.T) {

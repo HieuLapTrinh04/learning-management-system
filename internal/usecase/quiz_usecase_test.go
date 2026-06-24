@@ -104,6 +104,9 @@ func (m *MockCourseRepository) GetByTeacherID(ctx context.Context, teacherID uin
 	}
 	return nil, nil
 }
+func (m *MockCourseRepository) GetAdminCourses(ctx context.Context, status string) ([]models.Course, error) {
+	return nil, nil
+}
 
 type MockEnrollmentRepository struct {
 	MockCreate                 func(enrollment *models.Enrollment) error

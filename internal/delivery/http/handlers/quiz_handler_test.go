@@ -35,6 +35,9 @@ func (m *MockQuizUseCase) GetQuizForStudent(ctx context.Context, studentID, quiz
 func (m *MockQuizUseCase) SubmitAttempt(ctx context.Context, studentID, quizID uint, submissions []usecase.QuizSubmissionInput) (*models.QuizAttempt, error) {
 	return m.MockSubmitAttempt(ctx, studentID, quizID, submissions)
 }
+func (m *MockQuizUseCase) SetAutoCertifier(fn func(studentID, courseID uint)) {
+	// no-op for test
+}
 
 // --- TEST CASES ---
 

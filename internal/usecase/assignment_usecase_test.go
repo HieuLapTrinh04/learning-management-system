@@ -47,6 +47,9 @@ func (m *MockAssignmentRepository) GetSubmissionByStudent(ctx context.Context, s
 func (m *MockAssignmentRepository) ListSubmissionsByAssignment(ctx context.Context, a uint) ([]models.Submission, error) {
 	return m.MockListSubmissionsByAssignment(a)
 }
+func (m *MockAssignmentRepository) GradeOverdueAssignmentsToZero(ctx context.Context) error {
+	return nil
+}
 
 // --- MOCK STORAGE CLIENT ---
 
