@@ -106,6 +106,8 @@ func InitMySQL(cfg *config.Config) *gorm.DB {
 		&models.Badge{},
 		&models.UserBadge{},
 		&models.Withdrawal{},
+		&models.PasswordResetToken{},
+		&models.EmailVerificationToken{},
 	)
 	if err != nil {
 		logger.Log.Sugar().Fatalf("Database auto-migration failed: %v", err)

@@ -40,3 +40,22 @@ logs/
 # Frontend build
 frontend/dist/
 frontend/node_modules/
+
+# Debug and temporary Python scripts
+fix*.py
+refactor.py
+add_imports.py
+replace_log.py
+remove_log_import.py
+
+# Temporary Go scripts at root level
+fix_db.go
+query_db.go
+check_paths.go
+delete_cert.go
+update_db.go
+test_pdf.go
+test_query.go
+test_ws.go
+mock_submission.txt
+test.pdf

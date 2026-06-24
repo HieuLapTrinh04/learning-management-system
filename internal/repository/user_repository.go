@@ -80,7 +80,7 @@ func (r *userRepository) Update(ctx context.Context, user *models.User) error {
 }
 
 func (r *userRepository) Delete(ctx context.Context, id uint) error {
-	return r.tenantDB(ctx).Delete(&models.User{}, id).Error
+	return r.tenantDB(ctx).Unscoped().Delete(&models.User{}, id).Error
 }
 
 func (r *userRepository) GetLeaderboard(ctx context.Context, limit int) ([]models.User, error) {

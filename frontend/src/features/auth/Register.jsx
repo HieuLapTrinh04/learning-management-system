@@ -110,7 +110,7 @@ export default function Register() {
         {apiError && (
           <div className="p-4 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2.5 items-start">
             <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
-            <span className="leading-relaxed">{apiError}</span>
+            <span className="leading-relaxed">{typeof apiError === 'object' ? apiError.message : apiError}</span>
           </div>
         )}
 

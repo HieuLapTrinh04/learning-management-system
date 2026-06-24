@@ -85,6 +85,7 @@ func (u *authUseCase) Register(ctx context.Context, name, email, password, role 
 	// Generate verification token and send email
 	tokenStr, _ := utils.GenerateRandomToken(32)
 	verificationToken := &models.EmailVerificationToken{
+		TenantID:  tenantID,
 		UserID:    user.ID,
 		Token:     tokenStr,
 		ExpiresAt: time.Now().Add(24 * time.Hour),
@@ -138,6 +139,7 @@ func (u *authUseCase) ForgotPassword(ctx context.Context, email string) error {
 
 	tokenStr, _ := utils.GenerateRandomToken(32)
 	resetToken := &models.PasswordResetToken{
+		TenantID:  user.TenantID,
 		UserID:    user.ID,
 		Token:     tokenStr,
 		ExpiresAt: time.Now().Add(1 * time.Hour),
