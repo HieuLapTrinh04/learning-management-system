@@ -34,6 +34,12 @@ func (m *MockUserRepository) GetByEmail(ctx context.Context, email string) (*mod
 func (m *MockUserRepository) Update(ctx context.Context, u *models.User) error {
 	return m.MockUpdate(ctx, u)
 }
+func (m *MockUserRepository) Delete(ctx context.Context, id uint) error {
+	return nil
+}
+func (m *MockUserRepository) GetAllUsers(ctx context.Context, role, status string) ([]models.User, error) {
+	return nil, nil
+}
 
 // --- MOCK TOKEN REPOSITORY ---
 

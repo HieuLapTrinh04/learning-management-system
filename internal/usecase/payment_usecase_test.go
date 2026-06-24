@@ -89,6 +89,25 @@ func (m *MockPaymentRepository) RefundOrder(ctx context.Context, orderID uint) e
 	return nil
 }
 
+func (m *MockPaymentRepository) GetTeacherBalance(ctx context.Context, teacherID uint) (float64, float64, error) {
+	return 0, 0, nil
+}
+func (m *MockPaymentRepository) CreateWithdrawal(ctx context.Context, withdrawal *models.Withdrawal) error {
+	return nil
+}
+func (m *MockPaymentRepository) ListTeacherWithdrawals(ctx context.Context, teacherID uint) ([]models.Withdrawal, error) {
+	return nil, nil
+}
+func (m *MockPaymentRepository) ListAdminWithdrawals(ctx context.Context, status string) ([]models.Withdrawal, error) {
+	return nil, nil
+}
+func (m *MockPaymentRepository) UpdateWithdrawalStatus(ctx context.Context, id uint, status, adminNote string) error {
+	return nil
+}
+func (m *MockPaymentRepository) ListTeacherTransactions(ctx context.Context, teacherID uint, page, limit int) ([]models.OrderItem, int64, error) {
+	return nil, 0, nil
+}
+
 // --- TEST CASES ---
 
 func TestPaymentUseCase_CreateCheckoutUrl_Success(t *testing.T) {

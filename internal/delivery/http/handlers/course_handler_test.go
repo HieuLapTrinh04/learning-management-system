@@ -40,7 +40,7 @@ func (m *MockCourseUseCase) UpdateCourse(ctx context.Context, id, teacherID uint
 func (m *MockCourseUseCase) DeleteCourse(ctx context.Context, id, teacherID uint) error {
 	return m.MockDeleteCourse(ctx, id, teacherID)
 }
-func (m *MockCourseUseCase) PublishCourse(ctx context.Context, id, teacherID uint, status string) error {
+func (m *MockCourseUseCase) PublishCourse(ctx context.Context, id, teacherID uint, status, reason string) error {
 	return m.MockPublishCourse(ctx, id, teacherID, status)
 }
 func (m *MockCourseUseCase) AddSection(ctx context.Context, teacherID, courseID uint, title string, order int) (*models.Section, error) {
@@ -69,6 +69,12 @@ func (m *MockCourseUseCase) SearchCourses(ctx context.Context, categorySlug, sea
 }
 func (m *MockCourseUseCase) GetTeacherCourses(ctx context.Context, teacherID uint) ([]models.Course, error) {
 	return m.MockGetTeacherCourses(ctx, teacherID)
+}
+func (m *MockCourseUseCase) GetAdminCourses(ctx context.Context, status string) ([]models.Course, error) {
+	return nil, nil
+}
+func (m *MockCourseUseCase) GetTeacherCourseDetails(ctx context.Context, id uint, teacherID uint) (*models.Course, error) {
+	return nil, nil
 }
 
 // --- TEST CASES ---

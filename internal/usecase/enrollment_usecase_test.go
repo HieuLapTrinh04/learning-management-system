@@ -43,7 +43,7 @@ func TestEnrollmentUseCase_EnrollCourse_Success(t *testing.T) {
 		return nil
 	}
 
-	uc := NewEnrollmentUseCase(enrollmentRepo, courseRepo, lessonRepo, sectionRepo, notificationUC)
+	uc := NewEnrollmentUseCase(enrollmentRepo, courseRepo, lessonRepo, sectionRepo, notificationUC, nil)
 	enrollment, err := uc.EnrollCourse(context.Background(), 9, 100)
 
 	assert.NoError(t, err)
@@ -67,7 +67,7 @@ func TestEnrollmentUseCase_EnrollCourse_NotPublished(t *testing.T) {
 		}, nil
 	}
 
-	uc := NewEnrollmentUseCase(enrollmentRepo, courseRepo, lessonRepo, sectionRepo, notificationUC)
+	uc := NewEnrollmentUseCase(enrollmentRepo, courseRepo, lessonRepo, sectionRepo, notificationUC, nil)
 	_, err := uc.EnrollCourse(context.Background(), 9, 100)
 
 	assert.Error(t, err)
@@ -117,7 +117,7 @@ func TestEnrollmentUseCase_CompleteLesson_Success(t *testing.T) {
 		return nil
 	}
 
-	uc := NewEnrollmentUseCase(enrollmentRepo, courseRepo, lessonRepo, sectionRepo, notificationUC)
+	uc := NewEnrollmentUseCase(enrollmentRepo, courseRepo, lessonRepo, sectionRepo, notificationUC, nil)
 	progressPercent, err := uc.CompleteLesson(context.Background(), 9, 5)
 
 	assert.NoError(t, err)

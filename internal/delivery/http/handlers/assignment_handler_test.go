@@ -36,6 +36,11 @@ func (m *MockAssignmentUseCase) ListSubmissions(ctx context.Context, teacherID, 
 func (m *MockAssignmentUseCase) GradeSubmission(ctx context.Context, teacherID, submissionID uint, score int, feedback string) (*models.Submission, error) {
 	return m.MockGradeSubmission(ctx, teacherID, submissionID, score, feedback)
 }
+func (m *MockAssignmentUseCase) GetMySubmission(ctx context.Context, studentID, assignmentID uint) (*models.Submission, error) {
+	return nil, nil
+}
+func (m *MockAssignmentUseCase) RunOverdueGradingCron(interval int) {
+}
 
 // --- TEST CASES ---
 
