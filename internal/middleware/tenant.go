@@ -31,13 +31,9 @@ func TenantResolver(db *gorm.DB) fiber.Handler {
 		// Fallback to DB
 		var tenant models.Tenant
 		if err := db.Where("domain = ? AND is_active = ?", host, true).First(&tenant).Error; err != nil {
-			// If not found by domain, fallback to default tenant (ID=1) for localhost/development
-			if host == "localhost" || host == "127.0.0.1" {
-				if err := db.First(&tenant, 1).Error; err != nil {
-					return apperrors.NewAppError(apperrors.TypeNotFound, "tenant not found", err)
-				}
-			} else {
-				return apperrors.NewAppError(apperrors.TypeNotFound, "tenant domain not registered", err)
+			// Fallback to default tenant (ID=1) if domain not found (great for frontend hosting on Vercel/Netlify)
+			if err := db.First(&tenant, 1).Error; err != nil {
+				return apperrors.NewAppError(apperrors.TypeNotFound, "tenant domain not registered and no default tenant found", err)
 			}
 		}
 
