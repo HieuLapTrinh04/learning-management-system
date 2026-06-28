@@ -20,12 +20,12 @@ func NewDashboardRepository(db *gorm.DB) DashboardRepository {
 	return &dashboardRepository{db: db}
 }
 
-func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminStats, error) {
+func (r *dashboardRepository) GetAdminStats(ctx context.Context, tenantID uint) (*models.AdminStats, error) {
 	var stats models.AdminStats
 
 	// 1. Sum of paid orders total amount
 	err := r.db.WithContext(ctx).Model(&models.Order{}).
-		Where("status = ?", "paid").
+		Where("tenant_id = ? AND status = ?", tenantID, "paid").
 		Select("COALESCE(SUM(total_amount), 0)").
 		Scan(&stats.TotalRevenue).Error
 	if err != nil {
@@ -35,7 +35,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 	// Calculate Teacher Payout
 	err = r.db.WithContext(ctx).Table("order_items oi").
 		Joins("JOIN orders o ON oi.order_id = o.id").
-		Where("o.status = ?", "paid").
+		Where("o.tenant_id = ? AND o.status = ?", tenantID, "paid").
 		Select("COALESCE(SUM(oi.teacher_revenue), 0)").
 		Scan(&stats.TeacherPayout).Error
 	if err != nil {
@@ -46,7 +46,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 
 	// 2. Count active students
 	err = r.db.WithContext(ctx).Model(&models.User{}).
-		Where("role = ? AND is_active = ?", "student", true).
+		Where("tenant_id = ? AND role = ? AND is_active = ?", tenantID, "student", true).
 		Count(&stats.TotalStudents).Error
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 
 	// 3. Count active teachers
 	err = r.db.WithContext(ctx).Model(&models.User{}).
-		Where("role = ? AND is_active = ?", "teacher", true).
+		Where("tenant_id = ? AND role = ? AND is_active = ?", tenantID, "teacher", true).
 		Count(&stats.TotalTeachers).Error
 	if err != nil {
 		return nil, err
@@ -62,6 +62,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 
 	// 4. Count total courses
 	err = r.db.WithContext(ctx).Model(&models.Course{}).
+		Where("tenant_id = ?", tenantID).
 		Count(&stats.TotalCourses).Error
 	if err != nil {
 		return nil, err
@@ -69,6 +70,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 
 	// 5. Count total certificates issued
 	err = r.db.WithContext(ctx).Model(&models.Certificate{}).
+		Where("tenant_id = ?", tenantID).
 		Count(&stats.TotalCertificates).Error
 	if err != nil {
 		return nil, err
@@ -77,7 +79,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 	// 6. Monthly Revenue (Paid Orders grouped by Month)
 	var monthlyRev []models.MonthlyRevenue
 	err = r.db.WithContext(ctx).Model(&models.Order{}).
-		Where("status = ?", "paid").
+		Where("tenant_id = ? AND status = ?", tenantID, "paid").
 		Select("DATE_FORMAT(created_at, '%Y-%m') as month, COALESCE(SUM(total_amount), 0) as revenue").
 		Group("DATE_FORMAT(created_at, '%Y-%m')").
 		Order("month asc").
@@ -90,7 +92,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 	// 7. Student Growth Registration Volume per Month
 	var growth []models.StudentGrowth
 	err = r.db.WithContext(ctx).Model(&models.User{}).
-		Where("role = ? AND is_active = ?", "student", true).
+		Where("tenant_id = ? AND role = ? AND is_active = ?", tenantID, "student", true).
 		Select("DATE_FORMAT(created_at, '%Y-%m') as month, COUNT(*) as count").
 		Group("DATE_FORMAT(created_at, '%Y-%m')").
 		Order("month asc").
@@ -106,6 +108,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 		Select("c.title as course_title, COALESCE(SUM(oi.price), 0) as revenue, COUNT(oi.id) as enrollments").
 		Joins("LEFT JOIN order_items oi ON c.id = oi.course_id").
 		Joins("LEFT JOIN orders o ON oi.order_id = o.id AND o.status = 'paid'").
+		Where("c.tenant_id = ?", tenantID).
 		Group("c.id").
 		Order("enrollments desc").
 		Limit(5).
@@ -118,6 +121,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 	// 9. Course Growth Volume per Month
 	var courseGrowth []models.CourseGrowth
 	err = r.db.WithContext(ctx).Model(&models.Course{}).
+		Where("tenant_id = ?", tenantID).
 		Select("DATE_FORMAT(created_at, '%Y-%m') as month, COUNT(*) as count").
 		Group("DATE_FORMAT(created_at, '%Y-%m')").
 		Order("month asc").
@@ -130,7 +134,7 @@ func (r *dashboardRepository) GetAdminStats(ctx context.Context) (*models.AdminS
 	// 10. Conversion Rate Calculation (Students who made paid orders / Total Students)
 	var payingStudentsCount int64
 	err = r.db.WithContext(ctx).Table("orders").
-		Where("status = 'paid'").
+		Where("tenant_id = ? AND status = 'paid'", tenantID).
 		Select("COUNT(DISTINCT student_id)").
 		Scan(&payingStudentsCount).Error
 	if err == nil && stats.TotalStudents > 0 {
