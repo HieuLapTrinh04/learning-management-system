@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
+import axiosClient from '../../api/axiosClient';
 import { 
   Lock, 
   ArrowRight, 

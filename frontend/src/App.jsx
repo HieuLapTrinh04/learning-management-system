@@ -2,6 +2,7 @@ import React, { useEffect, useRef, Suspense, lazy, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import axiosClient from './api/axiosClient';
 import {
   Award,
   RefreshCw,
