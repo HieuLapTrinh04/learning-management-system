@@ -7,7 +7,7 @@ import (
 )
 
 type DashboardRepository interface {
-	GetAdminStats(ctx context.Context) (*models.AdminStats, error)
+	GetAdminStats(ctx context.Context, tenantID uint) (*models.AdminStats, error)
 	GetTeacherStats(ctx context.Context, teacherID uint) (*models.TeacherStats, error)
 	GetStudentStats(ctx context.Context, studentID uint) (*models.StudentStats, error)
 }

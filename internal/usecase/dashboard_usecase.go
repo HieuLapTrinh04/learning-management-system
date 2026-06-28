@@ -15,7 +15,7 @@ import (
 )
 
 type DashboardUseCase interface {
-	GetAdminStats(ctx context.Context) (*models.AdminStats, error)
+	GetAdminStats(ctx context.Context, tenantID uint) (*models.AdminStats, error)
 	GetTeacherStats(ctx context.Context, teacherID uint) (*models.TeacherStats, error)
 	GetStudentStats(ctx context.Context, studentID uint) (*models.StudentStats, error)
 }
@@ -32,8 +32,8 @@ func NewDashboardUseCase(repo repository.DashboardRepository, redisClient *redis
 	}
 }
 
-func (u *dashboardUseCase) GetAdminStats(ctx context.Context) (*models.AdminStats, error) {
-	cacheKey := "lms_analytics:admin"
+func (u *dashboardUseCase) GetAdminStats(ctx context.Context, tenantID uint) (*models.AdminStats, error) {
+	cacheKey := fmt.Sprintf("lms_analytics:admin:tenant:%d", tenantID)
 
 	// 1. Try reading from Redis Cache
 	cachedVal, err := u.redisClient.Get(ctx, cacheKey).Result()
@@ -46,7 +46,7 @@ func (u *dashboardUseCase) GetAdminStats(ctx context.Context) (*models.AdminStat
 	}
 
 	// 2. Fetch fresh stats from MySQL database
-	stats, err := u.repo.GetAdminStats(ctx)
+	stats, err := u.repo.GetAdminStats(ctx, tenantID)
 	if err != nil {
 		return nil, apperrors.NewAppError(apperrors.TypeInternal, "failed to query admin statistics from database", err)
 	}

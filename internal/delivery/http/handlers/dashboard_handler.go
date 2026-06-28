@@ -32,7 +32,10 @@ func (h *DashboardHandler) getStudentID(c *fiber.Ctx) (uint, error) {
 }
 
 func (h *DashboardHandler) GetAdminAnalytics(c *fiber.Ctx) error {
-	stats, err := h.useCase.GetAdminStats(c.UserContext())
+	valTenant := c.Locals("token_tenant_id")
+	tenantID, _ := valTenant.(uint)
+	
+	stats, err := h.useCase.GetAdminStats(c.UserContext(), tenantID)
 	if err != nil {
 		return err
 	}
