@@ -28,12 +28,15 @@ func TenantResolver(db *gorm.DB) fiber.Handler {
 			return c.Next()
 		}
 
-		// Fallback to DB
+		// Find tenant by domain
 		var tenant models.Tenant
-		if err := db.Where("domain = ? AND is_active = ?", host, true).First(&tenant).Error; err != nil {
-			// Fallback to default tenant (ID=1) if domain not found (great for frontend hosting on Vercel/Netlify)
+		if err := db.Where("domain = ?", host).First(&tenant).Error; err != nil {
+			// Fallback to Tenant ID 1 (Lumina Academy - the user's original tenant)
 			if err := db.First(&tenant, 1).Error; err != nil {
-				return apperrors.NewAppError(apperrors.TypeNotFound, "tenant domain not registered and no default tenant found", err)
+				return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+					"success": false,
+					"message": "Tenant domain is invalid and default tenant not found",
+				})
 			}
 		}
 
