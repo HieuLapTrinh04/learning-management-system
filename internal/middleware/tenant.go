@@ -15,7 +15,10 @@ var tenantCache = make(map[string]uint)
 // TenantResolver middleware resolves the tenant based on the hostname.
 func TenantResolver(db *gorm.DB) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		host := c.Hostname()
+		host := c.Get("X-Tenant-Domain")
+		if host == "" {
+			host = c.Hostname()
+		}
 		// Remove port if present
 		if idx := strings.Index(host, ":"); idx != -1 {
 			host = host[:idx]

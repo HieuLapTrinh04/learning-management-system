@@ -8,6 +8,7 @@ import './index.css'
 import axios from 'axios'
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL || '';
+axios.defaults.headers.common['X-Tenant-Domain'] = window.location.hostname;
 // import * as Sentry from "@sentry/react";
 
 // Sentry.init({
