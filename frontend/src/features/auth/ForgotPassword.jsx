@@ -35,10 +35,13 @@ export default function ForgotPassword() {
   const onSubmit = async (data) => {
     setSuccessMsg('');
     try {
-      await window.fetch('http://localhost:8080/api/v1/auth/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: data.email })
+      await axiosClient.post('/auth/forgot-password', {
+        email: data.email,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Tenant-Domain': window.location.hostname
+        },
       });
       setSuccessMsg(`Đã gửi liên kết khôi phục thành công tới email ${data.email}. Vui lòng kiểm tra hộp thư đến.`);
     } catch (err) {

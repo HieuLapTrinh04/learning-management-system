@@ -167,14 +167,18 @@ export default function App() {
 
       const connectWebSocket = async () => {
         try {
-          const res = await fetch('/api/v1/ws/ticket', {
-            headers: { Authorization: `Bearer ${token}` }
-          });
-          const data = await res.json();
+          const apiBaseUrl = import.meta.env.VITE_API_URL || '';
+          const res = await axiosClient.get('/ws/ticket');
+          const data = res.data;
           if (!data.ticket) return;
 
-          const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-          const wsUrl = `${protocol}//${window.location.host}/api/v1/ws/notifications?ticket=${data.ticket}`;
+          let wsBaseUrl = apiBaseUrl.replace(/^http/, 'ws');
+          if (!wsBaseUrl) {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            wsBaseUrl = `${protocol}//${window.location.host}/api/v1`;
+          }
+          
+          const wsUrl = `${wsBaseUrl}/ws/notifications?ticket=${data.ticket}`;
 
           console.log('Connecting to WebSocket notifications:', wsUrl);
           ws = new WebSocket(wsUrl);

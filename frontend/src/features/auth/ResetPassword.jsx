@@ -45,15 +45,16 @@ export default function ResetPassword() {
     setSuccessMsg('');
     setErrorMsg('');
     try {
-      const response = await window.fetch('http://localhost:8080/api/v1/auth/reset-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, new_password: data.password })
+      const response = await axiosClient.post('/auth/reset-password', {
+        token,
+        new_password: data.password
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Tenant-Domain': window.location.hostname
+        }
       });
-      const resData = await response.json();
-      if (!response.ok) {
-        throw new Error(resData.message || 'Lỗi đặt lại mật khẩu');
-      }
+      const resData = response.data;
       setSuccessMsg('Đặt lại mật khẩu thành công! Bạn có thể sử dụng mật khẩu mới để đăng nhập ngay bây giờ.');
       setTimeout(() => {
         navigate('/login');
