@@ -5,7 +5,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { store } from './store/index.js'
 import App from './App.jsx'
 import './index.css'
+import axios from 'axios'
 
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || '';
 // import * as Sentry from "@sentry/react";
 
 // Sentry.init({
