@@ -46,7 +46,7 @@ export default function ResetPassword() {
     setSuccessMsg('');
     setErrorMsg('');
     try {
-      const response = await axiosClient.post('/auth/reset-password', {
+      const response = await axiosClient.post('/api/v1/auth/reset-password', {
         token,
         new_password: data.password
       }, {

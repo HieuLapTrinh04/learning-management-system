@@ -36,7 +36,7 @@ export default function ForgotPassword() {
   const onSubmit = async (data) => {
     setSuccessMsg('');
     try {
-      await axiosClient.post('/auth/forgot-password', {
+      await axiosClient.post('/api/v1/auth/forgot-password', {
         email: data.email,
       }, {
         headers: {

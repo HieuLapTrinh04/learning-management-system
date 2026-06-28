@@ -169,17 +169,17 @@ export default function App() {
       const connectWebSocket = async () => {
         try {
           const apiBaseUrl = import.meta.env.VITE_API_URL || '';
-          const res = await axiosClient.get('/ws/ticket');
+          const res = await axiosClient.get('/api/v1/ws/ticket');
           const data = res.data;
           if (!data.ticket) return;
 
           let wsBaseUrl = apiBaseUrl.replace(/^http/, 'ws');
           if (!wsBaseUrl) {
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-            wsBaseUrl = `${protocol}//${window.location.host}/api/v1`;
+            wsBaseUrl = `${protocol}//${window.location.host}`;
           }
           
-          const wsUrl = `${wsBaseUrl}/ws/notifications?ticket=${data.ticket}`;
+          const wsUrl = `${wsBaseUrl}/api/v1/ws/notifications?ticket=${data.ticket}`;
 
           console.log('Connecting to WebSocket notifications:', wsUrl);
           ws = new WebSocket(wsUrl);
