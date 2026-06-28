@@ -49,10 +49,24 @@ func LoadConfig(path string) *Config {
 	viper.SetDefault("DB_NAME", "lms_db")
 	viper.SetDefault("REDIS_HOST", "localhost")
 	viper.SetDefault("REDIS_PORT", "6379")
+	viper.SetDefault("REDIS_PASSWORD", "")
+	viper.SetDefault("REDIS_URL", "")
 	viper.SetDefault("JWT_ACCESS_SECRET", "access_secret")
 	viper.SetDefault("JWT_REFRESH_SECRET", "refresh_secret")
 	viper.SetDefault("JWT_ACCESS_EXPIRY_MINUTES", 15)
 	viper.SetDefault("JWT_REFRESH_EXPIRY_DAYS", 7)
+	
+	// External APIs
+	viper.SetDefault("CLOUDINARY_CLOUD_NAME", "")
+	viper.SetDefault("CLOUDINARY_API_KEY", "")
+	viper.SetDefault("CLOUDINARY_API_SECRET", "")
+	viper.SetDefault("VNP_TMN_CODE", "")
+	viper.SetDefault("VNP_HASH_SECRET", "")
+	viper.SetDefault("VNP_URL", "")
+	viper.SetDefault("VNP_RETURN_URL", "")
+	viper.SetDefault("VNP_API_URL", "")
+	viper.SetDefault("RESEND_API_KEY", "")
+	viper.SetDefault("EMAIL_FROM_ADDRESS", "")
 
 	if err := viper.ReadInConfig(); err != nil {
 		logger.Log.Sugar().Infof("Warning: cannot read config file %s, relying on environment variables: %v", path, err)
