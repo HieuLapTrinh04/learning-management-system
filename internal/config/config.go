@@ -18,6 +18,7 @@ type Config struct {
 	RedisHost              string `mapstructure:"REDIS_HOST"`
 	RedisPort              string `mapstructure:"REDIS_PORT"`
 	RedisPassword          string `mapstructure:"REDIS_PASSWORD"`
+	RedisURL               string `mapstructure:"REDIS_URL"`
 	JWTAccessSecret        string `mapstructure:"JWT_ACCESS_SECRET"`
 	JWTRefreshSecret       string `mapstructure:"JWT_REFRESH_SECRET"`
 	JWTAccessExpiryMinutes int    `mapstructure:"JWT_ACCESS_EXPIRY_MINUTES"`

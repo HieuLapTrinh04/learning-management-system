@@ -14,15 +14,23 @@ import (
 
 // InitRedis initializes the go-redis client connection.
 func InitRedis(cfg *config.Config) *redis.Client {
-	opts := &redis.Options{
-		Addr:     fmt.Sprintf("%s:%s", cfg.RedisHost, cfg.RedisPort),
-		Password: cfg.RedisPassword,
-		DB:       0, // Use default DB
-	}
-
-	if strings.Contains(cfg.RedisHost, "upstash.io") {
-		opts.TLSConfig = &tls.Config{
-			MinVersion: tls.VersionTLS12,
+	var opts *redis.Options
+	if cfg.RedisURL != "" {
+		parsedOpts, err := redis.ParseURL(cfg.RedisURL)
+		if err != nil {
+			logger.Log.Sugar().Fatalf("Failed to parse REDIS_URL: %v", err)
+		}
+		opts = parsedOpts
+	} else {
+		opts = &redis.Options{
+			Addr:     fmt.Sprintf("%s:%s", cfg.RedisHost, cfg.RedisPort),
+			Password: cfg.RedisPassword,
+			DB:       0, // Use default DB
+		}
+		if strings.Contains(cfg.RedisHost, "upstash.io") {
+			opts.TLSConfig = &tls.Config{
+				MinVersion: tls.VersionTLS12,
+			}
 		}
 	}
 
