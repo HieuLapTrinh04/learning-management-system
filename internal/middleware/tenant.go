@@ -4,7 +4,6 @@ import (
 	"context"
 	"strings"
 
-	"github.com/HieuLapTrinh04/learning-management-system/internal/apperrors"
 	"github.com/HieuLapTrinh04/learning-management-system/internal/models"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
