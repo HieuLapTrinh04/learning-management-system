@@ -2,6 +2,7 @@ package db
 
 import (
 	"github.com/HieuLapTrinh04/learning-management-system/pkg/logger"
+	"strings"
 
 	"fmt"
 	"time"
@@ -25,6 +26,9 @@ func InitMySQL(cfg *config.Config) *gorm.DB {
 		cfg.DBHost,
 		cfg.DBPort,
 	)
+	if strings.Contains(cfg.DBHost, "tidbcloud.com") {
+		dsnWithoutDB += "&tls=true"
+	}
 	tempDB, err := gorm.Open(mysql.Open(dsnWithoutDB), &gorm.Config{})
 	if err == nil {
 		createSQL := fmt.Sprintf("CREATE DATABASE IF NOT EXISTS `%s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;", cfg.DBName)
@@ -46,6 +50,9 @@ func InitMySQL(cfg *config.Config) *gorm.DB {
 		cfg.DBPort,
 		cfg.DBName,
 	)
+	if strings.Contains(cfg.DBHost, "tidbcloud.com") {
+		dsn += "&tls=true"
+	}
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		Logger: gormlogger.Default.LogMode(gormlogger.Info),
