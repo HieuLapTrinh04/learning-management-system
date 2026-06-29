@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { 
-  ArrowRight, PlayCircle, Star, Users, Award, 
-  MonitorPlay, ShieldCheck, Zap, Briefcase, 
+import {
+  ArrowRight, PlayCircle, Star, Users, Award,
+  MonitorPlay, ShieldCheck, Zap, Briefcase,
   CheckCircle2, Plus, Minus, ChevronRight, LayoutDashboard, Database, BookOpen, MessageCircle, Quote
 } from 'lucide-react';
 
@@ -27,11 +27,10 @@ const RevealOnScroll = ({ children, delay = 0, className = '' }) => {
   }, []);
 
   return (
-    <div 
+    <div
       ref={ref}
-      className={`transition-all duration-1000 ease-out will-change-[opacity,transform] ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
-      } ${className}`}
+      className={`transition-all duration-1000 ease-out will-change-[opacity,transform] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
+        } ${className}`}
       style={{ transitionDelay: `${delay}s` }}
     >
       {children}
@@ -54,7 +53,7 @@ export default function LandingPage() {
           axios.get('/api/v1/courses?limit=8'),
           axios.get('/api/v1/testimonials')
         ]);
-        
+
         setCategories(catRes.data?.data || []);
         setFeaturedCourses(courseRes.data?.data || []);
         setTestimonials(testimonialRes.data?.data || [
@@ -81,7 +80,7 @@ export default function LandingPage() {
 
   return (
     <div className="w-full flex flex-col bg-[#020617] text-slate-100 overflow-hidden font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
-      
+
       {/* =========================================
           SECTION 1: ULTRA-PREMIUM 3D HERO 
       ========================================== */}
@@ -94,7 +93,7 @@ export default function LandingPage() {
         {/* Animated Particles (CSS Magic) */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(20)].map((_, i) => (
-            <div key={i} 
+            <div key={i}
               className="absolute bg-white rounded-full opacity-20 animate-pulse"
               style={{
                 width: Math.random() * 4 + 1 + 'px',
@@ -110,7 +109,7 @@ export default function LandingPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
           <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
-            
+
             {/* Left Content (Typography & CTA) */}
             <div className="flex-1 space-y-6 md:space-y-8 text-center lg:text-left z-20">
               <RevealOnScroll delay={0.1}>
@@ -120,30 +119,30 @@ export default function LandingPage() {
                   <ArrowRight className="w-3 h-3 text-slate-500" />
                 </div>
               </RevealOnScroll>
-              
+
               <RevealOnScroll delay={0.2}>
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.2] md:leading-[1.1]">
-                  Học Kỹ Năng <br />
+                  Kỹ Năng <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Thay Đổi</span> Sự Nghiệp
                 </h1>
               </RevealOnScroll>
-              
+
               <RevealOnScroll delay={0.3}>
                 <p className="text-sm md:text-xl text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
                   Tham gia cùng hàng ngàn học viên học lập trình, kinh doanh, thiết kế, ngoại ngữ và các kỹ năng chuyên môn từ các chuyên gia hàng đầu.
                 </p>
               </RevealOnScroll>
-              
+
               <RevealOnScroll delay={0.4}>
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 md:gap-4 pt-2 md:pt-4">
-                  <Link 
-                    to="/register" 
+                  <Link
+                    to="/register"
                     className="w-full sm:w-auto px-5 py-2.5 md:px-8 md:py-4 bg-white hover:bg-slate-100 text-slate-950 font-bold rounded-xl md:rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.5)] transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base"
                   >
                     <span>Bắt Đầu Học Ngay</span>
                   </Link>
-                  <Link 
-                    to="/courses" 
+                  <Link
+                    to="/courses"
                     className="w-full sm:w-auto px-5 py-2.5 md:px-8 md:py-4 bg-slate-900/40 hover:bg-slate-800/60 border border-slate-700/50 text-white font-bold rounded-xl md:rounded-2xl backdrop-blur-md transition-all duration-300 flex items-center justify-center gap-2 text-sm md:text-base"
                   >
                     <MonitorPlay className="w-4 h-4 md:w-5 md:h-5 opacity-70" />
@@ -181,7 +180,7 @@ export default function LandingPage() {
             <div className="flex-1 relative w-full h-[500px] md:h-[600px] perspective-[2000px] hidden lg:block z-10">
               <RevealOnScroll delay={0.3} className="h-full">
                 <div className="relative w-full h-full transform-style-3d rotate-y-[-15deg] rotate-x-[10deg] hover:rotate-y-[-5deg] hover:rotate-x-[5deg] transition-transform duration-1000 ease-out">
-                  
+
                   {/* 1. Base Laptop Frame */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[320px] bg-slate-800 rounded-3xl border-[6px] border-slate-700 shadow-[0_50px_100px_rgba(0,0,0,0.8)] z-20 overflow-hidden transform translate-z-[0px]">
                     {/* Laptop Screen Content (Mock Dashboard) */}
@@ -325,13 +324,13 @@ export default function LandingPage() {
                   <Link to={`/courses/${course.slug || course.id}`} className="group bg-[#020617] border border-slate-800 rounded-2xl md:rounded-3xl overflow-hidden hover:border-indigo-500/50 transition-all duration-300 hover:shadow-[0_20px_40px_rgba(99,102,241,0.1)] hover:-translate-y-1 flex flex-col h-full">
                     <div className="relative aspect-[4/3] overflow-hidden bg-slate-900">
                       {course.thumbnail_url ? (
-                        <img src={course.thumbnail_url} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onError={(e)=>{e.target.src='https://placehold.co/600x400/1e293b/94a3b8?text=Course'}} />
+                        <img src={course.thumbnail_url} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onError={(e) => { e.target.src = 'https://placehold.co/600x400/1e293b/94a3b8?text=Course' }} />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900"><BookOpen className="w-8 h-8 md:w-10 md:h-10 text-slate-700" /></div>
                       )}
                       <div className="absolute top-2 left-2 md:top-3 md:left-3 px-2 py-0.5 md:px-2.5 md:py-1 bg-amber-500 text-amber-950 text-[9px] md:text-[10px] font-bold rounded uppercase tracking-wide shadow-lg">Bán chạy</div>
                     </div>
-                    
+
                     <div className="p-3 md:p-5 flex flex-col flex-1">
                       <div className="flex flex-col md:flex-row md:items-center gap-1.5 md:gap-2 mb-2">
                         <span className="text-[8px] md:text-[10px] font-medium px-1.5 py-0.5 md:px-2 md:py-0.5 bg-slate-800 text-slate-300 rounded self-start md:self-auto">{course.category?.name || 'Danh mục'}</span>
@@ -339,15 +338,15 @@ export default function LandingPage() {
                           <Star className="w-2.5 h-2.5 md:w-3 md:h-3 fill-amber-400" /> 4.9 <span className="text-slate-500 font-normal">(2k)</span>
                         </div>
                       </div>
-                      
+
                       <h3 className="font-bold text-white text-xs md:text-lg line-clamp-2 mb-2 md:mb-4 group-hover:text-indigo-400 transition-colors">{course.title}</h3>
-                      
+
                       <div className="mt-auto">
                         <div className="flex items-center gap-1.5 md:gap-2 mb-2 md:mb-4">
                           <div className="w-4 h-4 md:w-6 md:h-6 rounded-full bg-slate-700 flex-shrink-0"></div>
                           <span className="text-[9px] md:text-xs text-slate-400 truncate">{course.teacher?.name || 'Giảng viên Expert'}</span>
                         </div>
-                        
+
                         <div className="flex items-center justify-between border-t border-slate-800/80 pt-2.5 md:pt-4">
                           <div className="font-bold text-white text-[11px] md:text-lg">
                             {course.price === 0 ? 'Miễn phí' : `${course.price?.toLocaleString('vi-VN')} đ`}
@@ -514,7 +513,7 @@ export default function LandingPage() {
                 </div>
               </RevealOnScroll>
             </div>
-            
+
             <div className="flex-1 relative w-full aspect-[4/3] perspective-[1000px] mt-8 lg:mt-0">
               <RevealOnScroll delay={0.3} className="h-full w-full">
                 {/* 3D Certificate Mockup */}
@@ -530,7 +529,7 @@ export default function LandingPage() {
                       <p className="text-[10px] md:text-base text-slate-500 mb-1 md:mb-2">Chứng nhận học viên</p>
                       <p className="text-lg md:text-2xl font-bold text-slate-800 border-b border-slate-300 pb-1 md:pb-2 px-4 md:px-8 mb-3 md:mb-6">John Doe</p>
                       <p className="text-[9px] md:text-sm text-slate-500 max-w-[200px] md:max-w-sm">đã hoàn thành xuất sắc khóa đào tạo 40 giờ về kiến trúc frontend nâng cao.</p>
-                      
+
                       <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 text-left">
                         <div className="w-12 md:w-24 h-px bg-slate-400 mb-1 md:mb-2"></div>
                         <p className="text-[7px] md:text-[10px] text-slate-500 uppercase">Giảng viên</p>
@@ -565,7 +564,7 @@ export default function LandingPage() {
             {faqs.map((faq, idx) => (
               <RevealOnScroll key={idx} delay={0.1 * idx}>
                 <div className="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden">
-                  <button 
+                  <button
                     onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
                     className="w-full px-4 py-3 md:px-6 md:py-5 flex justify-between items-center text-left focus:outline-none"
                   >
@@ -588,7 +587,7 @@ export default function LandingPage() {
       <section className="py-12 md:py-24 relative overflow-hidden bg-[#050b1a]">
         <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/20 to-transparent pointer-events-none"></div>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
-        
+
         <div className="max-w-4xl mx-auto px-4 relative z-10 text-center space-y-5 md:space-y-8">
           <RevealOnScroll delay={0.1}>
             <div className="inline-flex items-center justify-center p-2.5 md:p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-xl md:rounded-2xl mb-1 md:mb-2">
@@ -605,11 +604,11 @@ export default function LandingPage() {
               Tham gia nền tảng học tập cao cấp được thiết kế riêng cho lực lượng lao động hiện đại. Không cần thẻ tín dụng để xem các khóa học miễn phí.
             </p>
           </RevealOnScroll>
-          
+
           <RevealOnScroll delay={0.4}>
             <div className="pt-4 md:pt-8 flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-              <Link 
-                to="/register" 
+              <Link
+                to="/register"
                 className="px-6 py-3 md:px-8 md:py-4 bg-white hover:bg-slate-100 text-slate-950 font-bold rounded-xl md:rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)] md:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all transform hover:-translate-y-1 text-sm md:text-lg flex items-center justify-center gap-2"
               >
                 Học Thử Miễn Phí <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
