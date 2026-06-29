@@ -309,7 +309,7 @@ func (r *dashboardRepository) GetStudentStats(ctx context.Context, studentID uin
 		Joins("JOIN sections s ON q.section_id = s.id").
 		Joins("JOIN courses c ON s.course_id = c.id").
 		Where("qa.student_id = ?", studentID).
-		Group("qa.quiz_id").
+		Group("qa.quiz_id, q.title, c.title").
 		Scan(&quizResults).Error
 	if err != nil {
 		return nil, err

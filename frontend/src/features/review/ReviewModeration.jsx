@@ -78,38 +78,38 @@ export default function ReviewModeration({ token }) {
     <div className="space-y-6">
       
       {/* Title Board */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-900/20 border border-slate-900 p-4 sm:p-6 rounded-3xl">
         <div className="space-y-1">
-          <h1 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-3">
-            <Star className="w-7 h-7 text-amber-500 fill-amber-500" />
+          <h1 className="font-serif text-xl sm:text-2xl font-bold text-slate-100 flex items-center gap-2 sm:gap-3">
+            <Star className="w-5 h-5 sm:w-7 sm:h-7 text-amber-500 fill-amber-500" />
             <span>Kiểm Duyệt Đánh Giá</span>
           </h1>
-          <p className="text-xs text-slate-400 font-normal">Quản lý và kiểm duyệt các đánh giá của học viên trên toàn hệ thống khóa học.</p>
+          <p className="text-[10px] sm:text-xs text-slate-400 font-normal">Quản lý và kiểm duyệt các đánh giá của học viên trên toàn hệ thống khóa học.</p>
         </div>
       </div>
 
       {/* Filter and search bar */}
-      <div className="bg-slate-900/30 border border-slate-900 p-5 rounded-3xl flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div className="bg-slate-900/30 border border-slate-900 p-3 sm:p-5 rounded-3xl flex flex-col md:flex-row gap-3 sm:gap-4 items-center justify-between">
         <form onSubmit={handleSearchSubmit} className="relative w-full max-w-md">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
-            <Search className="w-4 h-4" />
+          <span className="absolute inset-y-0 left-0 pl-3 sm:pl-3.5 flex items-center text-slate-500">
+            <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </span>
           <input
             type="text"
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
             placeholder="Tìm kiếm theo nội dung bình luận..."
-            className="block w-full pl-10 pr-24 py-2.5 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-xl text-slate-200 placeholder-slate-655 focus:outline-none text-xs transition"
+            className="block w-full pl-8 sm:pl-10 pr-20 sm:pr-24 py-2 sm:py-2.5 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none text-[10px] sm:text-xs transition"
           />
           <button 
             type="submit" 
-            className="absolute right-1.5 top-1.5 bottom-1.5 px-3 bg-slate-900 hover:bg-slate-800 text-slate-350 text-[10px] font-bold rounded-lg border border-slate-800"
+            className="absolute right-1 sm:right-1.5 top-1 sm:top-1.5 bottom-1 sm:bottom-1.5 px-2 sm:px-3 bg-slate-900 hover:bg-slate-800 text-slate-300 text-[9px] sm:text-[10px] font-bold rounded-lg border border-slate-800"
           >
             Tìm kiếm
           </button>
         </form>
 
-        <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono font-bold">
+        <div className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-widest font-mono font-bold">
           Tổng số đánh giá: <span className="text-amber-500 font-mono font-black">{adminTotalReviews}</span>
         </div>
       </div>
@@ -133,17 +133,17 @@ export default function ReviewModeration({ token }) {
       ) : (
         <div className="space-y-4">
           <div className="overflow-x-auto border border-slate-900 rounded-2xl bg-slate-950/40">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full text-left border-collapse min-w-[600px] sm:min-w-max">
               <thead>
-                <tr className="bg-slate-950 border-b border-slate-900 text-slate-400 text-[10px] uppercase font-mono tracking-wider">
-                  <th className="p-4 font-semibold">Người đánh giá</th>
-                  <th className="p-4 font-semibold">Khóa học</th>
-                  <th className="p-4 font-semibold">Số sao</th>
-                  <th className="p-4 font-semibold">Nội dung</th>
-                  <th className="p-4 font-semibold">Phản hồi</th>
-                  <th className="p-4 font-semibold">Ngày tạo</th>
-                  <th className="p-4 font-semibold">Trạng thái</th>
-                  <th className="p-4 font-semibold text-right">Hành động</th>
+                <tr className="bg-slate-950 border-b border-slate-900 text-slate-400 text-[9px] sm:text-[10px] uppercase font-mono tracking-wider">
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Người đánh giá</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Khóa học</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Số sao</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Nội dung</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Phản hồi</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Ngày tạo</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Trạng thái</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold text-right">Hành động</th>
                 </tr>
               </thead>
               <tbody className="text-xs divide-y divide-slate-900/60">
@@ -155,62 +155,62 @@ export default function ReviewModeration({ token }) {
 
                   return (
                     <tr key={review.id} className="hover:bg-slate-900/10 transition">
-                      <td className="p-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-500 font-bold text-xs">
+                      <td className="px-2 py-1.5 sm:p-4">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-500 font-bold text-[9px] sm:text-xs">
                             {initials}
                           </div>
                           <div>
-                            <span className="block font-bold text-slate-200">{studentName}</span>
-                            <span className="block text-[10px] text-slate-500 mt-0.5">{studentEmail}</span>
+                            <span className="block font-bold text-slate-200 text-[10px] sm:text-xs">{studentName}</span>
+                            <span className="block text-[8px] sm:text-[10px] text-slate-500 mt-0.5">{studentEmail}</span>
                           </div>
                         </div>
                       </td>
-                      <td className="p-4 max-w-[200px]">
-                        <span className="font-semibold text-slate-300 line-clamp-2 leading-relaxed">
+                      <td className="px-2 py-1.5 sm:p-4 min-w-[120px] max-w-[120px] sm:min-w-[200px] sm:max-w-[200px]">
+                        <span className="font-semibold text-slate-300 line-clamp-2 leading-relaxed text-[10px] sm:text-xs">
                           {courseTitle}
                         </span>
                       </td>
-                      <td className="p-4">
+                      <td className="px-2 py-1.5 sm:p-4 scale-75 origin-left sm:scale-100 min-w-[70px]">
                         {renderStars(review.rating)}
                       </td>
-                      <td className="p-4 max-w-[250px]">
-                        <span className="text-slate-350 line-clamp-2 leading-relaxed">
+                      <td className="px-2 py-1.5 sm:p-4 min-w-[160px] max-w-[160px] sm:min-w-[250px] sm:max-w-[250px]">
+                        <span className="text-slate-350 line-clamp-2 leading-relaxed text-[10px] sm:text-xs">
                           {review.comment}
                         </span>
                       </td>
-                      <td className="p-4 max-w-[200px]">
+                      <td className="px-2 py-1.5 sm:p-4 min-w-[150px] max-w-[150px] sm:min-w-[200px] sm:max-w-[200px]">
                         {review.reply ? (
-                          <div className="flex items-start gap-1.5 text-amber-500/80 bg-amber-500/5 border border-amber-500/10 px-2 py-1.5 rounded-lg">
-                            <MessageSquare className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
-                            <span className="line-clamp-2 text-[11px] leading-relaxed">{review.reply}</span>
+                          <div className="flex items-start gap-1 sm:gap-1.5 text-amber-500/80 bg-amber-500/5 border border-amber-500/10 px-1.5 py-1 sm:px-2 sm:py-1.5 rounded-lg">
+                            <MessageSquare className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0 mt-0.5" />
+                            <span className="line-clamp-2 text-[9px] sm:text-[11px] leading-relaxed">{review.reply}</span>
                           </div>
                         ) : (
-                          <span className="text-slate-600 italic text-[11px]">Chưa phản hồi</span>
+                          <span className="text-slate-600 italic text-[9px] sm:text-[11px]">Chưa phản hồi</span>
                         )}
                       </td>
-                      <td className="p-4 text-slate-400">
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5 text-slate-500" />
+                      <td className="px-2 py-1.5 sm:p-4 text-slate-400">
+                        <div className="flex items-center gap-1 text-[9px] sm:text-xs">
+                          <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-500" />
                           <span>{new Date(review.created_at).toLocaleDateString('vi-VN')}</span>
                         </div>
                       </td>
-                      <td className="p-4">
+                      <td className="px-2 py-1.5 sm:p-4">
                         {review.is_hidden ? (
-                          <span className="text-[10px] uppercase font-bold text-red-500 bg-red-950/15 border border-red-900/30 px-2 py-0.5 rounded-full">
+                          <span className="text-[8px] sm:text-[10px] uppercase font-bold text-red-500 bg-red-950/15 border border-red-900/30 px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full whitespace-nowrap">
                             Đang ẩn
                           </span>
                         ) : (
-                          <span className="text-[10px] uppercase font-bold text-emerald-500 bg-emerald-950/15 border border-emerald-900/30 px-2 py-0.5 rounded-full">
-                            Đang hiển thị
+                          <span className="text-[8px] sm:text-[10px] uppercase font-bold text-emerald-500 bg-emerald-950/15 border border-emerald-900/30 px-1.5 py-0.5 sm:px-2 sm:py-0.5 rounded-full whitespace-nowrap">
+                            Hiển thị
                           </span>
                         )}
                       </td>
-                      <td className="p-4 text-right">
+                      <td className="px-2 py-1.5 sm:p-4 text-right">
                         <button
                           onClick={() => handleModerateToggle(review.id, review.is_hidden)}
                           disabled={isActionLoading}
-                          className={`py-1.5 px-3 rounded-xl text-[10px] font-bold border transition ${
+                          className={`py-1 px-1.5 sm:py-1.5 sm:px-3 rounded-xl text-[9px] sm:text-[10px] font-bold border transition whitespace-nowrap ${
                             review.is_hidden
                               ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20'
                               : 'bg-red-500/10 text-red-400 border-red-500/30 hover:bg-red-500/20'

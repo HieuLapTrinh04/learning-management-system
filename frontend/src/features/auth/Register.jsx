@@ -85,26 +85,26 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#090d16] px-4 sm:px-6 lg:px-8 selection:bg-brand-500 selection:text-slate-950">
+    <div className="flex-1 flex items-center justify-center w-full px-4 sm:px-6 lg:px-8 py-8 md:py-16">
 
       {/* Background radial glow */}
-      <div className="absolute w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] -z-10 top-1/4 left-1/3"></div>
-      <div className="absolute w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[100px] -z-10 bottom-1/4 right-1/4"></div>
+      <div className="hidden md:block absolute w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] -z-10 top-1/4 left-1/3"></div>
+      <div className="hidden md:block absolute w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[100px] -z-10 bottom-1/4 right-1/4"></div>
 
-      <div className="max-w-md w-full space-y-8 bg-slate-900/60 p-8 rounded-3xl border border-amber-500/20 backdrop-blur-2xl shadow-[0_0_40px_rgba(245,158,11,0.1)] relative">
+      <div className="max-w-md w-full space-y-4 md:space-y-8 bg-slate-900/60 p-5 md:p-8 rounded-3xl border border-amber-500/20 backdrop-blur-2xl shadow-[0_0_40px_rgba(245,158,11,0.1)] relative">
 
         {/* Decorative gold ornaments */}
         <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-amber-500/30"></div>
-        <div className="absolute -top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-amber-500/30"></div>
+        <div className="absolute top-0 sm:-top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-amber-500/30"></div>
         <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-amber-500/30"></div>
         <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-amber-500/30"></div>
 
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-600/30">
-            <GraduationCap className="h-7 w-7 text-slate-950" />
+          <div className="mx-auto h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-600/30">
+            <GraduationCap className="h-6 w-6 md:h-7 md:w-7 text-slate-950" />
           </div>
-          <h2 className="mt-6 font-serif text-3xl font-bold text-slate-100">Tạo Tài Khoản</h2>
-          <p className="mt-2 text-xs text-slate-400">Tham gia ngay cùng mạng lưới học tập của chúng tôi</p>
+          <h2 className="mt-4 md:mt-6 font-serif text-xl md:text-3xl font-bold text-slate-100">Tạo Tài Khoản</h2>
+          <p className="mt-1 md:mt-2 text-[10px] md:text-xs text-slate-400">Tham gia ngay cùng mạng lưới học tập của chúng tôi</p>
         </div>
 
         {apiError && (
@@ -121,22 +121,22 @@ export default function Register() {
           </div>
         )}
 
-        <form className="mt-6 space-y-5" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-4 md:mt-6 space-y-4 md:space-y-5" onSubmit={handleSubmit(onSubmit)}>
 
           {/* Role selector card UI */}
           <div>
-            <label className="block text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-3">Bạn tham gia với tư cách</label>
-            <div className="grid grid-cols-2 gap-4">
+            <label className="block text-[10px] md:text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-2 md:mb-3">Bạn tham gia với tư cách</label>
+            <div className="grid grid-cols-2 gap-3 md:gap-4">
 
               {/* Student Option */}
               <button
                 type="button"
                 onClick={() => setValue('role', 'student')}
-                className={`p-4 rounded-2xl border transition duration-200 text-left flex flex-col gap-2 relative ${selectedRole === 'student' ? 'bg-amber-500/5 border-amber-500 text-amber-500' : 'bg-[#0c101a] border-slate-900 text-slate-400 hover:border-slate-800'}`}
+                className={`p-3 md:p-4 rounded-xl md:rounded-2xl border transition duration-200 text-left flex flex-col gap-1.5 md:gap-2 relative ${selectedRole === 'student' ? 'bg-amber-500/5 border-amber-500 text-amber-500' : 'bg-[#0c101a] border-slate-900 text-slate-400 hover:border-slate-800'}`}
                 disabled={isLoading}
               >
-                <Users className="w-5 h-5" />
-                <span className="text-xs font-semibold">Học Viên</span>
+                <Users className="w-4 h-4 md:w-5 md:h-5" />
+                <span className="text-[11px] md:text-xs font-semibold">Học Viên</span>
                 <span className="text-[10px] text-slate-500 block leading-tight">Tìm kiếm & tham gia bài giảng</span>
               </button>
 
@@ -144,11 +144,11 @@ export default function Register() {
               <button
                 type="button"
                 onClick={() => setValue('role', 'teacher')}
-                className={`p-4 rounded-2xl border transition duration-200 text-left flex flex-col gap-2 relative ${selectedRole === 'teacher' ? 'bg-amber-500/5 border-amber-500 text-amber-500' : 'bg-[#0c101a] border-slate-900 text-slate-400 hover:border-slate-800'}`}
+                className={`p-3 md:p-4 rounded-xl md:rounded-2xl border transition duration-200 text-left flex flex-col gap-1.5 md:gap-2 relative ${selectedRole === 'teacher' ? 'bg-amber-500/5 border-amber-500 text-amber-500' : 'bg-[#0c101a] border-slate-900 text-slate-400 hover:border-slate-800'}`}
                 disabled={isLoading}
               >
-                <Briefcase className="w-5 h-5" />
-                <span className="text-xs font-semibold">Giảng Viên</span>
+                <Briefcase className="w-4 h-4 md:w-5 md:h-5" />
+                <span className="text-[11px] md:text-xs font-semibold">Giảng Viên</span>
                 <span className="text-[10px] text-slate-500 block leading-tight">Biên soạn giáo trình & chấm bài</span>
               </button>
 
@@ -167,7 +167,7 @@ export default function Register() {
                 <input
                   type="text"
                   placeholder="Nguyễn Văn A"
-                  className={`block w-full pl-10 pr-4 py-3 bg-slate-950/50 border ${errors.name ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-sm transition shadow-inner`}
+                  className={`block w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/50 border ${errors.name ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-xs md:text-sm transition shadow-inner`}
                   {...register('name')}
                   disabled={isLoading}
                 />
@@ -187,7 +187,7 @@ export default function Register() {
                 <input
                   type="email"
                   placeholder="name@lms.edu.vn"
-                  className={`block w-full pl-10 pr-4 py-3 bg-slate-950/50 border ${errors.email ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-sm transition shadow-inner`}
+                  className={`block w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/50 border ${errors.email ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-xs md:text-sm transition shadow-inner`}
                   {...register('email')}
                   disabled={isLoading}
                 />
@@ -207,7 +207,7 @@ export default function Register() {
                 <input
                   type="password"
                   placeholder="••••••••"
-                  className={`block w-full pl-10 pr-4 py-3 bg-slate-950/50 border ${errors.password ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-sm transition shadow-inner`}
+                  className={`block w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/50 border ${errors.password ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-xs md:text-sm transition shadow-inner`}
                   {...register('password')}
                   disabled={isLoading}
                 />
@@ -223,7 +223,7 @@ export default function Register() {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-bold rounded-xl transition duration-350 shadow-lg shadow-amber-500/10 focus:outline-none"
+              className="w-full flex justify-center items-center py-2.5 md:py-3 px-4 border border-transparent rounded-xl text-xs md:text-sm font-bold text-slate-900 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 focus:ring-offset-slate-900 transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] disabled:opacity-50"
             >
               {isLoading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />

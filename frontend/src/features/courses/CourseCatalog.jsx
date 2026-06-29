@@ -105,11 +105,11 @@ export default function CourseCatalog({ onSelectCourse }) {
             </p>
           </div>
         ) : (
-          <div className="text-center space-y-3">
-            <h1 className="font-serif text-3xl md:text-4xl font-extrabold text-slate-100 tracking-tight leading-tight">
+          <div className="text-center space-y-1.5 md:space-y-3">
+            <h1 className="font-serif text-xl md:text-4xl font-extrabold text-slate-100 tracking-tight leading-tight">
               Khám phá các khóa học <span className="bg-gradient-to-r from-amber-200 to-amber-500 bg-clip-text text-transparent">Xuất Sắc</span>
             </h1>
-            <p className="text-xs text-slate-400 max-w-md mx-auto">
+            <p className="text-[10px] md:text-xs text-slate-400 max-w-md mx-auto">
               Trau dồi năng lực lập trình và kiến thức chuyên sâu cùng đội ngũ giảng viên giàu kinh nghiệm.
             </p>
           </div>
@@ -119,19 +119,19 @@ export default function CourseCatalog({ onSelectCourse }) {
 
       {/* Filter and Search Box Panel - Hide if viewing a roadmap */}
       {!roadmapId && (
-      <div className="bg-slate-900/30 border border-slate-900 p-5 rounded-3xl grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+      <div className="bg-slate-900/30 border border-slate-900 p-3 md:p-5 rounded-2xl md:rounded-3xl grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-4 items-center">
         
         {/* Search Input */}
         <div className="relative md:col-span-2">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
-            <Search className="w-4 h-4" />
+          <span className="absolute inset-y-0 left-0 pl-3 md:pl-3.5 flex items-center text-slate-500">
+            <Search className="w-3.5 h-3.5 md:w-4 md:h-4" />
           </span>
           <input
             type="text"
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
             placeholder="Tìm kiếm khóa học (ví dụ: Golang, Fiber)..."
-            className="block w-full pl-10 pr-4 py-3 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-xl text-slate-200 placeholder-slate-650 focus:outline-none text-xs transition"
+            className="block w-full pl-8 md:pl-10 pr-3 md:pr-4 py-2 md:py-3 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-lg md:rounded-xl text-slate-200 placeholder-slate-650 focus:outline-none text-[11px] md:text-xs transition"
           />
         </div>
 
@@ -140,7 +140,7 @@ export default function CourseCatalog({ onSelectCourse }) {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="block w-full px-4 py-3 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-xl text-slate-400 focus:outline-none text-xs transition"
+            className="block w-full px-3 md:px-4 py-2 md:py-3 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-lg md:rounded-xl text-slate-400 focus:outline-none text-[11px] md:text-xs transition"
           >
             <option value="">Tất cả chuyên mục</option>
             {categories.map((c) => (
@@ -154,7 +154,7 @@ export default function CourseCatalog({ onSelectCourse }) {
           <select
             value={selectedPriceType}
             onChange={(e) => setSelectedPriceType(e.target.value)}
-            className="block w-full px-4 py-3 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-xl text-slate-400 focus:outline-none text-xs transition"
+            className="block w-full px-3 md:px-4 py-2 md:py-3 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-lg md:rounded-xl text-slate-400 focus:outline-none text-[11px] md:text-xs transition"
           >
             <option value="all">Tất cả mức giá</option>
             <option value="free">Miễn phí</option>

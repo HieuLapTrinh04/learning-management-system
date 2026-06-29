@@ -59,22 +59,23 @@ export default function TeacherTransactions({ token }) {
     <div className="space-y-6 max-w-6xl mx-auto pb-16">
       
       {/* Title Header */}
-      <div className="flex justify-between items-center border-b border-slate-900 pb-4">
-        <div>
-          <h2 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-2.5">
-            <CreditCard className="w-6 h-6 text-amber-500" />
-            <span>Lịch Sử Nhận Hoa Hồng</span>
-          </h2>
-          <p className="text-xs text-slate-400 mt-1">
-            Tra cứu lịch sử học viên mua khóa học và doanh thu thực nhận của bạn.
+      <div className="flex flex-row justify-between items-center gap-2 md:gap-4 bg-slate-900/20 border border-slate-900 p-3 md:p-6 rounded-xl md:rounded-3xl">
+        <div className="min-w-0">
+          <h1 className="font-serif text-sm md:text-2xl font-bold text-slate-100 flex items-center gap-2 md:gap-3 truncate">
+            <CreditCard className="w-5 h-5 md:w-7 md:h-7 text-amber-500 flex-shrink-0" />
+            <span className="truncate">Lịch Sử Nhận Hoa Hồng</span>
+          </h1>
+          <p className="text-[9px] md:text-xs text-slate-400 mt-1 md:mt-1.5 truncate">
+            Tra cứu lịch sử học viên mua khóa học và doanh thu.
           </p>
         </div>
         <button
           onClick={handleRefresh}
-          className="p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-slate-400 hover:text-slate-200 transition"
+          className="p-2 md:py-2.5 md:px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[10px] md:text-xs font-semibold rounded-lg md:rounded-xl flex items-center justify-center gap-1.5 md:gap-2 transition flex-shrink-0"
           title="Tải lại danh sách"
         >
-          <RefreshCw className="w-4 h-4" />
+          <RefreshCw className="w-3.5 h-3.5 md:w-4 md:h-4" />
+          <span className="hidden md:inline">Làm mới</span>
         </button>
       </div>
 
@@ -90,17 +91,17 @@ export default function TeacherTransactions({ token }) {
           <p>{error}</p>
         </div>
       ) : transactions.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-slate-900 rounded-3xl bg-slate-950/10">
-          <CreditCard className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-          <p className="text-sm font-semibold text-slate-400">Không tìm thấy giao dịch nào</p>
-          <p className="text-xs text-slate-500 mt-1">Chưa có học viên mua khóa học của bạn.</p>
+        <div className="text-center py-10 md:py-20 px-4 border border-dashed border-slate-900 rounded-xl md:rounded-3xl bg-slate-950/10">
+          <CreditCard className="w-8 h-8 md:w-12 md:h-12 text-slate-700 mx-auto mb-2 md:mb-4" />
+          <p className="text-[11px] md:text-sm font-semibold text-slate-400">Không tìm thấy giao dịch nào</p>
+          <p className="text-[9px] md:text-xs text-slate-500 mt-1">Chưa có học viên mua khóa học của bạn.</p>
         </div>
       ) : (
         <div className="space-y-4">
-          <div className="border border-slate-900/60 rounded-2xl overflow-hidden bg-slate-950/20">
-            <table className="w-full text-left text-xs border-collapse">
+          <div className="border border-slate-900/60 rounded-2xl overflow-x-auto bg-slate-950/20">
+            <table className="w-full min-w-[700px] text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-slate-900 bg-slate-950/40 text-slate-450 uppercase tracking-wider text-[10px] font-bold">
+                <tr className="border-b border-slate-900 bg-slate-950/40 text-slate-450 uppercase tracking-wider text-[10px] font-bold whitespace-nowrap">
                   <th className="p-4">Mã GD / Ngày</th>
                   <th className="p-4">Khóa học</th>
                   <th className="p-4 text-right">Học phí gốc</th>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tag, Plus, ToggleLeft, ToggleRight, Trash2, Calendar, Loader2, AlertCircle, Search, HelpCircle, X, CheckCircle, BookOpen, Edit2 } from 'lucide-react';
 import { fetchCoupons, createCoupon, updateCoupon, toggleCouponStatus, expireCoupon, clearCouponError } from './couponSlice';
@@ -164,45 +165,45 @@ export default function CouponManager({ token, role = 'admin' }) {
     <div className="space-y-6">
       
       {/* Title Board */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
-        <div className="space-y-1">
-          <h1 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-3">
-            <Tag className="w-7 h-7 text-amber-500" />
-            <span>Quản Lý Mã Giảm Giá</span>
+      <div className="flex flex-row justify-between items-center gap-2 md:gap-4 bg-slate-900/20 border border-slate-900 p-3 md:p-6 rounded-xl md:rounded-3xl">
+        <div className="min-w-0">
+          <h1 className="font-serif text-sm md:text-2xl font-bold text-slate-100 flex items-center gap-2 md:gap-3 truncate">
+            <Tag className="w-5 h-5 md:w-7 md:h-7 text-amber-500 flex-shrink-0" />
+            <span className="truncate">Quản Lý Mã Giảm Giá</span>
           </h1>
-          <p className="text-xs text-slate-400">Xem, tạo mới, kích hoạt và cấu hình hết hạn các loại coupon, voucher trong hệ thống.</p>
+          <p className="text-[9px] md:text-xs text-slate-400 mt-1 md:mt-1.5 truncate">Xem, tạo mới, cấu hình mã coupon, voucher.</p>
         </div>
         <button 
           onClick={() => { resetForm(); setShowModal(true); }}
-          className="py-2.5 px-4 bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-slate-950 text-xs font-bold rounded-xl flex items-center gap-2 transition duration-200"
+          className="p-2 md:py-2.5 md:px-4 bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-slate-950 text-[10px] md:text-xs font-bold rounded-lg md:rounded-xl flex items-center justify-center gap-1.5 md:gap-2 transition duration-200 flex-shrink-0"
         >
-          <Plus className="w-4 h-4 text-slate-950" />
-          <span>Tạo mã mới</span>
+          <Plus className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-950" />
+          <span className="hidden md:inline">Tạo mã mới</span>
         </button>
       </div>
 
       {/* Search box & Summary */}
-      <div className="bg-slate-900/30 border border-slate-900 p-5 rounded-3xl flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div className="bg-slate-900/30 border border-slate-900 p-3 md:p-5 rounded-xl md:rounded-3xl flex flex-col md:flex-row gap-3 md:gap-4 items-center justify-between">
         <form onSubmit={handleSearch} className="relative w-full max-w-md">
-          <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
-            <Search className="w-4 h-4" />
+          <span className="absolute inset-y-0 left-0 pl-3 sm:pl-3.5 flex items-center text-slate-500">
+            <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </span>
           <input
             type="text"
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}
             placeholder="Tìm kiếm mã coupon (ví dụ: LMS10)..."
-            className="block w-full pl-10 pr-24 py-2.5 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-xs transition"
+            className="block w-full pl-8 sm:pl-10 pr-20 sm:pr-24 py-2 sm:py-2.5 bg-[#0c101a] border border-slate-850 focus:border-amber-500/50 rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-[10px] sm:text-xs transition"
           />
           <button 
             type="submit" 
-            className="absolute right-1.5 top-1.5 bottom-1.5 px-3 bg-slate-900 hover:bg-slate-800 text-slate-300 text-[10px] font-bold rounded-lg border border-slate-800"
+            className="absolute right-1 sm:right-1.5 top-1 sm:top-1.5 bottom-1 sm:bottom-1.5 px-2 sm:px-3 bg-slate-900 hover:bg-slate-800 text-slate-300 text-[9px] sm:text-[10px] font-bold rounded-lg border border-slate-800"
           >
             Tìm kiếm
           </button>
         </form>
 
-        <div className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">
+        <div className="text-[9px] sm:text-[10px] text-slate-500 uppercase tracking-widest font-mono">
           Tổng cộng: <span className="text-amber-500 font-bold">{totalCoupons}</span> mã giảm giá
         </div>
       </div>
@@ -221,23 +222,23 @@ export default function CouponManager({ token, role = 'admin' }) {
           <span className="text-xs text-slate-500">Đang tải danh sách coupon...</span>
         </div>
       ) : coupons.length === 0 ? (
-        <div className="text-center py-20 text-xs text-slate-500 border border-dashed border-slate-900 rounded-3xl bg-slate-950/10">
+        <div className="text-center py-10 md:py-20 px-4 text-[10px] md:text-xs text-slate-500 border border-dashed border-slate-900 rounded-xl md:rounded-3xl bg-slate-950/10">
           Chưa có mã giảm giá nào được tạo. Nhấp "Tạo mã mới" để bắt đầu cấu hình.
         </div>
       ) : (
         <div className="space-y-4">
           <div className="overflow-x-auto border border-slate-900 rounded-2xl bg-slate-950/40">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full text-left border-collapse min-w-[650px] sm:min-w-max">
               <thead>
-                <tr className="bg-slate-950 border-b border-slate-900 text-slate-400 text-[10px] uppercase font-mono tracking-wider">
-                  <th className="p-4 font-semibold">Mã code</th>
-                  <th className="p-4 font-semibold">Hình thức giảm giá</th>
-                  <th className="p-4 font-semibold">Giá trị giảm</th>
-                  <th className="p-4 font-semibold">Phạm vi áp dụng</th>
-                  <th className="p-4 font-semibold">Hạn sử dụng</th>
-                  <th className="p-4 font-semibold">Lượt dùng</th>
-                  <th className="p-4 font-semibold">Trạng thái</th>
-                  <th className="p-4 font-semibold text-right">Thao tác</th>
+                <tr className="bg-slate-950 border-b border-slate-900 text-slate-400 text-[9px] sm:text-[10px] uppercase font-mono tracking-wider">
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Mã code</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Hình thức giảm giá</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Giá trị giảm</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Phạm vi áp dụng</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Hạn sử dụng</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Lượt dùng</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold">Trạng thái</th>
+                  <th className="px-2 py-1.5 sm:p-4 font-semibold text-right">Thao tác</th>
                 </tr>
               </thead>
               <tbody className="text-xs divide-y divide-slate-900/60">
@@ -245,24 +246,24 @@ export default function CouponManager({ token, role = 'admin' }) {
                   const expired = isExpired(c.expiry_date);
                   return (
                     <tr key={c.id} className="hover:bg-slate-900/10 transition">
-                      <td className="p-4 font-bold font-mono text-amber-500 uppercase tracking-wide">
+                      <td className="px-2 py-1.5 sm:p-4 font-bold font-mono text-amber-500 uppercase tracking-wide">
                         {c.code}
                       </td>
-                      <td className="p-4">
+                      <td className="px-2 py-1.5 sm:p-4 min-w-[100px]">
                         {c.discount_type === 'percentage' ? (
                           <span className="text-slate-300">Phần trăm (%)</span>
                         ) : (
                           <span className="text-slate-300">Số tiền cố định (đ)</span>
                         )}
                       </td>
-                      <td className="p-4 font-semibold text-slate-200">
+                      <td className="px-2 py-1.5 sm:p-4 font-semibold text-slate-200 min-w-[120px]">
                         {c.discount_type === 'percentage' ? (
-                          <span>{c.discount_value}% (Tối đa {c.max_discount.toLocaleString('vi-VN')} đ)</span>
+                          <span>{c.discount_value}% <span className="hidden sm:inline">(Tối đa {c.max_discount.toLocaleString('vi-VN')} đ)</span></span>
                         ) : (
                           <span>{c.discount_value.toLocaleString('vi-VN')} đ</span>
                         )}
                       </td>
-                      <td className="p-4 min-w-[200px]">
+                      <td className="px-2 py-1.5 sm:p-4 min-w-[140px] sm:min-w-[200px]">
                         {c.scope === 'global' ? (
                           <span className="text-[10px] text-slate-400 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded">Toàn hệ thống</span>
                         ) : (
@@ -272,42 +273,44 @@ export default function CouponManager({ token, role = 'admin' }) {
                           </div>
                         )}
                       </td>
-                      <td className="p-4">
-                        <div className="flex items-center gap-1.5 text-slate-400">
-                          <Calendar className="w-3.5 h-3.5" />
+                      <td className="px-2 py-1.5 sm:p-4 min-w-[100px] sm:min-w-[140px]">
+                        <div className="flex items-center gap-1 sm:gap-1.5 text-slate-400 text-[9px] sm:text-xs">
+                          <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
                           <span>{new Date(c.expiry_date).toLocaleDateString('vi-VN')}</span>
                           {expired && (
-                            <span className="text-[8px] uppercase font-bold text-red-500 bg-red-950/10 border border-red-900/20 px-1 py-0.5 rounded">Hết hạn</span>
+                            <span className="text-[7px] sm:text-[8px] uppercase font-bold text-red-500 bg-red-950/10 border border-red-900/20 px-1 py-0.5 rounded ml-1 whitespace-nowrap">Hết hạn</span>
                           )}
                         </div>
                       </td>
-                      <td className="p-4 font-semibold text-slate-300">
-                        {c.used_count} / {c.usage_limit > 0 ? c.usage_limit : '∞'}
-                        <div className="text-[8px] text-slate-500 font-semibold mt-0.5">Giới hạn {c.user_limit} lần/user</div>
+                      <td className="px-2 py-1.5 sm:p-4 font-semibold text-slate-300 text-[9px] sm:text-xs min-w-[100px] sm:min-w-[150px]">
+                        <div className="whitespace-nowrap">
+                          {c.used_count} / {c.usage_limit > 0 ? c.usage_limit : '∞'}
+                        </div>
+                        <div className="text-[7px] sm:text-[8px] text-slate-500 font-semibold mt-0.5 whitespace-nowrap">Giới hạn {c.user_limit} lần/user</div>
                       </td>
-                      <td className="p-4">
+                      <td className="px-2 py-1.5 sm:p-4 min-w-[60px] sm:min-w-[100px]">
                         <button 
                           onClick={() => handleToggle(c.id, c.is_active)}
                           disabled={isActionLoading}
-                          className="flex items-center gap-1 hover:opacity-80 transition"
+                          className="flex items-center gap-1 hover:opacity-80 transition scale-75 origin-left sm:scale-100"
                         >
                           {c.is_active ? (
                             <>
-                              <ToggleRight className="w-6 h-6 text-emerald-500" />
-                              <span className="text-[10px] font-semibold text-emerald-400">Bật</span>
+                              <ToggleRight className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500 flex-shrink-0" />
+                              <span className="text-[9px] sm:text-[10px] font-semibold text-emerald-400">Bật</span>
                             </>
                           ) : (
                             <>
-                              <ToggleLeft className="w-6 h-6 text-slate-500" />
-                              <span className="text-[10px] font-semibold text-slate-500">Tắt</span>
+                              <ToggleLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-500 flex-shrink-0" />
+                              <span className="text-[9px] sm:text-[10px] font-semibold text-slate-500">Tắt</span>
                             </>
                           )}
                         </button>
                       </td>
-                      <td className="p-4 text-right flex justify-end gap-2 items-center">
+                      <td className="px-2 py-2 sm:p-4 text-right flex justify-end gap-1 sm:gap-2 items-center min-w-[100px] sm:min-w-[140px]">
                         <button 
                           onClick={() => handleEditClick(c)}
-                          className="py-1.5 px-2 bg-slate-950/30 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-amber-500 rounded-lg transition"
+                          className="p-1.5 sm:py-1.5 sm:px-2 bg-slate-950/30 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-amber-500 rounded-lg transition"
                           title="Sửa mã"
                         >
                           <Edit2 className="w-3.5 h-3.5" />
@@ -316,9 +319,9 @@ export default function CouponManager({ token, role = 'admin' }) {
                           <button 
                             onClick={() => handleExpire(c.id)}
                             disabled={isActionLoading}
-                            className="py-1 px-2.5 bg-red-950/30 hover:bg-red-950/60 border border-red-900/40 text-red-400 text-[10px] font-bold rounded-lg transition"
+                            className="py-1 px-1.5 sm:py-1 sm:px-2.5 bg-red-950/30 hover:bg-red-950/60 border border-red-900/40 text-red-400 text-[9px] sm:text-[10px] font-bold rounded-lg transition whitespace-nowrap"
                           >
-                            Hết hạn ngay
+                            Hết hạn
                           </button>
                         )}
                       </td>
@@ -353,9 +356,9 @@ export default function CouponManager({ token, role = 'admin' }) {
       )}
 
       {/* Creation Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-[#0c111e] border border-slate-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between max-h-[90vh]">
+      {showModal && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="w-full max-w-[320px] md:max-w-lg bg-[#0c111e] border border-slate-900 rounded-2xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col justify-between max-h-[85vh]">
             
             {/* Modal Header */}
             <div className="p-5 border-b border-slate-900/80 flex justify-between items-center bg-slate-950/50">
@@ -537,7 +540,8 @@ export default function CouponManager({ token, role = 'admin' }) {
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>

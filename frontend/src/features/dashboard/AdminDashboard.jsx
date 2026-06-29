@@ -75,20 +75,20 @@ export default function AdminDashboard({ data }) {
     <div className="space-y-6 pb-12">
       
       {/* 6 Cards Summary */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
         
         {/* Total Revenue */}
-        <div className="bg-gradient-to-br from-brand-900/20 to-brand-500/10 border border-brand-500/20 shadow-xl rounded-2xl p-5 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-brand-500/5 rounded-full blur-xl"></div>
-          <div className="flex justify-between items-start mb-4">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-[10px] font-bold tracking-wider uppercase block">Tổng doanh thu hệ thống</span>
-              <h3 className="text-xl font-black text-brand-500 font-mono truncate">
+        <div className="bg-gradient-to-br from-brand-900/20 to-brand-500/10 border border-brand-500/20 shadow-xl rounded-2xl p-3 sm:p-5 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-16 h-16 sm:w-24 sm:h-24 bg-brand-500/5 rounded-full blur-xl"></div>
+          <div className="flex justify-between items-start mb-2 sm:mb-4">
+            <div className="space-y-1 sm:space-y-2">
+              <span className="text-slate-400 text-[9px] sm:text-[10px] font-bold tracking-wider uppercase block">Tổng doanh thu hệ thống</span>
+              <h3 className="text-base sm:text-xl font-black text-brand-500 font-mono truncate">
                 {formatCurrency(total_revenue)}
               </h3>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-500 flex-shrink-0">
-              <DollarSign className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-500 flex-shrink-0">
+              <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 border-t border-brand-500/20 pt-3">
@@ -104,76 +104,76 @@ export default function AdminDashboard({ data }) {
         </div>
 
         {/* Conversion Rate */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-5 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-3 sm:p-5 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-[10px] font-bold tracking-wider uppercase block">Tỷ lệ chuyển đổi mua hàng</span>
-              <h3 className="text-2xl font-black text-slate-100 font-mono">
+            <div className="space-y-1 sm:space-y-2">
+              <span className="text-slate-400 text-[9px] sm:text-[10px] font-bold tracking-wider uppercase block">Tỷ lệ chuyển đổi mua hàng</span>
+              <h3 className="text-lg sm:text-2xl font-black text-slate-100 font-mono">
                 {conversion_rate ? conversion_rate.toFixed(1) : 0}%
               </h3>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-slate-850 flex items-center justify-center text-brand-500 flex-shrink-0">
-              <TrendingUp className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-slate-850 flex items-center justify-center text-brand-500 flex-shrink-0">
+              <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
         </div>
 
         {/* Total Students */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-5 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-3 sm:p-5 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-[10px] font-bold tracking-wider uppercase block">Tổng học viên</span>
-              <h3 className="text-2xl font-black text-slate-100 font-mono">
+            <div className="space-y-1 sm:space-y-2">
+              <span className="text-slate-400 text-[9px] sm:text-[10px] font-bold tracking-wider uppercase block">Tổng học viên</span>
+              <h3 className="text-lg sm:text-2xl font-black text-slate-100 font-mono">
                 {total_students}
               </h3>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-300 flex-shrink-0">
-              <Users className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-300 flex-shrink-0">
+              <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
         </div>
 
         {/* Total Teachers */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-5 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-3 sm:p-5 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-[10px] font-bold tracking-wider uppercase block">Tổng giảng viên</span>
-              <h3 className="text-2xl font-black text-slate-100 font-mono">
+            <div className="space-y-1 sm:space-y-2">
+              <span className="text-slate-400 text-[9px] sm:text-[10px] font-bold tracking-wider uppercase block">Tổng giảng viên</span>
+              <h3 className="text-lg sm:text-2xl font-black text-slate-100 font-mono">
                 {total_teachers}
               </h3>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-300 flex-shrink-0">
-              <GraduationCap className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-300 flex-shrink-0">
+              <GraduationCap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
         </div>
 
         {/* Total Courses */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-5 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-3 sm:p-5 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-[10px] font-bold tracking-wider uppercase block">Tổng khóa học</span>
-              <h3 className="text-2xl font-black text-slate-100 font-mono">
+            <div className="space-y-1 sm:space-y-2">
+              <span className="text-slate-400 text-[9px] sm:text-[10px] font-bold tracking-wider uppercase block">Tổng khóa học</span>
+              <h3 className="text-lg sm:text-2xl font-black text-slate-100 font-mono">
                 {total_courses}
               </h3>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-300 flex-shrink-0">
-              <BookOpen className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-300 flex-shrink-0">
+              <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
         </div>
 
         {/* Total Certificates */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-5 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-3 sm:p-5 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-[10px] font-bold tracking-wider uppercase block">Chứng chỉ đã cấp</span>
-              <h3 className="text-2xl font-black text-slate-100 font-mono">
+            <div className="space-y-1 sm:space-y-2">
+              <span className="text-slate-400 text-[9px] sm:text-[10px] font-bold tracking-wider uppercase block">Chứng chỉ đã cấp</span>
+              <h3 className="text-lg sm:text-2xl font-black text-slate-100 font-mono">
                 {total_certificates}
               </h3>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350 flex-shrink-0">
-              <Award className="w-4 h-4" />
+            <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350 flex-shrink-0">
+              <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </div>
           </div>
         </div>
@@ -189,7 +189,7 @@ export default function AdminDashboard({ data }) {
             <TrendingUp className="w-4 h-4 text-brand-500" />
             <h3 className="text-xs uppercase tracking-wider font-semibold text-slate-350">Biểu đồ doanh thu hàng tháng</h3>
           </div>
-          <div className="h-64 w-full">
+          <div className="h-48 sm:h-64 w-full">
             {revenueChartData.length === 0 ? (
               <div className="h-full flex items-center justify-center text-xs text-slate-500">Chưa ghi nhận doanh thu</div>
             ) : (
@@ -223,7 +223,7 @@ export default function AdminDashboard({ data }) {
             <Users className="w-4 h-4 text-brand-500" />
             <h3 className="text-xs uppercase tracking-wider font-semibold text-slate-350">Lượng học viên mới đăng ký</h3>
           </div>
-          <div className="h-64 w-full">
+          <div className="h-48 sm:h-64 w-full">
             {growthChartData.length === 0 ? (
               <div className="h-full flex items-center justify-center text-xs text-slate-500">Chưa ghi nhận đăng ký mới</div>
             ) : (
@@ -250,7 +250,7 @@ export default function AdminDashboard({ data }) {
             <BookOpen className="w-4 h-4 text-emerald-500" />
             <h3 className="text-xs uppercase tracking-wider font-semibold text-slate-350">Lượng khóa học mới tạo</h3>
           </div>
-          <div className="h-64 w-full">
+          <div className="h-48 sm:h-64 w-full">
             {courseGrowthChartData.length === 0 ? (
               <div className="h-full flex items-center justify-center text-xs text-slate-500">Chưa ghi nhận khóa học mới</div>
             ) : (

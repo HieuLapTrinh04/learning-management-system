@@ -263,11 +263,10 @@ export default function App() {
               <Route path="/verify-email" element={<VerifyEmailPage />} />
             </Route>
 
-            <Route path="/certificates/verify" element={<CertificateVerifier />} />
-
             {/* Root Path - Public Landing Page */}
             <Route element={<PublicLayout />}>
               <Route path="/" element={<LandingPage />} />
+              <Route path="/certificates/verify" element={<CertificateVerifier />} />
             </Route>
 
             {/* Protected Routes Area */}
@@ -354,22 +353,23 @@ function DashboardRedirector() {
 // Helper layout board for dashboards
 function DashboardLayoutWrapper({ children, title, subtitle, onRefresh, isLoading, error }) {
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
-        <div>
-          <h1 className="font-serif text-3xl font-bold text-slate-100 flex items-center gap-3">
-            <Activity className="w-8 h-8 text-amber-500" />
-            <span>{title}</span>
+    <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-row justify-between items-center gap-2 md:gap-4 bg-slate-900/20 border border-slate-900 p-3 md:p-6 rounded-2xl md:rounded-3xl">
+        <div className="min-w-0">
+          <h1 className="font-serif text-sm md:text-2xl font-bold text-slate-100 flex items-center gap-1.5 md:gap-2 truncate">
+            <Activity className="w-4 h-4 md:w-6 md:h-6 text-amber-500 flex-shrink-0" />
+            <span className="truncate">{title}</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">{subtitle}</p>
+          <p className="text-[8px] md:text-xs text-slate-400 mt-0.5 md:mt-1 truncate">{subtitle}</p>
         </div>
         <button
           onClick={onRefresh}
           disabled={isLoading}
-          className="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl flex items-center gap-2 transition duration-200"
+          title="Làm mới số liệu"
+          className="p-2 md:py-2.5 md:px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[10px] md:text-xs font-semibold rounded-lg md:rounded-xl flex items-center justify-center gap-1.5 transition duration-200 flex-shrink-0"
         >
-          <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-          <span>Làm mới số liệu</span>
+          <RefreshCw className={`w-3.5 h-3.5 md:w-4 md:h-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <span className="hidden md:inline">Làm mới số liệu</span>
         </button>
       </div>
 

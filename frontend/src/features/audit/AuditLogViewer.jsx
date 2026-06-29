@@ -76,33 +76,33 @@ export default function AuditLogViewer() {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/40 border border-slate-800 p-6 rounded-3xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-900/40 border border-slate-800 p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-slate-100 flex items-center gap-3">
-            <ShieldAlert className="w-8 h-8 text-brand-500" />
+          <h1 className="font-serif text-xl sm:text-3xl font-bold text-slate-100 flex items-center gap-2 sm:gap-3">
+            <ShieldAlert className="w-5 h-5 sm:w-8 sm:h-8 text-brand-500" />
             <span>Nhật ký Hệ thống</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Giám sát các hoạt động quan trọng trong nền tảng.</p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Giám sát các hoạt động quan trọng trong nền tảng.</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500" />
           <input 
             type="text" 
             placeholder="Tìm kiếm theo chi tiết hoặc tên người dùng..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-sm rounded-xl pl-10 pr-4 py-2.5 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none transition"
+            className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-[10px] sm:text-sm rounded-xl pl-8 sm:pl-10 pr-4 py-2 sm:py-2.5 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 outline-none transition"
           />
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-2 sm:gap-4">
           <select 
             value={action} 
             onChange={(e) => { setAction(e.target.value); setPage(1); }}
-            className="bg-slate-900 border border-slate-800 text-slate-300 text-sm rounded-xl px-4 py-2.5 focus:border-brand-500 outline-none"
+            className="bg-slate-900 border border-slate-800 text-slate-300 text-[9px] sm:text-sm rounded-xl px-2 sm:px-4 py-1.5 sm:py-2.5 focus:border-brand-500 outline-none flex-1 min-w-0"
           >
             <option value="">Tất cả Hành động</option>
             <option value="LOGIN">Đăng nhập</option>
@@ -116,7 +116,7 @@ export default function AuditLogViewer() {
           <select 
             value={entity} 
             onChange={(e) => { setEntity(e.target.value); setPage(1); }}
-            className="bg-slate-900 border border-slate-800 text-slate-300 text-sm rounded-xl px-4 py-2.5 focus:border-brand-500 outline-none"
+            className="bg-slate-900 border border-slate-800 text-slate-300 text-[9px] sm:text-sm rounded-xl px-2 sm:px-4 py-1.5 sm:py-2.5 focus:border-brand-500 outline-none flex-1 min-w-0"
           >
             <option value="">Tất cả Thực thể</option>
             <option value="User">Người dùng</option>
@@ -130,15 +130,15 @@ export default function AuditLogViewer() {
       {/* Data Table */}
       <div className="bg-slate-900/40 border border-slate-800 rounded-3xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-slate-300">
-            <thead className="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-slate-800">
+          <table className="w-full text-left text-[10px] sm:text-sm text-slate-300 min-w-[600px] sm:min-w-max">
+            <thead className="text-[9px] sm:text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-slate-800">
               <tr>
-                <th className="px-6 py-4 font-semibold">Thời gian</th>
-                <th className="px-6 py-4 font-semibold">Người dùng</th>
-                <th className="px-6 py-4 font-semibold">Hành động</th>
-                <th className="px-6 py-4 font-semibold">Thực thể (ID)</th>
-                <th className="px-6 py-4 font-semibold">Chi tiết</th>
-                <th className="px-6 py-4 font-semibold">IP Address</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-semibold">Thời gian</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-semibold">Người dùng</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-semibold">Hành động</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-semibold">Thực thể (ID)</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-semibold">Chi tiết</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-semibold">IP Address</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
@@ -158,33 +158,33 @@ export default function AuditLogViewer() {
               ) : (
                 logs.map((log) => (
                   <tr key={log.id} className="hover:bg-slate-800/30 transition">
-                    <td className="px-6 py-4 whitespace-nowrap text-xs flex items-center gap-2">
-                      <Clock className="w-3.5 h-3.5 text-slate-500" />
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 whitespace-nowrap text-[9px] sm:text-xs flex items-center gap-1 sm:gap-2">
+                      <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-500" />
                       {formatDate(log.created_at)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 whitespace-nowrap min-w-[120px]">
                       {log.user ? (
-                        <div className="flex items-center gap-2">
-                          <User className="w-4 h-4 text-slate-500" />
-                          <span className="font-medium text-slate-200">{log.user.name}</span>
-                          <span className="text-[10px] text-slate-500">#{log.user.id}</span>
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500" />
+                          <span className="font-medium text-slate-200 text-[10px] sm:text-sm">{log.user.name}</span>
+                          <span className="text-[8px] sm:text-[10px] text-slate-500">#{log.user.id}</span>
                         </div>
                       ) : (
-                        <span className="text-slate-500 italic">Hệ thống</span>
+                        <span className="text-slate-500 italic text-[10px] sm:text-sm">Hệ thống</span>
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold border ${getActionColor(log.action)}`}>
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 whitespace-nowrap">
+                      <span className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-bold border ${getActionColor(log.action)}`}>
                         {log.action}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-xs">
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 whitespace-nowrap text-[9px] sm:text-xs min-w-[100px]">
                       {log.entity} <span className="text-slate-500">#{log.entity_id}</span>
                     </td>
-                    <td className="px-6 py-4 text-xs text-slate-400 max-w-xs truncate" title={log.details}>
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 text-[9px] sm:text-xs text-slate-400 max-w-[150px] sm:max-w-xs truncate" title={log.details}>
                       {log.details}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-xs font-mono text-slate-500">
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 whitespace-nowrap text-[9px] sm:text-xs font-mono text-slate-500">
                       {log.ip_address || 'N/A'}
                     </td>
                   </tr>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import axios from 'axios';
 import { 
   Plus, 
@@ -625,23 +626,24 @@ export default function CourseBuilder() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       
       {/* Title Panel */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
-        <div>
-          <h1 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-2.5">
-            <BookOpen className="w-6 h-6 text-amber-500" />
-            <span>Quản Lý Học Liệu & Bài Giảng</span>
+      <div className="flex flex-row justify-between items-center gap-2 md:gap-4 bg-slate-900/20 border border-slate-900 p-3 md:p-6 rounded-2xl md:rounded-3xl">
+        <div className="min-w-0">
+          <h1 className="font-serif text-sm md:text-2xl font-bold text-slate-100 flex items-center gap-1.5 md:gap-2.5 truncate">
+            <BookOpen className="w-4 h-4 md:w-6 md:h-6 text-amber-500 flex-shrink-0" />
+            <span className="truncate">Quản Lý Học Liệu & Bài Giảng</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Biên soạn nội dung giảng dạy, chia đoạn chương trình học và tải tài liệu/video bài giảng.</p>
+          <p className="text-[8px] md:text-xs text-slate-400 mt-0.5 md:mt-1 truncate">Biên soạn nội dung giảng dạy, chia đoạn chương trình học và tải tài liệu/video bài giảng.</p>
         </div>
         <button
           onClick={() => openCourseModal('create')}
-          className="py-2.5 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-bold rounded-xl flex items-center gap-1.5 transition"
+          title="Tạo khóa học mới"
+          className="p-2 md:py-2.5 md:px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-[10px] md:text-xs font-bold rounded-lg md:rounded-xl flex items-center justify-center gap-1.5 transition flex-shrink-0"
         >
-          <Plus className="w-4 h-4" />
-          <span>Tạo khóa học mới</span>
+          <Plus className="w-3.5 h-3.5 md:w-4 md:h-4" />
+          <span className="hidden md:inline">Tạo khóa học mới</span>
         </button>
       </div>
 
@@ -661,27 +663,27 @@ export default function CourseBuilder() {
       )}
 
       {/* Main Builder Dashboard Split Panel */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         
         {/* Left Side: Course List Selector */}
-        <div className="bg-slate-900/20 border border-slate-900 p-4 rounded-2xl h-[calc(100vh-270px)] overflow-y-auto">
-          <h3 className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-4">Danh sách khóa học của bạn</h3>
+        <div className="bg-slate-900/20 border border-slate-900 p-3 md:p-4 rounded-xl md:rounded-2xl h-[calc(100vh-220px)] md:h-[calc(100vh-270px)] overflow-y-auto">
+          <h3 className="text-[9px] md:text-[11px] font-semibold text-slate-400 uppercase tracking-widest mb-3 md:mb-4">Danh sách khóa học của bạn</h3>
           
           {isLoading && courses.length === 0 ? (
             <div className="py-10 text-center"><Loader2 className="w-6 h-6 text-amber-500 animate-spin mx-auto" /></div>
           ) : courses.length === 0 ? (
             <p className="text-xs text-slate-500 text-center py-10">Bạn chưa tạo khóa học nào.</p>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1.5 md:space-y-2">
               {courses.map((course) => (
                 <div 
                   key={course.id}
                   onClick={() => fetchCourseDetails(course.id)}
-                  className={`p-3.5 rounded-xl border cursor-pointer transition flex items-center justify-between group ${activeCourse?.id === course.id ? 'bg-amber-500/10 border-amber-500/30 text-amber-500' : 'bg-slate-950/30 border-slate-900 text-slate-400 hover:border-slate-800'}`}
+                  className={`p-2.5 md:p-3.5 rounded-lg md:rounded-xl border cursor-pointer transition flex items-center justify-between group ${activeCourse?.id === course.id ? 'bg-amber-500/10 border-amber-500/30 text-amber-500' : 'bg-slate-950/30 border-slate-900 text-slate-400 hover:border-slate-800'}`}
                 >
                   <div className="min-w-0">
-                    <span className="text-xs font-semibold block truncate">{course.title}</span>
-                    <span className="text-[10px] text-slate-500 block mt-0.5">{course.price?.toLocaleString('vi-VN')}đ • Quyền: {course.status}</span>
+                    <span className="text-[10px] md:text-xs font-semibold block truncate">{course.title}</span>
+                    <span className="text-[8px] md:text-[10px] text-slate-500 block mt-0.5">{course.price?.toLocaleString('vi-VN')}đ • Quyền: {course.status}</span>
                   </div>
                   
                   <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition">
@@ -705,55 +707,55 @@ export default function CourseBuilder() {
         </div>
 
         {/* Right Side: Program Structure (Section & Lesson Manager) */}
-        <div className="lg:col-span-2 bg-slate-900/10 border border-slate-900 rounded-2xl p-6 h-[calc(100vh-270px)] overflow-y-auto">
+        <div className="lg:col-span-2 bg-slate-900/10 border border-slate-900 rounded-xl md:rounded-2xl p-3 md:p-6 h-[calc(100vh-220px)] md:h-[calc(100vh-270px)] overflow-y-auto">
           {activeCourse ? (
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               
               {/* Active Course Banner */}
-              <div className="border-b border-slate-900 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+              <div className="border-b border-slate-900 pb-3 md:pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 md:gap-4">
                 <div>
-                  <h2 className="text-lg font-bold text-slate-100 font-serif">{activeCourse.title}</h2>
-                  <p className="text-xs text-slate-500 mt-1">{activeCourse.subtitle || "Không có phụ đề mô tả"}</p>
+                  <h2 className="text-sm md:text-lg font-bold text-slate-100 font-serif">{activeCourse.title}</h2>
+                  <p className="text-[9px] md:text-xs text-slate-500 mt-0.5 md:mt-1">{activeCourse.subtitle || "Không có phụ đề mô tả"}</p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-1.5 md:gap-2">
                   {activeCourse.status === 'draft' && (
                     <button
                       onClick={() => handleUpdateCourseStatus(activeCourse.id, 'pending')}
-                      className="py-2 px-3.5 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 text-blue-400 text-xs font-bold rounded-xl flex items-center gap-1.5 transition"
+                      className="p-1.5 md:py-2 md:px-3.5 bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/50 text-blue-400 text-[9px] md:text-xs font-bold rounded-lg md:rounded-xl flex items-center gap-1.5 transition"
                     >
-                      <CheckCircle2 className="w-4 h-4" />
+                      <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4" />
                       <span>Gửi duyệt</span>
                     </button>
                   )}
                   {activeCourse.status === 'pending' && (
                     <button
                       onClick={() => handleUpdateCourseStatus(activeCourse.id, 'draft')}
-                      className="py-2 px-3.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 text-xs font-bold rounded-xl flex items-center gap-1.5 transition"
+                      className="p-1.5 md:py-2 md:px-3.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-400 text-[9px] md:text-xs font-bold rounded-lg md:rounded-xl flex items-center gap-1.5 transition"
                     >
-                      <X className="w-4 h-4" />
-                      <span>Hủy gửi duyệt</span>
+                      <X className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                      <span>Hủy duyệt</span>
                     </button>
                   )}
                   {activeCourse.status === 'published' && (
-                    <span className="py-2 px-3.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-default">
-                      <CheckCircle2 className="w-4 h-4" />
+                    <span className="p-1.5 md:py-2 md:px-3.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[9px] md:text-xs font-bold rounded-lg md:rounded-xl flex items-center gap-1.5 cursor-default">
+                      <CheckCircle2 className="w-3.5 h-3.5 md:w-4 md:h-4" />
                       <span>Đã xuất bản</span>
                     </span>
                   )}
                   <button
                     onClick={() => fetchStudentProgress(activeCourse.id)}
                     disabled={isLoadingProgress}
-                    className="py-2 px-3.5 bg-slate-900 hover:bg-slate-850 border border-slate-850 hover:border-amber-500/40 text-amber-500 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition disabled:opacity-50"
+                    className="p-1.5 md:py-2 md:px-3.5 bg-slate-900 hover:bg-slate-850 border border-slate-850 hover:border-amber-500/40 text-amber-500 text-[9px] md:text-xs font-semibold rounded-lg md:rounded-xl flex items-center gap-1.5 transition disabled:opacity-50"
                   >
-                    {isLoadingProgress ? <Loader2 className="w-4 h-4 animate-spin" /> : <Layers className="w-4 h-4" />}
-                    <span>Xem tiến độ học viên</span>
+                    {isLoadingProgress ? <Loader2 className="w-3.5 h-3.5 md:w-4 md:h-4 animate-spin" /> : <Layers className="w-3.5 h-3.5 md:w-4 md:h-4" />}
+                    <span>Xem tiến độ</span>
                   </button>
                   <button
                     onClick={() => openSectionModal('create')}
-                    className="py-2 px-3.5 bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 text-xs font-bold rounded-xl flex items-center gap-1.5 transition"
+                    className="p-1.5 md:py-2 md:px-3.5 bg-gradient-to-r from-amber-600 to-amber-500 text-slate-950 text-[9px] md:text-xs font-bold rounded-lg md:rounded-xl flex items-center gap-1.5 transition"
                   >
-                    <Plus className="w-4 h-4" />
-                    <span>Thêm chương học</span>
+                    <Plus className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                    <span>Thêm chương</span>
                   </button>
                 </div>
               </div>
@@ -773,41 +775,45 @@ export default function CourseBuilder() {
                         {/* Section Header Accord */}
                         <div 
                           onClick={() => toggleSection(section.id)}
-                          className="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-900/20 transition"
+                          className="p-3 md:p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-0 cursor-pointer hover:bg-slate-900/20 transition"
                         >
-                          <div className="flex items-center gap-3 min-w-0">
-                            {isExpanded ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronRight className="w-4 h-4 text-slate-400" />}
-                            <Layers className="w-4 h-4 text-amber-500" />
-                            <span className="text-xs font-semibold text-slate-200 truncate">{section.title}</span>
-                            <span className="text-[10px] text-slate-500 font-mono">
-                              ({section.lessons?.length || 0} bài giảng, {section.quizzes?.length || 0} bài thi, {section.assignments?.length || 0} bài tập)
-                            </span>
+                          <div className="flex items-start md:items-center gap-2 md:gap-3 min-w-0">
+                            <div className="flex-shrink-0 mt-0.5 md:mt-0">
+                              {isExpanded ? <ChevronDown className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 md:w-4 md:h-4 text-slate-400" />}
+                            </div>
+                            <Layers className="w-3.5 h-3.5 md:w-4 md:h-4 text-amber-500 flex-shrink-0 mt-0.5 md:mt-0" />
+                            <div className="min-w-0">
+                              <span className="text-[11px] md:text-xs font-semibold text-slate-200 block truncate">{section.title}</span>
+                              <span className="text-[9px] md:text-[10px] text-slate-500 font-mono block mt-0.5">
+                                ({section.lessons?.length || 0} BG, {section.quizzes?.length || 0} BT, {section.assignments?.length || 0} BTH)
+                              </span>
+                            </div>
                           </div>
 
-                          <div className="flex items-center gap-1.5" onClick={e => e.stopPropagation()}>
+                          <div className="flex flex-wrap items-center gap-1.5 md:gap-2 ml-6 md:ml-0" onClick={e => e.stopPropagation()}>
                             <button
                               onClick={() => openLessonModal('create', section.id)}
-                              className="py-1 px-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-905 text-[10px] font-bold text-amber-500 rounded-lg flex items-center gap-1"
-                              title="Thêm bài học mới"
+                              className="p-1.5 md:py-1 md:px-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-905 text-[10px] font-bold text-amber-500 rounded-lg flex items-center gap-1"
+                              title="Thêm bài giảng mới"
                             >
                               <Plus className="w-3 h-3" />
-                              <span>Thêm bài giảng</span>
+                              <span className="hidden xl:inline">Bài giảng</span>
                             </button>
                             <button
                               onClick={() => openQuizModal('create', section.id)}
-                              className="py-1 px-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-905 text-[10px] font-bold text-amber-500 rounded-lg flex items-center gap-1"
+                              className="p-1.5 md:py-1 md:px-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-905 text-[10px] font-bold text-amber-500 rounded-lg flex items-center gap-1"
                               title="Thêm bài thi trắc nghiệm mới"
                             >
                               <Plus className="w-3 h-3" />
-                              <span>Thêm bài thi</span>
+                              <span className="hidden xl:inline">Bài thi</span>
                             </button>
                             <button
                               onClick={() => openAssignmentModal('create', section.id)}
-                              className="py-1 px-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-905 text-[10px] font-bold text-amber-500 rounded-lg flex items-center gap-1"
+                              className="p-1.5 md:py-1 md:px-2.5 bg-slate-950 hover:bg-slate-900 border border-slate-905 text-[10px] font-bold text-amber-500 rounded-lg flex items-center gap-1"
                               title="Thêm bài tập thực hành mới"
                             >
                               <Plus className="w-3 h-3" />
-                              <span>Thêm bài tập</span>
+                              <span className="hidden xl:inline">Bài tập</span>
                             </button>
                             <button
                               onClick={() => openSectionModal('edit', section)}
@@ -990,16 +996,18 @@ export default function CourseBuilder() {
       </div>
 
       {/* --- MODAL POPUPS --- */}
+      {createPortal(
+        <>
 
       {/* Modal 1: Course Form */}
       {activeModal === 'course' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-          <div className="bg-slate-900 max-w-md w-full border border-slate-800 rounded-3xl p-6 relative shadow-2xl">
-            <button onClick={() => setActiveModal(null)} className="absolute top-4 right-4 text-slate-500 hover:text-slate-300"><X className="w-5 h-5" /></button>
-            <h3 className="font-serif text-base font-bold text-slate-100 mb-6">{modalMode === 'create' ? 'Tạo Khóa Học Mới' : 'Cập Nhật Khóa Học'}</h3>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="bg-slate-900 max-w-[320px] md:max-w-[400px] w-full max-h-[85vh] overflow-y-auto border border-slate-800 rounded-2xl md:rounded-3xl p-4 md:p-6 relative shadow-2xl">
+            <button onClick={() => setActiveModal(null)} className="absolute top-3 md:top-4 right-3 md:right-4 text-slate-500 hover:text-slate-300"><X className="w-4 h-4 md:w-5 md:h-5" /></button>
+            <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">{modalMode === 'create' ? 'Tạo Khóa Học Mới' : 'Cập Nhật Khóa Học'}</h3>
 
             {formError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
             )}
 
             <form onSubmit={handleCourseSubmit} className="space-y-4 text-xs">
@@ -1056,13 +1064,13 @@ export default function CourseBuilder() {
 
       {/* Modal 2: Section Form */}
       {activeModal === 'section' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-          <div className="bg-slate-900 max-w-md w-full border border-slate-800 rounded-3xl p-6 relative shadow-2xl">
-            <button onClick={() => setActiveModal(null)} className="absolute top-4 right-4 text-slate-500 hover:text-slate-300"><X className="w-5 h-5" /></button>
-            <h3 className="font-serif text-base font-bold text-slate-100 mb-6">{modalMode === 'create' ? 'Thêm Chương Học Mới' : 'Sửa Chương Học'}</h3>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="bg-slate-900 max-w-[320px] md:max-w-sm w-full max-h-[85vh] overflow-y-auto border border-slate-800 rounded-2xl md:rounded-3xl p-4 md:p-6 relative shadow-2xl">
+            <button onClick={() => setActiveModal(null)} className="absolute top-3 md:top-4 right-3 md:right-4 text-slate-500 hover:text-slate-300"><X className="w-4 h-4 md:w-5 md:h-5" /></button>
+            <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">{modalMode === 'create' ? 'Thêm Chương Học Mới' : 'Sửa Chương Học'}</h3>
 
             {formError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
             )}
 
             <form onSubmit={handleSectionSubmit} className="space-y-4 text-xs">
@@ -1088,13 +1096,13 @@ export default function CourseBuilder() {
 
       {/* Modal 3: Lesson Form */}
       {activeModal === 'lesson' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-          <div className="bg-slate-900 max-w-lg w-full border border-slate-800 rounded-3xl p-6 relative shadow-2xl">
-            <button onClick={() => setActiveModal(null)} className="absolute top-4 right-4 text-slate-500 hover:text-slate-300"><X className="w-5 h-5" /></button>
-            <h3 className="font-serif text-base font-bold text-slate-100 mb-6">{modalMode === 'create' ? 'Tạo Bài Giảng Mới' : 'Cập Nhật Bài Giảng'}</h3>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="bg-slate-900 max-w-[320px] md:max-w-[420px] w-full max-h-[85vh] overflow-y-auto border border-slate-800 rounded-2xl md:rounded-3xl p-4 md:p-6 relative shadow-2xl">
+            <button onClick={() => setActiveModal(null)} className="absolute top-3 md:top-4 right-3 md:right-4 text-slate-500 hover:text-slate-300"><X className="w-4 h-4 md:w-5 md:h-5" /></button>
+            <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">{modalMode === 'create' ? 'Tạo Bài Giảng Mới' : 'Cập Nhật Bài Giảng'}</h3>
 
             {formError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
             )}
 
             <form onSubmit={handleLessonSubmit} className="space-y-4 text-xs">
@@ -1284,8 +1292,8 @@ export default function CourseBuilder() {
 
       {/* Modal 4: Student Progress List */}
       {isProgressModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-          <div className="bg-slate-900 max-w-2xl w-full border border-slate-800 rounded-3xl p-6 relative shadow-2xl flex flex-col max-h-[80vh]">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="bg-slate-900 max-w-2xl w-full border border-slate-800 rounded-3xl p-6 relative shadow-2xl flex flex-col max-h-[85vh]">
             <button onClick={() => setIsProgressModalOpen(false)} className="absolute top-4 right-4 text-slate-500 hover:text-slate-300"><X className="w-5 h-5" /></button>
             <h3 className="font-serif text-base font-bold text-slate-100 mb-2">Tiến Độ Học Viên</h3>
             <p className="text-[10px] text-slate-400 mb-6">Theo dõi danh sách sinh viên đang ghi danh và tiến trình học tập của họ.</p>
@@ -1365,13 +1373,13 @@ export default function CourseBuilder() {
 
       {/* Modal 5: Quiz Form */}
       {activeModal === 'quiz' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-          <div className="bg-slate-900 max-w-md w-full border border-slate-800 rounded-3xl p-6 relative shadow-2xl">
-            <button onClick={() => setActiveModal(null)} className="absolute top-4 right-4 text-slate-500 hover:text-slate-300"><X className="w-5 h-5" /></button>
-            <h3 className="font-serif text-base font-bold text-slate-100 mb-6">Thêm Bài Thi Trắc Nghiệm Mới</h3>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="bg-slate-900 max-w-[320px] md:max-w-sm w-full max-h-[85vh] overflow-y-auto border border-slate-800 rounded-2xl md:rounded-3xl p-4 md:p-6 relative shadow-2xl">
+            <button onClick={() => setActiveModal(null)} className="absolute top-3 md:top-4 right-3 md:right-4 text-slate-500 hover:text-slate-300"><X className="w-4 h-4 md:w-5 md:h-5" /></button>
+            <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">Thêm Bài Thi Trắc Nghiệm Mới</h3>
 
             {formError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
             )}
 
             <form onSubmit={handleQuizSubmit} className="space-y-4 text-xs">
@@ -1524,13 +1532,13 @@ export default function CourseBuilder() {
 
       {/* Modal 7: Assignment Form */}
       {activeModal === 'assignment' && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
-          <div className="bg-slate-900 max-w-md w-full border border-slate-800 rounded-3xl p-6 relative shadow-2xl">
-            <button onClick={() => setActiveModal(null)} className="absolute top-4 right-4 text-slate-500 hover:text-slate-300"><X className="w-5 h-5" /></button>
-            <h3 className="font-serif text-base font-bold text-slate-100 mb-6">Thêm Bài Tập Tự Luận Mới</h3>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm">
+          <div className="bg-slate-900 max-w-[320px] md:max-w-sm w-full max-h-[85vh] overflow-y-auto border border-slate-800 rounded-2xl md:rounded-3xl p-4 md:p-6 relative shadow-2xl">
+            <button onClick={() => setActiveModal(null)} className="absolute top-3 md:top-4 right-3 md:right-4 text-slate-500 hover:text-slate-300"><X className="w-4 h-4 md:w-5 md:h-5" /></button>
+            <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">Thêm Bài Tập Tự Luận Mới</h3>
 
             {formError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
             )}
 
             <form onSubmit={handleAssignmentSubmit} className="space-y-4 text-xs">
@@ -1668,7 +1676,9 @@ export default function CourseBuilder() {
           </div>
         </div>
       )}
-
+        </>,
+        document.body
+      )}
     </div>
   );
 }

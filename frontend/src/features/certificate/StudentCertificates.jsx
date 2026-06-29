@@ -85,30 +85,30 @@ export default function StudentCertificates({ token }) {
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-16">
       {/* Header section */}
-      <div className="flex justify-between items-center border-b border-slate-900 pb-4">
+      <div className="flex justify-between items-start sm:items-center border-b border-slate-900 pb-3 sm:pb-4 gap-2">
         <div>
-          <h2 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-2.5">
-            <Award className="w-6 h-6 text-amber-500" />
+          <h2 className="font-serif text-xl sm:text-2xl font-bold text-slate-100 flex items-center gap-2 sm:gap-2.5">
+            <Award className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" />
             <span>Chứng Chỉ Của Tôi</span>
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1">
             Nhận văn bằng tốt nghiệp chứng nhận hoàn thành khóa học sau khi đạt 100% học liệu.
           </p>
         </div>
         <button
           onClick={fetchEnrollments}
-          className="p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-slate-400 hover:text-slate-200 transition"
+          className="p-1.5 sm:p-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-lg sm:rounded-xl text-slate-400 hover:text-slate-200 transition"
           title="Tải lại dữ liệu"
         >
-          <RefreshCw className="w-4 h-4" />
+          <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </button>
       </div>
 
       {completedCourses.length === 0 ? (
-        <div className="text-center py-20 border border-dashed border-slate-900 rounded-3xl bg-slate-950/10 max-w-2xl mx-auto">
-          <Award className="w-12 h-12 text-slate-700 mx-auto mb-4" />
-          <p className="text-sm font-semibold text-slate-400">Bạn chưa đủ điều kiện cấp chứng chỉ nào</p>
-          <p className="text-xs text-slate-500 mt-1.5 px-6 leading-relaxed">
+        <div className="text-center py-10 sm:py-20 border border-dashed border-slate-900 rounded-2xl sm:rounded-3xl bg-slate-950/10 max-w-2xl mx-auto mx-4 sm:mx-auto">
+          <Award className="w-10 h-10 sm:w-12 sm:h-12 text-slate-700 mx-auto mb-3 sm:mb-4" />
+          <p className="text-xs sm:text-sm font-semibold text-slate-400">Bạn chưa đủ điều kiện cấp chứng chỉ nào</p>
+          <p className="text-[10px] sm:text-xs text-slate-500 mt-1 sm:mt-1.5 px-4 sm:px-6 leading-relaxed">
             Để nhận chứng chỉ, bạn cần hoàn thành <strong>100% tiến độ học tập</strong>, <strong>vượt qua tất cả các bài kiểm tra (Quiz)</strong> và <strong>nộp đầy đủ bài tập tự luận</strong> của khóa học.
           </p>
         </div>
@@ -121,38 +121,38 @@ export default function StudentCertificates({ token }) {
             return (
               <div 
                 key={enrollment.id}
-                className="bg-slate-900/30 border border-slate-900 hover:border-slate-850 transition rounded-2xl p-5 md:p-6 flex flex-col justify-between"
+                className="bg-slate-900/30 border border-slate-900 hover:border-slate-850 transition rounded-2xl p-4 md:p-6 flex flex-col justify-between"
               >
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start gap-4">
-                    <span className="text-[10px] uppercase font-mono tracking-widest text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex justify-between items-start gap-2 md:gap-4">
+                    <span className="text-[9px] md:text-[10px] uppercase font-mono tracking-widest text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-1.5 md:px-2 py-0.5 rounded">
                       Đã hoàn thành 100%
                     </span>
                     {hasCert && (
-                      <span className="text-[9px] font-mono text-slate-500">
+                      <span className="text-[8px] md:text-[9px] font-mono text-slate-500">
                         Mã: {cert.certificate_code}
                       </span>
                     )}
                   </div>
 
-                  <div className="space-y-1">
-                    <h3 className="font-serif text-lg font-bold text-slate-200 leading-snug line-clamp-2">
+                  <div className="space-y-0.5 md:space-y-1">
+                    <h3 className="font-serif text-base md:text-lg font-bold text-slate-200 leading-snug line-clamp-2">
                       {enrollment.course?.title || 'Khóa học của tôi'}
                     </h3>
-                    <p className="text-xs text-slate-550">
+                    <p className="text-[10px] md:text-xs text-slate-550">
                       Giảng viên: {enrollment.course?.teacher?.name || 'Đội ngũ LMS'}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div className="mt-4 md:mt-6 pt-3 md:pt-4 border-t border-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3 md:gap-4">
                   {hasCert ? (
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
+                    <div className="flex flex-col gap-0.5 md:gap-1">
+                      <span className="text-[9px] md:text-[10px] text-slate-500 flex items-center gap-1">
+                        <Calendar className="w-2.5 h-2.5 md:w-3 md:h-3" />
                         <span>Cấp ngày: {new Date(cert.issued_at).toLocaleDateString('vi-VN')}</span>
                       </span>
-                      <div className="flex gap-2 mt-2">
+                      <div className="flex gap-1.5 md:gap-2 mt-1.5 md:mt-2">
                         <button
                           onClick={() => setSelectedCert({
                             code: cert.certificate_code,
@@ -161,7 +161,7 @@ export default function StudentCertificates({ token }) {
                             issuedAt: new Date(cert.issued_at).toLocaleDateString('vi-VN', { day: '2-digit', month: 'long', year: 'numeric' }),
                             fileUrl: cert.file_url
                           })}
-                          className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition"
+                          className="px-2.5 md:px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg md:rounded-xl text-[10px] md:text-xs font-semibold flex items-center gap-1 md:gap-1.5 transition"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Xem chứng chỉ</span>
@@ -170,7 +170,7 @@ export default function StudentCertificates({ token }) {
                           href={cert.file_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 bg-[#0b0e17] hover:bg-slate-950 border border-slate-800 hover:border-slate-750 text-slate-300 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition"
+                          className="px-2.5 md:px-3 py-1.5 bg-[#0b0e17] hover:bg-slate-950 border border-slate-800 hover:border-slate-750 text-slate-300 rounded-lg md:rounded-xl text-[10px] md:text-xs font-semibold flex items-center gap-1 md:gap-1.5 transition"
                         >
                           <Download className="w-3.5 h-3.5" />
                           <span>Tải PDF</span>

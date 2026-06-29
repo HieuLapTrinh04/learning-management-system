@@ -56,13 +56,13 @@ export default function AdminApproveCourses() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-900/20 border border-slate-900 p-4 sm:p-6 rounded-3xl">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-slate-100 flex items-center gap-3">
-            <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+          <h1 className="font-serif text-lg sm:text-xl font-bold text-slate-100 flex items-center gap-2">
+            <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500" />
             <span>Phê duyệt khóa học</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Kiểm duyệt và xuất bản các khóa học do giáo viên tạo.</p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Kiểm duyệt và xuất bản các khóa học do giáo viên tạo.</p>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function AdminApproveCourses() {
 
       <div className="bg-slate-900/10 border border-slate-900 rounded-2xl overflow-hidden flex flex-col h-[calc(100vh-270px)]">
         {/* Toolbar */}
-        <div className="p-4 border-b border-slate-900 flex flex-col sm:flex-row gap-4 justify-between items-center bg-slate-950/30">
+        <div className="p-3 sm:p-4 border-b border-slate-900 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-center bg-slate-950/30">
           <div className="flex bg-slate-900 border border-slate-800 rounded-xl p-1 overflow-x-auto max-w-full hide-scrollbar">
             {['pending', 'draft', 'published', 'all'].map((f) => {
               const labels = {
@@ -95,7 +95,7 @@ export default function AdminApproveCourses() {
                 <button
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                  className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-[10px] sm:text-xs font-semibold whitespace-nowrap transition-colors ${
                     filter === f 
                     ? 'bg-amber-500 text-slate-950 shadow-md' 
                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
@@ -122,44 +122,44 @@ export default function AdminApproveCourses() {
               <p>Không tìm thấy khóa học nào phù hợp với bộ lọc.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {courses.map(course => (
-                <div key={course.id} className="bg-slate-950/40 border border-slate-800 hover:border-slate-700 transition rounded-2xl p-5 flex flex-col justify-between group">
-                  <div className="flex gap-4 mb-4">
+                <div key={course.id} className="bg-slate-950/40 border border-slate-800 hover:border-slate-700 transition rounded-2xl p-3 sm:p-5 flex flex-col justify-between group">
+                  <div className="flex gap-3 sm:gap-4 mb-3 sm:mb-4">
                     <img 
                       src={course.thumbnail_url || 'https://via.placeholder.com/150'} 
                       alt={course.title}
-                      className="w-20 h-20 object-cover rounded-xl border border-slate-800 flex-shrink-0"
+                      className="w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-xl border border-slate-800 flex-shrink-0"
                     />
                     <div className="min-w-0">
-                      <h3 className="font-semibold text-slate-100 text-sm truncate">{course.title}</h3>
-                      <p className="text-xs text-slate-400 mt-1 line-clamp-2">{course.subtitle || 'Không có phụ đề'}</p>
-                      <div className="flex items-center gap-2 mt-2">
+                      <h3 className="font-semibold text-slate-100 text-xs sm:text-sm truncate">{course.title}</h3>
+                      <p className="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 line-clamp-2">{course.subtitle || 'Không có phụ đề'}</p>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mt-1 sm:mt-2">
                         <span className="text-[10px] font-mono text-amber-500">{course.price?.toLocaleString('vi-VN')} đ</span>
-                        <span className="text-[10px] text-slate-500 block">Giảng viên: {course.teacher?.name}</span>
+                        <span className="text-[9px] sm:text-[10px] text-slate-500 block line-clamp-1">Giảng viên: {course.teacher?.name}</span>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="pt-4 border-t border-slate-800/50 flex justify-between items-center">
+                  <div className="pt-3 sm:pt-4 border-t border-slate-800/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div className="flex items-center gap-1.5">
                       {course.status === 'pending' && <span className="flex items-center gap-1 text-[10px] px-2 py-1 bg-amber-500/10 text-amber-500 rounded-md border border-amber-500/20"><Clock className="w-3 h-3"/> Chờ duyệt</span>}
                       {course.status === 'published' && <span className="flex items-center gap-1 text-[10px] px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded-md border border-emerald-500/20"><CheckCircle2 className="w-3 h-3"/> Đã xuất bản</span>}
                       {course.status === 'draft' && <span className="flex items-center gap-1 text-[10px] px-2 py-1 bg-slate-800 text-slate-400 rounded-md border border-slate-700"><CheckCircle2 className="w-3 h-3 opacity-50"/> Bản nháp</span>}
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex gap-1.5 sm:gap-2 w-full sm:w-auto mt-2 sm:mt-0">
                       {course.status === 'pending' && (
                         <>
                           <button 
                             onClick={() => handleUpdateStatus(course.id, 'draft')}
-                            className="px-3 py-1.5 text-[10px] font-semibold rounded-lg bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20 transition"
+                            className="flex-1 sm:flex-none px-2 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] font-semibold rounded-lg bg-red-500/10 text-red-500 border border-red-500/20 hover:bg-red-500/20 transition"
                           >
                             Từ chối
                           </button>
                           <button 
                             onClick={() => handleUpdateStatus(course.id, 'published')}
-                            className="px-3 py-1.5 text-[10px] font-semibold rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500/20 transition"
+                            className="flex-1 sm:flex-none px-2 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] font-semibold rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500/20 transition"
                           >
                             Phê duyệt
                           </button>
@@ -169,7 +169,7 @@ export default function AdminApproveCourses() {
                       {course.status === 'published' && (
                         <button 
                           onClick={() => handleUpdateStatus(course.id, 'draft')}
-                          className="px-3 py-1.5 text-[10px] font-semibold rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-slate-200 transition"
+                          className="flex-1 sm:flex-none px-2 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] font-semibold rounded-lg bg-slate-800 text-slate-400 border border-slate-700 hover:text-slate-200 transition"
                         >
                           Hủy xuất bản
                         </button>
@@ -178,7 +178,7 @@ export default function AdminApproveCourses() {
                       {course.status === 'draft' && (
                         <button 
                           onClick={() => handleUpdateStatus(course.id, 'published')}
-                          className="px-3 py-1.5 text-[10px] font-semibold rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500/20 transition"
+                          className="flex-1 sm:flex-none px-2 py-1 sm:px-3 sm:py-1.5 text-[9px] sm:text-[10px] font-semibold rounded-lg bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 hover:bg-emerald-500/20 transition"
                         >
                           Phê duyệt ngay
                         </button>
