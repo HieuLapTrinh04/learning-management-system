@@ -43,23 +43,26 @@ export default function StudentLayout() {
   }, [dispatch, token]);
 
   const navLinks = [
-    { label: 'Bảng điều khiển', to: '/dashboard', icon: LayoutDashboard },
-    { label: 'Catalog Khóa học', to: '/courses', icon: BookOpen },
-    { label: 'Lộ trình học tập', to: '/student/roadmaps', icon: Map },
-    { label: 'Học tập của tôi', to: '/student/my-courses', icon: GraduationCap },
-    { label: 'Bài kiểm tra', to: '/student/quizzes', icon: ClipboardCheck },
-    { label: 'Bài tập của tôi', to: '/student/assignments', icon: CheckSquare },
-    { label: 'Chứng chỉ tốt nghiệp', to: '/student/certificates', icon: Award },
-    { label: 'Thông báo', to: '/student/notifications', icon: Bell },
-    { label: 'Đơn hàng đã mua', to: '/student/payments', icon: ShoppingBag },
-    { label: 'Hồ sơ cá nhân', to: '/student/profile', icon: User },
+    { label: 'Bảng điều khiển', shortLabel: 'Tổng quan', to: '/student/dashboard', icon: LayoutDashboard },
+    { label: 'Catalog Khóa học', shortLabel: 'Khám phá', to: '/courses', icon: BookOpen },
+    { label: 'Lộ trình học tập', shortLabel: 'Lộ trình', to: '/student/roadmaps', icon: Map },
+    { label: 'Học tập của tôi', shortLabel: 'Học tập', to: '/student/my-courses', icon: GraduationCap },
+    { label: 'Bài kiểm tra', shortLabel: 'Kiểm tra', to: '/student/quizzes', icon: ClipboardCheck },
+    { label: 'Bài tập của tôi', shortLabel: 'Bài tập', to: '/student/assignments', icon: CheckSquare },
+    { label: 'Chứng chỉ tốt nghiệp', shortLabel: 'Chứng chỉ', to: '/student/certificates', icon: Award },
+    { label: 'Thông báo', shortLabel: 'Thông báo', to: '/student/notifications', icon: Bell },
+    { label: 'Đơn hàng đã mua', shortLabel: 'Đơn hàng', to: '/student/payments', icon: ShoppingBag },
+    { label: 'Hồ sơ cá nhân', shortLabel: 'Hồ sơ', to: '/student/profile', icon: User },
   ];
 
   return (
     <div className="min-h-screen flex bg-[#090d16] text-slate-100 font-sans">
 
-      {/* Sidebar Panel */}
-      <aside className={`fixed md:relative top-0 bottom-0 left-0 z-50 w-64 bg-slate-950 border-r border-slate-900 flex flex-col justify-between transition-transform duration-300 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'}`}>
+      {/* Sidebar Panel - Offcanvas on mobile */}
+      {sidebarOpen && (
+        <div className="md:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSidebarOpen(false)} />
+      )}
+      <aside className={`fixed md:relative top-0 bottom-0 left-0 z-50 w-[240px] sm:w-64 bg-slate-950 border-r border-slate-900 flex flex-col justify-between transition-transform duration-300 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'} overflow-y-auto`}>
 
         <div>
           {/* Header brand */}
@@ -81,7 +84,7 @@ export default function StudentLayout() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="p-4 space-y-2">
+          <nav className="p-3 sm:p-4 space-y-1 sm:space-y-2">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = location.pathname === link.to;
@@ -89,9 +92,9 @@ export default function StudentLayout() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold tracking-wide transition ${isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200'}`}
+                  className={`flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-xs font-semibold tracking-wide transition ${isActive ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' : 'text-slate-400 hover:bg-slate-900/50 hover:text-slate-200'}`}
                 >
-                  <Icon className="w-5 h-5 flex-shrink-0" />
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   {sidebarOpen && <span>{link.label}</span>}
                 </Link>
               );
@@ -100,12 +103,12 @@ export default function StudentLayout() {
         </div>
 
         {/* Footer logout */}
-        <div className="p-4 border-t border-slate-900">
+        <div className="p-3 sm:p-4 border-t border-slate-900 pb-20 md:pb-4">
           <button
             onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold text-slate-500 hover:bg-red-950/20 hover:text-red-400 transition"
+            className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-[11px] sm:text-xs font-semibold text-slate-500 hover:bg-red-950/20 hover:text-red-400 transition"
           >
-            <LogOut className="w-5 h-5 flex-shrink-0" />
+            <LogOut className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
             {sidebarOpen && <span>Đăng xuất</span>}
           </button>
         </div>
@@ -116,11 +119,26 @@ export default function StudentLayout() {
       <div className="flex-1 flex flex-col min-w-0">
 
         {/* Top Navbar */}
-        <header className="h-16 bg-slate-950 border-b border-slate-900/50 px-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-slate-400 hover:text-slate-200">
+        <header className="h-16 bg-slate-950 border-b border-slate-900/50 px-4 sm:px-6 flex items-center justify-between">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className="hidden md:block text-slate-400 hover:text-slate-200">
               <Menu className="w-5 h-5" />
             </button>
+            
+            {/* Logo for mobile */}
+            <Link to="/" className="flex md:hidden items-center gap-2">
+              {tenantConfig?.logo_url ? (
+                <img src={tenantConfig.logo_url} alt="Logo" className="w-8 h-8 rounded-lg object-contain bg-white/10" />
+              ) : (
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center">
+                  <GraduationCap className="w-4 h-4 text-slate-950" />
+                </div>
+              )}
+              <span className="font-serif text-sm font-bold bg-gradient-to-r from-amber-100 to-amber-500 bg-clip-text text-transparent truncate max-w-[120px]">
+                {tenantConfig?.name || 'Online LMS'}
+              </span>
+            </Link>
+
             <div className="hidden sm:block">
               <Breadcrumb />
             </div>
@@ -132,12 +150,12 @@ export default function StudentLayout() {
             <div className="relative">
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative w-10 h-10 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-brand-500 flex items-center justify-center border border-slate-800 transition duration-200"
+                className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-brand-500 flex items-center justify-center border border-slate-800 transition duration-200"
                 title="Giỏ hàng"
               >
-                <ShoppingBag className="w-5 h-5" />
+                <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-slate-950 font-bold text-[10px] rounded-full flex items-center justify-center animate-pulse">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-amber-500 text-slate-950 font-bold text-[9px] sm:text-[10px] rounded-full flex items-center justify-center animate-pulse">
                     {cartCount}
                   </span>
                 )}
@@ -148,11 +166,11 @@ export default function StudentLayout() {
             <div className="relative">
               <button
                 onClick={() => setShowNotificationDropdown(!showNotificationDropdown)}
-                className="relative w-10 h-10 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-brand-500 flex items-center justify-center border border-slate-800 transition duration-200"
+                className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-brand-500 flex items-center justify-center border border-slate-800 transition duration-200"
               >
-                <Bell className="w-5 h-5" />
+                <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-brand-500 text-slate-950 font-bold text-[10px] rounded-full flex items-center justify-center animate-pulse">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-brand-500 text-slate-950 font-bold text-[9px] sm:text-[10px] rounded-full flex items-center justify-center animate-pulse">
                     {unreadCount}
                   </span>
                 )}
@@ -175,16 +193,16 @@ export default function StudentLayout() {
               )}
             </div>
 
-            <div className="flex items-center gap-3 border-l border-slate-900 pl-4">
-              <div className="text-right">
-                <span className="text-xs font-semibold block text-slate-200">{userName}</span>
-                <span className="text-[9px] uppercase font-mono text-amber-500 px-1.5 py-0.5 rounded bg-amber-950/20 border border-amber-500/20">STUDENT</span>
+            <div className="flex items-center gap-2 sm:gap-3 border-l border-slate-900 pl-3 sm:pl-4">
+              <div className="text-right flex flex-col justify-center">
+                <span className="text-[10px] sm:text-xs font-semibold block text-slate-200 max-w-[80px] sm:max-w-[150px] truncate">{userName}</span>
+                <span className="text-[8px] sm:text-[9px] uppercase font-mono text-amber-500 px-1 py-0.5 sm:px-1.5 rounded bg-amber-950/20 border border-amber-500/20 self-end mt-0.5">STUDENT</span>
               </div>
-              <div className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 overflow-hidden">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 overflow-hidden flex-shrink-0">
                 {userAvatar ? (
                   <img src={userAvatar} alt="Avatar" className="w-full h-full object-cover" />
                 ) : (
-                  <User className="w-5 h-5" />
+                  <User className="w-4 h-4 sm:w-5 sm:h-5" />
                 )}
               </div>
             </div>
@@ -192,10 +210,29 @@ export default function StudentLayout() {
         </header>
 
         {/* Dynamic Route Content */}
-        <main className="flex-1 p-6 md:p-8 overflow-y-auto">
+        <main className="flex-1 p-4 md:p-8 overflow-y-auto pb-24 md:pb-8">
           <Outlet />
         </main>
 
+      </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950 border-t border-slate-900 z-50 flex items-center justify-around pb-safe pt-2">
+        {navLinks.slice(0, 4).map((link) => {
+          const Icon = link.icon;
+          const isActive = location.pathname === link.to;
+          return (
+            <Link key={link.to} to={link.to} className={`flex flex-col items-center gap-1 p-2 flex-1 ${isActive ? 'text-amber-500' : 'text-slate-400 hover:text-slate-200'}`}>
+              <Icon className="w-5 h-5" />
+              <span className="text-[10px] text-center font-medium line-clamp-1">{link.shortLabel || link.label}</span>
+            </Link>
+          );
+        })}
+        {/* More Menu Toggle */}
+        <button onClick={() => setSidebarOpen(true)} className="flex flex-col items-center gap-1 p-2 flex-1 text-slate-400 hover:text-slate-200">
+          <Menu className="w-5 h-5" />
+          <span className="text-[10px] text-center font-medium">Menu</span>
+        </button>
       </div>
 
       {/* Cart Sidebar panel */}

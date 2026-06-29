@@ -63,9 +63,9 @@ export default function NotificationDropdown({ token, onClose, onNavigate }) {
   };
 
   return (
-    <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-slate-950 border border-slate-900 shadow-2xl rounded-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+    <div className="absolute -right-14 sm:right-0 mt-2 w-[260px] sm:w-96 bg-slate-950 border border-slate-900 shadow-2xl rounded-2xl overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
       {/* Dropdown Header */}
-      <div className="p-4 border-b border-slate-900 flex justify-between items-center bg-slate-900/30">
+      <div className="p-3 sm:p-4 border-b border-slate-900 flex justify-between items-center bg-slate-900/30">
         <div className="flex items-center gap-2">
           <Bell className="w-4 h-4 text-brand-500" />
           <span className="font-semibold text-xs text-slate-200 uppercase tracking-wider">Thông báo</span>

@@ -93,26 +93,26 @@ export default function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#090d16] px-4 sm:px-6 lg:px-8 selection:bg-brand-500 selection:text-slate-950">
+    <div className="flex-1 flex items-center justify-center w-full px-4 sm:px-6 lg:px-8 py-8 md:py-16">
 
       {/* Background radial glow */}
-      <div className="absolute w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] -z-10 top-1/4 left-1/3"></div>
-      <div className="absolute w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[100px] -z-10 bottom-1/4 right-1/4"></div>
+      <div className="hidden md:block absolute w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] -z-10 top-1/4 left-1/3"></div>
+      <div className="hidden md:block absolute w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[100px] -z-10 bottom-1/4 right-1/4"></div>
 
-      <div className="max-w-md w-full space-y-8 bg-slate-900/60 p-8 rounded-3xl border border-amber-500/20 backdrop-blur-2xl shadow-[0_0_40px_rgba(245,158,11,0.1)] relative">
+      <div className="max-w-md w-full space-y-4 md:space-y-8 bg-slate-900/60 p-5 md:p-8 rounded-3xl border border-amber-500/20 backdrop-blur-2xl shadow-[0_0_40px_rgba(245,158,11,0.1)] relative">
 
         {/* Decorative corner gold highlights */}
         <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-amber-500/30"></div>
-        <div className="absolute -top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-amber-500/30"></div>
+        <div className="absolute top-0 sm:-top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-amber-500/30"></div>
         <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-amber-500/30"></div>
         <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-amber-500/30"></div>
 
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-600/30">
-            <GraduationCap className="h-7 w-7 text-slate-950" />
+          <div className="mx-auto h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 flex items-center justify-center shadow-lg shadow-amber-600/30">
+            <GraduationCap className="h-6 w-6 md:h-7 md:w-7 text-slate-950" />
           </div>
-          <h2 className="mt-6 font-serif text-3xl font-bold text-slate-100">Chào Mừng Quay Lại</h2>
-          <p className="mt-2 text-xs text-slate-400">Đăng nhập tài khoản của bạn để truy cập học liệu</p>
+          <h2 className="mt-4 md:mt-6 font-serif text-xl md:text-3xl font-bold text-slate-100">Chào Mừng Quay Lại</h2>
+          <p className="mt-1 md:mt-2 text-[10px] md:text-xs text-slate-400">Đăng nhập tài khoản của bạn để truy cập học liệu</p>
         </div>
 
         {/* Global API Alerts */}
@@ -130,7 +130,7 @@ export default function Login({ onLoginSuccess }) {
           </div>
         )}
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form className="mt-6 md:mt-8 space-y-4 md:space-y-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
 
             {/* Email Field */}
@@ -143,7 +143,7 @@ export default function Login({ onLoginSuccess }) {
                 <input
                   type="email"
                   placeholder="student@lms.edu.vn"
-                  className={`block w-full pl-10 pr-4 py-3 bg-slate-950/50 border ${errors.email ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-sm transition shadow-inner`}
+                  className={`block w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/50 border ${errors.email ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-xs md:text-sm transition shadow-inner`}
                   {...register('email')}
                   disabled={isLoading}
                 />
@@ -171,7 +171,7 @@ export default function Login({ onLoginSuccess }) {
                 <input
                   type="password"
                   placeholder="••••••••"
-                  className={`block w-full pl-10 pr-4 py-3 bg-slate-950/50 border ${errors.password ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-sm transition shadow-inner`}
+                  className={`block w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/50 border ${errors.password ? 'border-red-900/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/50' : 'border-slate-800/80 focus:border-amber-500 focus:ring-1 focus:ring-amber-500/30'} rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none text-xs md:text-sm transition shadow-inner`}
                   {...register('password')}
                   disabled={isLoading}
                 />
@@ -187,7 +187,7 @@ export default function Login({ onLoginSuccess }) {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 font-bold rounded-xl transition duration-350 shadow-lg shadow-amber-500/10 focus:outline-none"
+              className="w-full flex justify-center items-center py-2.5 md:py-3 px-4 border border-transparent rounded-xl text-xs md:text-sm font-bold text-slate-900 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 focus:ring-offset-slate-900 transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] disabled:opacity-50"
             >
               {isLoading ? (
                 <Loader2 className="h-5 w-5 animate-spin" />

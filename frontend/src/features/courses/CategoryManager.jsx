@@ -118,19 +118,19 @@ export default function CategoryManager() {
     <div className="space-y-6">
       
       {/* Title Board */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-900/20 border border-slate-900 p-4 sm:p-6 rounded-3xl">
         <div>
-          <h1 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-2.5">
-            <Folder className="w-6 h-6 text-amber-500" />
+          <h1 className="font-serif text-lg sm:text-xl font-bold text-slate-100 flex items-center gap-2 sm:gap-2.5">
+            <Folder className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" />
             <span>Quản Lý Danh Mục Khóa Học</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Phân loại các lĩnh vực bài giảng để học viên dễ dàng tìm kiếm.</p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1">Phân loại các lĩnh vực bài giảng để học viên dễ dàng tìm kiếm.</p>
         </div>
         <button
           onClick={openCreateModal}
-          className="py-2.5 px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-bold rounded-xl flex items-center gap-1.5 transition"
+          className="py-2 px-3 sm:py-2.5 sm:px-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-[10px] sm:text-xs font-bold rounded-xl flex items-center gap-1.5 transition"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           <span>Tạo danh mục mới</span>
         </button>
       </div>
@@ -158,16 +158,17 @@ export default function CategoryManager() {
         </div>
       ) : (
         <div className="bg-slate-900/30 border border-slate-900 rounded-2xl overflow-hidden shadow-xl">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="border-b border-slate-850 text-slate-400 uppercase tracking-wider bg-slate-950/50">
-                <th className="p-4 font-semibold w-16">ID</th>
-                <th className="p-4 font-semibold">Tên Danh Mục</th>
-                <th className="p-4 font-semibold">Slug (Đường dẫn tĩnh)</th>
-                <th className="p-4 font-semibold">Mô tả</th>
-                <th className="p-4 font-semibold text-center w-32">Thao tác</th>
-              </tr>
-            </thead>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-[10px] sm:text-xs border-collapse whitespace-nowrap md:whitespace-normal">
+              <thead>
+                <tr className="border-b border-slate-850 text-slate-400 uppercase tracking-wider bg-slate-950/50">
+                  <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-semibold w-16">ID</th>
+                  <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-semibold">Tên Danh Mục</th>
+                  <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-semibold">Slug (Đường dẫn tĩnh)</th>
+                  <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-semibold">Mô tả</th>
+                  <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-semibold text-center w-32">Thao tác</th>
+                </tr>
+              </thead>
             <tbody>
               {categories.length === 0 ? (
                 <tr>
@@ -176,33 +177,34 @@ export default function CategoryManager() {
               ) : (
                 categories.map((cat) => (
                   <tr key={cat.id} className="border-b border-slate-900 hover:bg-slate-900/20 transition">
-                    <td className="p-4 font-mono text-slate-500">#{cat.id}</td>
-                    <td className="p-4 font-semibold text-slate-200">{cat.name}</td>
-                    <td className="p-4 font-mono text-amber-500/80">{cat.slug}</td>
-                    <td className="p-4 text-slate-400 max-w-xs truncate" title={cat.description}>{cat.description || "Không có mô tả"}</td>
-                    <td className="p-4 text-center">
-                      <div className="flex justify-center gap-2">
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-mono text-slate-500">#{cat.id}</td>
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-semibold text-slate-200">{cat.name}</td>
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 font-mono text-amber-500/80">{cat.slug}</td>
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-slate-400 max-w-[150px] md:max-w-xs truncate" title={cat.description}>{cat.description || "Không có mô tả"}</td>
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-center">
+                      <div className="flex justify-center gap-1.5 sm:gap-2">
                         <button
                           onClick={() => openEditModal(cat)}
-                          className="p-1.5 rounded-lg bg-slate-950 border border-slate-900 hover:border-amber-500/40 text-slate-400 hover:text-amber-500 transition"
+                          className="p-1 sm:p-1.5 rounded-lg bg-slate-950 border border-slate-900 hover:border-amber-500/40 text-slate-400 hover:text-amber-500 transition"
                           title="Sửa danh mục"
                         >
-                          <Edit className="w-4 h-4" />
+                          <Edit className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(cat.id)}
-                          className="p-1.5 rounded-lg bg-slate-950 border border-slate-900 hover:border-red-950 hover:text-red-400 transition"
+                          className="p-1 sm:p-1.5 rounded-lg bg-slate-950 border border-slate-900 hover:border-red-950 hover:text-red-400 transition"
                           title="Xóa danh mục"
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         </button>
                       </div>
                     </td>
                   </tr>
                 ))
               )}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
 

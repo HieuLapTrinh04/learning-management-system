@@ -41,23 +41,23 @@ export default function StudentRoadmaps() {
 
   return (
     <div className="flex-1 p-6 md:p-8 max-w-6xl mx-auto w-full">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-100 flex items-center gap-3">
-          <Map className="w-8 h-8 text-amber-500" />
+      <div className="mb-4 md:mb-8">
+        <h1 className="text-xl md:text-2xl font-bold text-slate-100 flex items-center gap-2 md:gap-3">
+          <Map className="w-6 h-6 md:w-8 md:h-8 text-amber-500" />
           <span>Lộ trình học tập</span>
         </h1>
-        <p className="text-slate-400 mt-2 text-sm max-w-2xl">
+        <p className="text-slate-400 mt-1.5 md:mt-2 text-xs md:text-sm max-w-2xl">
           Các lộ trình được thiết kế bài bản, xâu chuỗi nhiều khóa học giúp bạn đi từ con số 0 đến khi thành thạo một kỹ năng và đạt được mục tiêu nghề nghiệp.
         </p>
       </div>
 
       {roadmaps.length === 0 ? (
-        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-12 text-center flex flex-col items-center">
-          <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center mb-4">
-            <Map className="w-8 h-8 text-slate-500" />
+        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-12 text-center flex flex-col items-center">
+          <div className="w-12 h-12 md:w-16 md:h-16 bg-slate-800 rounded-full flex items-center justify-center mb-3 md:mb-4">
+            <Map className="w-5 h-5 md:w-8 md:h-8 text-slate-500" />
           </div>
-          <h3 className="text-lg font-bold text-slate-200 mb-2">Chưa có lộ trình nào</h3>
-          <p className="text-slate-400 text-sm">Hệ thống đang cập nhật các lộ trình học tập mới, vui lòng quay lại sau.</p>
+          <h3 className="text-base md:text-lg font-bold text-slate-200 mb-1.5 md:mb-2">Chưa có lộ trình nào</h3>
+          <p className="text-slate-400 text-xs md:text-sm">Hệ thống đang cập nhật các lộ trình học tập mới, vui lòng quay lại sau.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

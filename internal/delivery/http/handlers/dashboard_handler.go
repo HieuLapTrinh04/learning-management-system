@@ -71,7 +71,10 @@ func (h *DashboardHandler) GetStudentAnalytics(c *fiber.Ctx) error {
 
 	stats, err := h.useCase.GetStudentStats(c.UserContext(), studentID)
 	if err != nil {
-		return err
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"success": false,
+			"message": err.Error(),
+		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{

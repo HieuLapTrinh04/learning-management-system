@@ -21,27 +21,28 @@ export default function CertificateVerifier() {
   };
 
   return (
-    <div className="max-w-xl w-full mx-auto space-y-6 pb-16">
-      
-      {/* Title Header */}
-      <div className="text-center space-y-2">
-        <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto">
-          <ShieldCheck className="w-6 h-6" />
+    <div className="flex-1 flex flex-col justify-center items-center px-4 w-full py-8">
+      <div className="max-w-xl w-full mx-auto space-y-4 md:space-y-6 pb-8 md:pb-16">
+        
+        {/* Title Header */}
+        <div className="text-center space-y-2">
+          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mx-auto">
+            <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
+          </div>
+          <h2 className="font-serif text-xl md:text-2xl font-bold text-slate-100">Xác Thực Chứng Chỉ Công Khai</h2>
+          <p className="text-[10px] md:text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
+            Nhập mã số định danh chứng chỉ tốt nghiệp (ví dụ: LMS-CERT-1-1-XXXX) để kiểm tra tính hợp lệ trực tiếp từ hệ thống.
+          </p>
         </div>
-        <h2 className="font-serif text-2xl font-bold text-slate-100">Xác Thực Chứng Chỉ Công Khai</h2>
-        <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
-          Nhập mã số định danh chứng chỉ tốt nghiệp (ví dụ: LMS-CERT-1-1-XXXX) để kiểm tra tính hợp lệ trực tiếp từ hệ thống.
-        </p>
-      </div>
 
       {!verifiedCert ? (
         /* Code Input Form */
-        <div className="bg-slate-900/50 border border-slate-900 shadow-2xl rounded-3xl p-6 md:p-8 backdrop-blur-lg relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-2xl rounded-2xl md:rounded-3xl p-5 md:p-8 backdrop-blur-lg relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl -z-10"></div>
           
-          <form onSubmit={handleVerify} className="space-y-5">
+          <form onSubmit={handleVerify} className="space-y-4 md:space-y-5">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Mã định danh chứng chỉ</label>
+              <label className="block text-[10px] md:text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Mã định danh chứng chỉ</label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
                   <Search className="w-4 h-4" />
@@ -51,7 +52,7 @@ export default function CertificateVerifier() {
                   value={code}
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="LMS-CERT-X-X-XXXXXXXX"
-                  className="block w-full pl-10 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 placeholder-slate-660 focus:outline-none focus:border-amber-500/50 text-xs font-mono uppercase tracking-widest transition"
+                  className="block w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 placeholder-slate-600 focus:outline-none focus:border-amber-500/50 text-[10px] md:text-xs font-mono uppercase tracking-widest transition"
                   required
                 />
               </div>
@@ -142,21 +143,21 @@ export default function CertificateVerifier() {
               rel="noopener noreferrer"
               className="w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-amber-400 hover:from-amber-500 hover:to-amber-300 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 transition"
             >
-              <Download className="w-4 h-4 text-slate-950" />
-              <span>Tải xuống tệp PDF gốc</span>
+              <Download className="w-4 h-4" />
+              <span>Tải PDF</span>
             </a>
             
             <button
               onClick={handleReset}
-              className="w-full py-2.5 px-4 bg-transparent hover:bg-slate-900 text-slate-400 hover:text-slate-200 text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 transition duration-200"
+              className="w-full py-2.5 px-4 text-slate-500 hover:text-slate-300 text-[10px] uppercase font-bold tracking-widest transition"
             >
-              <span>Xác minh chứng chỉ khác</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              Quay lại
             </button>
           </div>
         </div>
       )}
 
+      </div>
     </div>
   );
 }

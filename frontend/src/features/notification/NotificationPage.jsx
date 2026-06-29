@@ -66,43 +66,35 @@ export default function NotificationPage({ token, onNavigate }) {
     <div className="space-y-6">
       
       {/* Navigation Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
-        <div className="flex items-center gap-3">
-          <button 
-            onClick={() => onNavigate('dashboard')}
-            className="w-10 h-10 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200 flex items-center justify-center transition"
-            title="Quay lại Bảng điều khiển"
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </button>
-          <div>
-            <h1 className="font-serif text-3xl font-bold text-slate-100 flex items-center gap-3">
-              <Bell className="w-8 h-8 text-brand-500" />
-              <span>Quản Lý Thông Báo</span>
-            </h1>
-            <p className="text-xs text-slate-400 mt-1">
-              Xem và xử lý các thông báo hệ thống, cập nhật điểm số, thanh toán khóa học và chứng nhận của bạn.
-            </p>
-          </div>
-        </div>
+      <div className="grid grid-cols-[1fr_auto] gap-x-2 gap-y-0.5 sm:gap-x-4 sm:gap-y-1 bg-slate-900/20 border border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl items-center">
+        <h1 className="font-serif text-lg sm:text-3xl font-bold text-slate-100 flex items-center gap-2 sm:gap-3 col-start-1 row-start-1">
+          <Bell className="w-5 h-5 sm:w-8 sm:h-8 text-brand-500 flex-shrink-0" />
+          <span className="truncate">Quản Lý Thông Báo</span>
+        </h1>
+        
+        <p className="text-[9px] sm:text-xs text-slate-400 col-start-1 row-start-2">
+          Xem và xử lý thông báo, cập nhật điểm số, thanh toán và chứng nhận.
+        </p>
 
-        <div className="flex gap-2 w-full sm:w-auto">
+        <div className="flex gap-1.5 sm:gap-2 col-start-2 row-start-1 row-span-2 items-center justify-end">
           <button 
             onClick={handleRefresh}
             disabled={isLoading}
-            className="flex-1 sm:flex-initial py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl flex items-center justify-center gap-2 transition"
+            className="flex-none p-2 sm:py-2.5 sm:px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-semibold rounded-lg sm:rounded-xl flex items-center justify-center transition"
+            title="Làm mới"
           >
-            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-            <span>Làm mới</span>
+            <RefreshCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isLoading ? 'animate-spin' : ''}`} />
+            <span className="hidden sm:inline ml-2">Làm mới</span>
           </button>
 
           {unreadCount > 0 && (
             <button 
               onClick={handleMarkAll}
-              className="flex-1 sm:flex-initial py-2.5 px-4 bg-brand-500 hover:bg-brand-400 text-slate-950 text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition"
+              className="flex-none p-2 sm:py-2.5 sm:px-4 bg-brand-500 hover:bg-brand-400 text-slate-950 text-xs font-bold rounded-lg sm:rounded-xl flex items-center justify-center transition"
+              title="Đánh dấu tất cả đã đọc"
             >
-              <Check className="w-4 h-4" />
-              <span>Đánh dấu tất cả đã đọc</span>
+              <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline ml-2">Đánh dấu tất cả đã đọc</span>
             </button>
           )}
         </div>
@@ -117,25 +109,25 @@ export default function NotificationPage({ token, onNavigate }) {
       )}
 
       {/* Filter tabs & List content */}
-      <div className="bg-slate-900/10 border border-slate-900 rounded-3xl p-6">
+      <div className="bg-slate-900/10 border border-slate-900 rounded-2xl sm:rounded-3xl p-4 sm:p-6">
         
         {/* Filter Toolbar */}
-        <div className="flex border-b border-slate-900 pb-4 mb-6 gap-2">
+        <div className="flex border-b border-slate-900 pb-3 sm:pb-4 mb-4 sm:mb-6 gap-1.5 sm:gap-2">
           <button
             onClick={() => setFilterTab('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition ${filterTab === 'all' ? 'bg-brand-500/10 text-brand-500 border border-brand-500/20' : 'text-slate-400 hover:text-slate-200'}`}
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-semibold transition ${filterTab === 'all' ? 'bg-brand-500/10 text-brand-500 border border-brand-500/20' : 'text-slate-400 hover:text-slate-200'}`}
           >
             Tất cả ({notifications.length})
           </button>
           <button
             onClick={() => setFilterTab('unread')}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition ${filterTab === 'unread' ? 'bg-brand-500/10 text-brand-500 border border-brand-500/20' : 'text-slate-400 hover:text-slate-200'}`}
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-semibold transition ${filterTab === 'unread' ? 'bg-brand-500/10 text-brand-500 border border-brand-500/20' : 'text-slate-400 hover:text-slate-200'}`}
           >
             Chưa đọc ({unreadCount})
           </button>
           <button
             onClick={() => setFilterTab('read')}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition ${filterTab === 'read' ? 'bg-brand-500/10 text-brand-500 border border-brand-500/20' : 'text-slate-400 hover:text-slate-200'}`}
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-semibold transition ${filterTab === 'read' ? 'bg-brand-500/10 text-brand-500 border border-brand-500/20' : 'text-slate-400 hover:text-slate-200'}`}
           >
             Đã đọc ({notifications.length - unreadCount})
           </button>

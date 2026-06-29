@@ -55,9 +55,10 @@ export default function ForgotPassword() {
     <div className="min-h-screen flex items-center justify-center bg-[#090d16] px-4 sm:px-6 lg:px-8 selection:bg-brand-500 selection:text-slate-950">
       
       {/* Background radial glow */}
-      <div className="absolute w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[120px] -z-10 top-1/4 left-1/3"></div>
+      <div className="hidden md:block absolute w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[100px] -z-10 top-1/4 left-1/3"></div>
+      <div className="hidden md:block absolute w-[400px] h-[400px] bg-brand-500/10 rounded-full blur-[100px] -z-10 bottom-1/4 right-1/4"></div>
 
-      <div className="max-w-md w-full space-y-8 bg-slate-900/40 p-8 rounded-3xl border border-slate-900 backdrop-blur-xl shadow-2xl relative">
+      <div className="max-w-md w-full space-y-8 bg-slate-900/40 p-6 md:p-8 rounded-3xl border border-slate-900 backdrop-blur-xl shadow-2xl relative">
         
         {/* Decorative gold ornaments */}
         <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-amber-500/30"></div>

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { GraduationCap, LogIn, ArrowRight } from 'lucide-react';
+import { GraduationCap, LogIn, ArrowRight, Menu, X } from 'lucide-react';
 
 export default function PublicLayout() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { config } = useSelector((state) => state.tenant);
   const { token } = useSelector((state) => state.auth);
 
@@ -36,28 +37,67 @@ export default function PublicLayout() {
             <Link to="/certificates/verify" className="text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-amber-500 transition">Xác thực văn bằng</Link>
           </nav>
 
-          {/* Auth Button */}
-          <div>
-            {token ? (
-              <Link 
-                to="/dashboard"
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5"
-              >
-                <span>Đến Dashboard</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            ) : (
-              <Link 
-                to="/login"
-                className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-bold rounded-xl transition flex items-center gap-1.5"
-              >
-                <LogIn className="w-4 h-4" />
-                <span>Đăng nhập</span>
-              </Link>
-            )}
+          {/* Auth Button & Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <div className="hidden md:block">
+              {token ? (
+                <Link 
+                  to="/dashboard"
+                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5"
+                >
+                  <span>Đến Dashboard</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              ) : (
+                <Link 
+                  to="/login"
+                  className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-xs font-bold rounded-xl transition flex items-center gap-1.5"
+                >
+                  <LogIn className="w-4 h-4" />
+                  <span>Đăng nhập</span>
+                </Link>
+              )}
+            </div>
+            
+            <button 
+              className="md:hidden text-slate-400 hover:text-slate-200"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
 
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-slate-900 border-b border-slate-800 px-4 py-3 flex flex-col gap-3">
+            <Link to="/courses" onClick={() => setMobileMenuOpen(false)} className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 hover:text-amber-500 transition">Catalog Khóa học</Link>
+            <Link to="/certificates/verify" onClick={() => setMobileMenuOpen(false)} className="text-[11px] font-semibold uppercase tracking-wider text-slate-300 hover:text-amber-500 transition">Xác thực văn bằng</Link>
+            <div className="pt-3 border-t border-slate-800">
+              {token ? (
+                <Link 
+                  to="/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full px-3 py-2 justify-center bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-[11px] font-bold rounded-lg transition flex items-center gap-1.5"
+                >
+                  <span>Đến Dashboard</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              ) : (
+                <Link 
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full px-3 py-2 justify-center bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950 text-[11px] font-bold rounded-lg transition flex items-center gap-1.5"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>Đăng nhập</span>
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
+
       </header>
 
       {/* Main Page Area */}
@@ -66,12 +106,12 @@ export default function PublicLayout() {
       </main>
 
       {/* Mega Footer */}
-      <footer className="bg-[#05080f] border-t border-slate-900/80 pt-16 pb-8">
+      <footer className="bg-[#05080f] border-t border-slate-900/80 pt-8 pb-4 md:pt-16 md:pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 mb-6 md:mb-12">
             
             {/* Column 1: Brand & About */}
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               <Link to="/" className="flex items-center gap-3">
                 {config?.logo_url ? (
                   <img src={config.logo_url} alt="Logo" className="w-9 h-9 rounded-xl object-contain bg-white/10" />
@@ -86,46 +126,46 @@ export default function PublicLayout() {
                   </span>
                 </div>
               </Link>
-              <p className="text-sm text-slate-400 leading-relaxed">
+              <p className="text-[11px] md:text-sm text-slate-400 leading-relaxed">
                 Nền tảng học tập trực tuyến hàng đầu, cung cấp các khóa học thực chiến từ các chuyên gia giỏi nhất, giúp bạn bứt phá sự nghiệp.
               </p>
             </div>
 
             {/* Column 2: Quick Links */}
             <div>
-              <h4 className="text-sm font-bold text-slate-100 uppercase tracking-wider mb-6">Khám phá</h4>
-              <ul className="space-y-4">
-                <li><Link to="/courses" className="text-sm text-slate-400 hover:text-amber-500 transition">Tất cả khóa học</Link></li>
-                <li><Link to="/courses?category=lap-trinh" className="text-sm text-slate-400 hover:text-amber-500 transition">Lập trình & CNTT</Link></li>
-                <li><Link to="/courses?category=kinh-doanh" className="text-sm text-slate-400 hover:text-amber-500 transition">Kinh doanh & Khởi nghiệp</Link></li>
-                <li><Link to="/certificates/verify" className="text-sm text-slate-400 hover:text-amber-500 transition">Xác thực chứng chỉ</Link></li>
+              <h4 className="text-xs md:text-sm font-bold text-slate-100 uppercase tracking-wider mb-3 md:mb-6">Khám phá</h4>
+              <ul className="space-y-2 md:space-y-4">
+                <li><Link to="/courses" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Tất cả khóa học</Link></li>
+                <li><Link to="/courses?category=lap-trinh" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Lập trình & CNTT</Link></li>
+                <li><Link to="/courses?category=kinh-doanh" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Kinh doanh & Khởi nghiệp</Link></li>
+                <li><Link to="/certificates/verify" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Xác thực chứng chỉ</Link></li>
               </ul>
             </div>
 
             {/* Column 3: Support */}
             <div>
-              <h4 className="text-sm font-bold text-slate-100 uppercase tracking-wider mb-6">Hỗ trợ</h4>
-              <ul className="space-y-4">
-                <li><Link to="/" className="text-sm text-slate-400 hover:text-amber-500 transition">Trung tâm trợ giúp (FAQ)</Link></li>
-                <li><Link to="/" className="text-sm text-slate-400 hover:text-amber-500 transition">Hướng dẫn thanh toán</Link></li>
-                <li><Link to="/" className="text-sm text-slate-400 hover:text-amber-500 transition">Chính sách hoàn tiền</Link></li>
-                <li><Link to="/" className="text-sm text-slate-400 hover:text-amber-500 transition">Điều khoản bảo mật</Link></li>
+              <h4 className="text-xs md:text-sm font-bold text-slate-100 uppercase tracking-wider mb-3 md:mb-6">Hỗ trợ</h4>
+              <ul className="space-y-2 md:space-y-4">
+                <li><Link to="/" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Trung tâm trợ giúp (FAQ)</Link></li>
+                <li><Link to="/" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Hướng dẫn thanh toán</Link></li>
+                <li><Link to="/" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Chính sách hoàn tiền</Link></li>
+                <li><Link to="/" className="text-[11px] md:text-sm text-slate-400 hover:text-amber-500 transition">Điều khoản bảo mật</Link></li>
               </ul>
             </div>
 
             {/* Column 4: Contact & Social */}
             <div>
-              <h4 className="text-sm font-bold text-slate-100 uppercase tracking-wider mb-6">Liên hệ</h4>
-              <ul className="space-y-4 mb-6">
-                <li className="text-sm text-slate-400">Email: support@onlinelms.edu.vn</li>
-                <li className="text-sm text-slate-400">Hotline: 1900 1234</li>
-                <li className="text-sm text-slate-400">Địa chỉ: Khu công nghệ cao, TP.HCM</li>
+              <h4 className="text-xs md:text-sm font-bold text-slate-100 uppercase tracking-wider mb-3 md:mb-6">Liên hệ</h4>
+              <ul className="space-y-2 md:space-y-4 mb-4 md:mb-6">
+                <li className="text-[11px] md:text-sm text-slate-400">Email: support@onlinelms.edu.vn</li>
+                <li className="text-[11px] md:text-sm text-slate-400">Hotline: 1900 1234</li>
+                <li className="text-[11px] md:text-sm text-slate-400">Địa chỉ: Khu công nghệ cao, TP.HCM</li>
               </ul>
             </div>
 
           </div>
 
-          <div className="pt-8 border-t border-slate-900/80 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="pt-4 md:pt-8 border-t border-slate-900/80 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-[11px] text-slate-500 font-mono tracking-wider">
               {config?.name || 'Online LMS'} Platform &copy; 2026. Tất cả các quyền được bảo lưu.
             </p>

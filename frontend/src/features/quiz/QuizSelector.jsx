@@ -88,20 +88,20 @@ export default function QuizSelector({ token, onSelectQuiz }) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-900/20 border border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
         <div>
-          <h1 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-3">
-            <ClipboardCheck className="w-7 h-7 text-amber-500" />
+          <h1 className="font-serif text-xl sm:text-2xl font-bold text-slate-100 flex items-center gap-2 sm:gap-3">
+            <ClipboardCheck className="w-6 h-6 sm:w-7 sm:h-7 text-amber-500" />
             <span>Bài Kiểm Tra</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Hoàn thành các bài kiểm tra để đánh giá mức độ tiếp thu kiến thức.</p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1 sm:mt-1.5">Hoàn thành các bài kiểm tra để đánh giá mức độ tiếp thu kiến thức.</p>
         </div>
         <button
           onClick={fetchQuizzes}
           disabled={isLoading}
-          className="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl flex items-center gap-2 transition duration-200"
+          className="py-2 px-3 sm:py-2.5 sm:px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] sm:text-xs font-semibold rounded-lg sm:rounded-xl flex items-center gap-1.5 sm:gap-2 transition duration-200"
         >
-          <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isLoading ? 'animate-spin' : ''}`} />
           <span>Làm mới</span>
         </button>
       </div>
@@ -116,11 +116,11 @@ export default function QuizSelector({ token, onSelectQuiz }) {
 
       {/* Quiz list */}
       {enrollments.length === 0 ? (
-        <div className="bg-slate-900/30 border border-slate-900 rounded-3xl p-12 text-center space-y-4">
-          <Target className="w-14 h-14 text-slate-800 mx-auto" />
-          <div className="space-y-1">
-            <h3 className="text-sm font-bold text-slate-300">Chưa có bài kiểm tra</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+        <div className="bg-slate-900/30 border border-slate-900 rounded-2xl sm:rounded-3xl p-6 sm:p-12 text-center space-y-3 sm:space-y-4">
+          <Target className="w-10 h-10 sm:w-14 sm:h-14 text-slate-800 mx-auto" />
+          <div className="space-y-0.5 sm:space-y-1">
+            <h3 className="text-xs sm:text-sm font-bold text-slate-300">Chưa có bài kiểm tra</h3>
+            <p className="text-[10px] sm:text-xs text-slate-500 max-w-sm mx-auto">
               Các bài kiểm tra sẽ xuất hiện khi giảng viên tạo quiz cho các khóa học bạn đã đăng ký.
             </p>
           </div>

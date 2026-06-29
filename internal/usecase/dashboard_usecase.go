@@ -104,7 +104,7 @@ func (u *dashboardUseCase) GetStudentStats(ctx context.Context, studentID uint) 
 	// 2. Fetch fresh stats from MySQL database
 	stats, err := u.repo.GetStudentStats(ctx, studentID)
 	if err != nil {
-		return nil, apperrors.NewAppError(apperrors.TypeInternal, "failed to query student statistics from database", err)
+		return nil, apperrors.NewAppError(apperrors.TypeInternal, "failed to query student statistics from database: " + err.Error(), err)
 	}
 
 	// 3. Serialize and save to Redis with 5 minutes TTL

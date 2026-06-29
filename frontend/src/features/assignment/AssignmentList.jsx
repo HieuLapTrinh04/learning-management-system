@@ -127,13 +127,13 @@ export default function AssignmentList({ token, role, onSelectAssignment }) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
-        <div>
-          <h1 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-3">
-            <ClipboardList className="w-7 h-7 text-amber-500" />
-            <span>{role === 'teacher' ? 'Chấm Bài Tập' : 'Bài Tập Của Tôi'}</span>
+      <div className="flex flex-row justify-between items-center gap-2 md:gap-4 bg-slate-900/20 border border-slate-900 p-3 md:p-6 rounded-xl md:rounded-3xl">
+        <div className="min-w-0">
+          <h1 className="font-serif text-sm md:text-2xl font-bold text-slate-100 flex items-center gap-2 md:gap-3 truncate">
+            <ClipboardList className="w-5 h-5 md:w-7 md:h-7 text-amber-500 flex-shrink-0" />
+            <span className="truncate">{role === 'teacher' ? 'Chấm Bài Tập' : 'Bài Tập Của Tôi'}</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-[9px] md:text-xs text-slate-400 mt-1 md:mt-1.5 truncate">
             {role === 'teacher'
               ? 'Xem các bài nộp và chấm điểm, phản hồi kết quả cho sinh viên.'
               : 'Nộp bài tập qua Cloudinary và theo dõi kết quả chấm điểm.'}
@@ -141,10 +141,10 @@ export default function AssignmentList({ token, role, onSelectAssignment }) {
         </div>
         <button
           onClick={fetchAssignments}
-          className="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl flex items-center gap-2 transition"
+          className="p-2 md:py-2.5 md:px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[10px] md:text-xs font-semibold rounded-lg md:rounded-xl flex items-center justify-center gap-1.5 md:gap-2 transition flex-shrink-0"
         >
-          <RefreshCw className="w-4 h-4" />
-          <span>Làm mới</span>
+          <RefreshCw className="w-3.5 h-3.5 md:w-4 md:h-4" />
+          <span className="hidden md:inline">Làm mới</span>
         </button>
       </div>
 
@@ -158,11 +158,11 @@ export default function AssignmentList({ token, role, onSelectAssignment }) {
 
       {/* Empty state */}
       {assignments.length === 0 ? (
-        <div className="bg-slate-900/30 border border-slate-900 rounded-3xl p-12 text-center space-y-4">
-          <FileUp className="w-14 h-14 text-slate-800 mx-auto" />
-          <div className="space-y-1">
-            <h3 className="text-sm font-bold text-slate-300">Chưa có bài tập nào</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+        <div className="bg-slate-900/30 border border-slate-900 rounded-xl md:rounded-3xl p-5 md:p-12 text-center space-y-2 md:space-y-4">
+          <FileUp className="w-8 h-8 md:w-14 md:h-14 text-slate-800 mx-auto" />
+          <div className="space-y-0.5 md:space-y-1">
+            <h3 className="text-[11px] md:text-sm font-bold text-slate-300">Chưa có bài tập nào</h3>
+            <p className="text-[9px] md:text-xs text-slate-500 max-w-sm mx-auto">
               {role === 'teacher'
                 ? 'Tạo bài tập từ tab Biên Soạn Giáo Án để sinh viên có thể nộp bài.'
                 : 'Bài tập sẽ xuất hiện khi giảng viên tạo assignment cho khóa học của bạn.'}

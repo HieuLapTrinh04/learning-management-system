@@ -73,20 +73,20 @@ export default function StudentMyCourses({
     <div className="space-y-6">
       
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/20 border border-slate-900 p-6 rounded-3xl">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 bg-slate-900/20 border border-slate-900 p-4 sm:p-6 rounded-2xl sm:rounded-3xl">
         <div>
-          <h1 className="font-serif text-2xl font-bold text-slate-100 flex items-center gap-3">
-            <Layers className="w-7 h-7 text-amber-500" />
+          <h1 className="font-serif text-xl sm:text-2xl font-bold text-slate-100 flex items-center gap-2 sm:gap-3">
+            <Layers className="w-6 h-6 sm:w-7 sm:h-7 text-amber-500" />
             <span>Khóa Học Của Tôi</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Quản lý và theo dõi tiến trình học tập trực tuyến của bạn.</p>
+          <p className="text-[10px] sm:text-xs text-slate-400 mt-1 sm:mt-1.5">Quản lý và theo dõi tiến trình học tập trực tuyến của bạn.</p>
         </div>
         <button 
           onClick={fetchMyEnrollments}
           disabled={isLoadingEnrollments}
-          className="py-2.5 px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl flex items-center gap-2 transition duration-200"
+          className="py-2 px-3 sm:py-2.5 sm:px-4 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-[11px] sm:text-xs font-semibold rounded-lg sm:rounded-xl flex items-center gap-1.5 sm:gap-2 transition duration-200"
         >
-          <RefreshCw className={`w-4 h-4 ${isLoadingEnrollments ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isLoadingEnrollments ? 'animate-spin' : ''}`} />
           <span>Làm mới</span>
         </button>
       </div>
@@ -100,41 +100,41 @@ export default function StudentMyCourses({
       )}
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-5 flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500">
-            <BookOpen className="w-5 h-5" />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-3 lg:p-5 flex items-center gap-3 lg:gap-4">
+          <div className="w-8 h-8 lg:w-11 lg:h-11 rounded-lg lg:rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 flex-shrink-0">
+            <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Tổng khóa học</span>
-            <h3 className="text-2xl font-extrabold text-slate-200 font-mono">{totalCourses}</h3>
+            <span className="text-[9px] lg:text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Tổng khóa học</span>
+            <h3 className="text-lg lg:text-2xl font-extrabold text-slate-200 font-mono">{totalCourses}</h3>
           </div>
         </div>
-        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-5 flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-500">
-            <TrendingUp className="w-5 h-5" />
+        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-3 lg:p-5 flex items-center gap-3 lg:gap-4">
+          <div className="w-8 h-8 lg:w-11 lg:h-11 rounded-lg lg:rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-500 flex-shrink-0">
+            <TrendingUp className="w-4 h-4 lg:w-5 lg:h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Đang học</span>
-            <h3 className="text-2xl font-extrabold text-slate-200 font-mono">{inProgressCourses}</h3>
+            <span className="text-[9px] lg:text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Đang học</span>
+            <h3 className="text-lg lg:text-2xl font-extrabold text-slate-200 font-mono">{inProgressCourses}</h3>
           </div>
         </div>
-        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-5 flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
-            <CheckCircle className="w-5 h-5" />
+        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-3 lg:p-5 flex items-center gap-3 lg:gap-4">
+          <div className="w-8 h-8 lg:w-11 lg:h-11 rounded-lg lg:rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 flex-shrink-0">
+            <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Hoàn thành</span>
-            <h3 className="text-2xl font-extrabold text-slate-200 font-mono">{completedCourses}</h3>
+            <span className="text-[9px] lg:text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">Hoàn thành</span>
+            <h3 className="text-lg lg:text-2xl font-extrabold text-slate-200 font-mono">{completedCourses}</h3>
           </div>
         </div>
-        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-5 flex items-center gap-4">
-          <div className="w-11 h-11 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-500">
-            <BarChart3 className="w-5 h-5" />
+        <div className="bg-slate-900/50 border border-slate-900 rounded-2xl p-3 lg:p-5 flex items-center gap-3 lg:gap-4">
+          <div className="w-8 h-8 lg:w-11 lg:h-11 rounded-lg lg:rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-500 flex-shrink-0">
+            <BarChart3 className="w-4 h-4 lg:w-5 lg:h-5" />
           </div>
           <div>
-            <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">TB Tiến độ</span>
-            <h3 className="text-2xl font-extrabold text-slate-200 font-mono">{avgProgress}%</h3>
+            <span className="text-[9px] lg:text-[10px] text-slate-500 uppercase tracking-wider font-semibold block">TB Tiến độ</span>
+            <h3 className="text-lg lg:text-2xl font-extrabold text-slate-200 font-mono">{avgProgress}%</h3>
           </div>
         </div>
       </div>

@@ -77,98 +77,98 @@ export default function StudentDashboard({ data, onStartLearning }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5">
 
         {/* Enrolled Courses */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-6 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-4 lg:p-6 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-xs font-semibold tracking-wider uppercase">Đang đăng ký</span>
-              <h3 className="text-3xl font-extrabold text-slate-100 font-mono">
+            <div className="space-y-1 lg:space-y-2">
+              <span className="text-slate-400 text-[10px] lg:text-xs font-semibold tracking-wider uppercase block">Đang đăng ký</span>
+              <h3 className="text-xl lg:text-3xl font-extrabold text-slate-100 font-mono">
                 {enrolledCount}
               </h3>
-              <p className="text-[10px] text-slate-500">Khóa học bạn đã sở hữu quyền học tập.</p>
+              <p className="text-[9px] lg:text-[10px] text-slate-500">Khóa học bạn đã sở hữu quyền học tập.</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350">
-              <BookOpen className="w-5 h-5" />
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350 flex-shrink-0">
+              <BookOpen className="w-4 h-4 lg:w-5 lg:h-5" />
             </div>
           </div>
         </div>
 
         {/* Completed Courses */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-6 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-4 lg:p-6 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-xs font-semibold tracking-wider uppercase">Đã hoàn thành</span>
-              <h3 className="text-3xl font-extrabold text-slate-100 font-mono">
+            <div className="space-y-1 lg:space-y-2">
+              <span className="text-slate-400 text-[10px] lg:text-xs font-semibold tracking-wider uppercase block">Khóa học hoàn thành</span>
+              <h3 className="text-xl lg:text-3xl font-extrabold text-slate-100 font-mono">
                 {completedCount}
               </h3>
-              <p className="text-[10px] text-slate-500">Khóa học đạt tiến độ 100% học liệu.</p>
+              <p className="text-[9px] lg:text-[10px] text-slate-500">Khóa học đạt tiến độ 100% học liệu.</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350">
-              <CheckCircle className="w-5 h-5" />
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350 flex-shrink-0">
+              <CheckCircle className="w-4 h-4 lg:w-5 lg:h-5" />
             </div>
           </div>
         </div>
 
         {/* Average Progress */}
-        <div className="bg-gradient-to-br from-brand-900/20 to-brand-500/10 border border-brand-500/20 shadow-xl rounded-2xl p-6 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-brand-900/20 to-brand-500/10 border border-brand-500/20 shadow-xl rounded-2xl p-4 lg:p-6 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 bg-brand-500/5 rounded-full blur-xl"></div>
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-xs font-semibold tracking-wider uppercase">Tiến trình trung bình</span>
-              <h3 className="text-3xl font-extrabold text-brand-500 font-mono">
+            <div className="space-y-1 lg:space-y-2">
+              <span className="text-slate-400 text-[10px] lg:text-xs font-semibold tracking-wider uppercase block">Tiến trình trung bình</span>
+              <h3 className="text-xl lg:text-3xl font-extrabold text-brand-500 font-mono">
                 {averageProgress}%
               </h3>
-              <p className="text-[10px] text-slate-550">Phần trăm bài học đã xem trên tổng số lớp.</p>
+              <p className="text-[9px] lg:text-[10px] text-slate-550">Phần trăm bài học đã xem trên tổng số lớp.</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-500">
-              <TrendingUp className="w-5 h-5" />
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-500 flex-shrink-0">
+              <TrendingUp className="w-4 h-4 lg:w-5 lg:h-5" />
             </div>
           </div>
         </div>
 
         {/* Certificates count */}
-        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-6 relative overflow-hidden">
+        <div className="bg-slate-900/50 border border-slate-900 shadow-xl rounded-2xl p-4 lg:p-6 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-slate-400 text-xs font-semibold tracking-wider uppercase">Chứng chỉ sở hữu</span>
-              <h3 className="text-3xl font-extrabold text-slate-100 font-mono">
+            <div className="space-y-1 lg:space-y-2">
+              <span className="text-slate-400 text-[10px] lg:text-xs font-semibold tracking-wider uppercase block">Chứng chỉ sở hữu</span>
+              <h3 className="text-xl lg:text-3xl font-extrabold text-slate-100 font-mono">
                 {certsCount}
               </h3>
-              <p className="text-[10px] text-slate-500">Số văn bằng chứng nhận đã cấp thành công.</p>
+              <p className="text-[9px] lg:text-[10px] text-slate-500">Số văn bằng chứng nhận đã cấp thành công.</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350">
-              <Award className="w-5 h-5" />
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-slate-850 flex items-center justify-center text-slate-350 flex-shrink-0">
+              <Award className="w-4 h-4 lg:w-5 lg:h-5" />
             </div>
           </div>
         </div>
 
         {/* Gamification Points */}
-        <div className="bg-gradient-to-br from-amber-900/40 to-slate-900 border border-amber-500/20 shadow-xl rounded-2xl p-6 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-amber-900/40 to-slate-900 border border-amber-500/20 shadow-xl rounded-2xl p-4 lg:p-6 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-amber-500/80 text-xs font-semibold tracking-wider uppercase">Điểm thưởng</span>
-              <h3 className="text-3xl font-extrabold text-amber-500 font-mono">
+            <div className="space-y-1 lg:space-y-2">
+              <span className="text-amber-500/80 text-[10px] lg:text-xs font-semibold tracking-wider uppercase block">Điểm thưởng</span>
+              <h3 className="text-xl lg:text-3xl font-extrabold text-amber-500 font-mono">
                 {gamification.points}
               </h3>
-              <p className="text-[10px] text-slate-400">Tích lũy từ việc học và hoàn thành bài tập.</p>
+              <p className="text-[9px] lg:text-[10px] text-slate-400">Tích lũy từ việc học và hoàn thành bài tập.</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500">
-              <Star className="w-5 h-5" />
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 flex-shrink-0">
+              <Star className="w-4 h-4 lg:w-5 lg:h-5" />
             </div>
           </div>
         </div>
 
         {/* Streak */}
-        <div className="bg-gradient-to-br from-orange-900/40 to-slate-900 border border-orange-500/20 shadow-xl rounded-2xl p-6 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-orange-900/40 to-slate-900 border border-orange-500/20 shadow-xl rounded-2xl p-4 lg:p-6 relative overflow-hidden">
           <div className="flex justify-between items-start">
-            <div className="space-y-2">
-              <span className="text-orange-500/80 text-xs font-semibold tracking-wider uppercase">Chuỗi học tập</span>
-              <h3 className="text-3xl font-extrabold text-orange-500 font-mono">
-                {gamification.current_streak || 0} <span className="text-sm font-normal text-orange-500/70">ngày</span>
+            <div className="space-y-1 lg:space-y-2">
+              <span className="text-orange-500/80 text-[10px] lg:text-xs font-semibold tracking-wider uppercase block">Chuỗi học tập</span>
+              <h3 className="text-xl lg:text-3xl font-extrabold text-orange-500 font-mono">
+                {gamification.current_streak || 0} <span className="text-xs lg:text-sm font-normal text-orange-500/70">ngày</span>
               </h3>
-              <p className="text-[10px] text-slate-400">Kỷ lục: {gamification.highest_streak || 0} ngày liên tiếp.</p>
+              <p className="text-[9px] lg:text-[10px] text-slate-400">Kỷ lục: {gamification.highest_streak || 0} ngày liên tiếp.</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500">
-              <Flame className="w-5 h-5" />
+            <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 flex-shrink-0">
+              <Flame className="w-4 h-4 lg:w-5 lg:h-5" />
             </div>
           </div>
         </div>
@@ -205,7 +205,7 @@ export default function StudentDashboard({ data, onStartLearning }) {
             <TrendingUp className="w-4 h-4 text-brand-500" />
             <h3 className="text-xs uppercase tracking-wider font-semibold text-slate-355">Biểu đồ tiến độ học tập chi tiết (%)</h3>
           </div>
-          <div className="h-48 w-full">
+          <div className="h-48 min-h-[200px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={progressData} maxBarSize={45}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -293,25 +293,26 @@ export default function StudentDashboard({ data, onStartLearning }) {
               </div>
             ) : (
               <div className="border border-slate-900 rounded-2xl overflow-hidden bg-slate-950/20">
-                <table className="w-full text-left text-xs border-collapse">
-                  <thead>
-                    <tr className="border-b border-slate-900 bg-slate-950/50 text-slate-400 uppercase tracking-wider text-[10px]">
-                      <th className="p-3">Bài kiểm tra / Khóa học</th>
-                      <th className="p-3 text-center">Điểm số cao nhất</th>
-                      <th className="p-3 text-center">Trạng thái</th>
-                    </tr>
-                  </thead>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-[10px] sm:text-xs border-collapse min-w-[500px] sm:min-w-max">
+                    <thead>
+                      <tr className="border-b border-slate-900 bg-slate-950/50 text-slate-400 uppercase tracking-wider text-[8px] sm:text-[10px]">
+                        <th className="p-2 sm:p-3">Bài kiểm tra / Khóa học</th>
+                        <th className="p-2 sm:p-3 text-center">Điểm số cao nhất</th>
+                        <th className="p-2 sm:p-3 text-center">Trạng thái</th>
+                      </tr>
+                    </thead>
                   <tbody>
                     {quizResults.map((q, idx) => (
                       <tr key={idx} className="border-b border-slate-900/50 hover:bg-slate-900/20 transition">
-                        <td className="p-3">
-                          <div className="font-semibold text-slate-200">{q.quiz_title}</div>
-                          <div className="text-[10px] text-slate-500 mt-0.5">{q.course_title}</div>
+                        <td className="p-2 sm:p-3">
+                          <div className="font-bold text-slate-200 text-[10px] sm:text-xs">{q.quiz_title}</div>
+                          <div className="text-[8px] sm:text-[10px] text-slate-500 mt-0.5">{q.course_title}</div>
                         </td>
-                        <td className="p-3 text-center font-bold font-mono text-slate-350 text-sm">
+                        <td className="p-2 sm:p-3 text-center font-bold font-mono text-slate-350 text-xs sm:text-sm">
                           {q.score}%
                         </td>
-                        <td className="p-3 text-center">
+                        <td className="p-2 sm:p-3 text-center min-w-[80px]">
                           {q.is_passed ? (
                             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
                               <Check className="w-3 h-3" /> Đạt (Pass)
@@ -326,6 +327,7 @@ export default function StudentDashboard({ data, onStartLearning }) {
                     ))}
                   </tbody>
                 </table>
+                </div>
               </div>
             )}
           </div>

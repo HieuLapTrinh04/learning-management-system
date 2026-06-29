@@ -9,15 +9,15 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api/v1/ws': {
-        target: 'ws://localhost:8080',
+        target: 'ws://127.0.0.1:8080',
         ws: true,
       },
       '/api/v1': {
-        target: 'http://localhost:8080',
+        target: 'http://127.0.0.1:8080',
         changeOrigin: true,
       },
       '/uploads': {
-        target: 'http://localhost:8080',
+        target: 'http://127.0.0.1:8080',
         changeOrigin: true,
       }
     }

@@ -47,22 +47,22 @@ export default function AdminWithdrawals({ token }) {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 bg-slate-900/20 border border-slate-900 p-4 sm:p-6 rounded-3xl">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-100 flex items-center gap-2">
-            <Wallet className="text-amber-500" />
+          <h2 className="text-lg sm:text-2xl font-semibold text-slate-100 flex items-center gap-1.5 sm:gap-2">
+            <Wallet className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" />
             Yêu cầu Rút tiền
           </h2>
-          <p className="text-slate-400 mt-1">Duyệt và quản lý yêu cầu thanh toán doanh thu từ giảng viên.</p>
+          <p className="text-[10px] sm:text-sm text-slate-400 mt-1">Duyệt và quản lý yêu cầu thanh toán doanh thu từ giảng viên.</p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+        <div className="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-0">
+          <div className="relative w-full sm:w-auto">
+            <Filter className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-slate-400 w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="pl-10 pr-8 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-amber-500 appearance-none text-sm"
+              className="w-full sm:w-auto pl-8 sm:pl-10 pr-6 sm:pr-8 py-1.5 sm:py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-amber-500 appearance-none text-[10px] sm:text-sm"
             >
               <option value="">Tất cả trạng thái</option>
               <option value="pending">Chờ duyệt</option>
@@ -92,14 +92,14 @@ export default function AdminWithdrawals({ token }) {
 
       <div className="bg-slate-800 rounded-xl border border-slate-700/50 shadow-lg overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm text-left">
-            <thead className="text-xs text-slate-400 uppercase bg-slate-900/50">
+          <table className="w-full text-xs sm:text-sm text-left">
+            <thead className="text-[9px] sm:text-xs text-slate-400 uppercase bg-slate-900/50 tracking-wider">
               <tr>
-                <th className="px-6 py-4 font-medium">Giảng viên</th>
-                <th className="px-6 py-4 font-medium">Số tiền</th>
-                <th className="px-6 py-4 font-medium">Thông tin ngân hàng</th>
-                <th className="px-6 py-4 font-medium">Trạng thái</th>
-                <th className="px-6 py-4 font-medium text-right">Thao tác</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-medium">Giảng viên</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-medium">Số tiền</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-medium">Thông tin ngân hàng</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-medium">Trạng thái</th>
+                <th className="px-2 py-1.5 sm:px-6 sm:py-4 font-medium text-right">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-700/50">
@@ -112,37 +112,39 @@ export default function AdminWithdrawals({ token }) {
               ) : (
                 withdrawals.map((w) => (
                   <tr key={w.id} className="hover:bg-slate-700/20 transition-colors">
-                    <td className="px-6 py-4">
-                      <p className="font-medium text-slate-200">{w.teacher?.name}</p>
-                      <p className="text-xs text-slate-500">{w.teacher?.email}</p>
-                      <p className="text-xs text-slate-500 mt-1">Ngày YC: {new Date(w.created_at).toLocaleDateString('vi-VN')}</p>
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4">
+                      <p className="font-medium text-xs sm:text-sm text-slate-200">{w.teacher?.name}</p>
+                      <p className="text-[9px] sm:text-xs text-slate-500">{w.teacher?.email}</p>
+                      <p className="text-[9px] sm:text-xs text-slate-500 mt-0.5 sm:mt-1">Ngày YC: {new Date(w.created_at).toLocaleDateString('vi-VN')}</p>
                     </td>
-                    <td className="px-6 py-4 font-medium text-amber-500 text-lg">
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 font-medium text-amber-500 text-[10px] sm:text-lg">
                       {formatCurrency(w.amount)}
                     </td>
-                    <td className="px-6 py-4">
-                      <p className="text-slate-300 font-medium">{w.bank_name}</p>
-                      <p className="text-sm text-slate-100">{w.account_name}</p>
-                      <p className="font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded w-fit mt-1">{w.bank_account}</p>
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4">
+                      <p className="text-[10px] sm:text-sm text-slate-300 font-medium">{w.bank_name}</p>
+                      <p className="text-[9px] sm:text-sm text-slate-100">{w.account_name}</p>
+                      <p className="font-mono text-[8px] sm:text-xs text-amber-400 bg-amber-500/10 px-1.5 sm:px-2 py-0.5 rounded w-fit mt-0.5 sm:mt-1">{w.bank_account}</p>
                     </td>
-                    <td className="px-6 py-4">
-                      {getStatusBadge(w.status)}
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4">
+                      <div className="scale-75 origin-left sm:scale-100">
+                        {getStatusBadge(w.status)}
+                      </div>
                       {w.admin_note && (
-                        <p className="text-xs text-slate-400 mt-2 italic max-w-[200px]">Note: {w.admin_note}</p>
+                        <p className="text-[9px] sm:text-xs text-slate-400 mt-1 sm:mt-2 italic max-w-[120px] sm:max-w-[200px]">Note: {w.admin_note}</p>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-2 py-1.5 sm:px-6 sm:py-4 text-right">
                       {w.status === 'pending' && (
-                        <div className="flex justify-end gap-2">
+                        <div className="flex justify-end gap-1.5 sm:gap-2">
                           <button 
                             onClick={() => setActionModal({ id: w.id, action: 'approved' })}
-                            className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded font-medium transition-colors"
+                            className="px-2 py-1 sm:px-3 sm:py-1 bg-blue-500 hover:bg-blue-600 text-white text-[9px] sm:text-xs rounded font-medium transition-colors"
                           >
                             Duyệt
                           </button>
                           <button 
                             onClick={() => setActionModal({ id: w.id, action: 'rejected' })}
-                            className="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-xs rounded font-medium transition-colors"
+                            className="px-2 py-1 sm:px-3 sm:py-1 bg-red-500/10 hover:bg-red-500/20 text-red-500 text-[9px] sm:text-xs rounded font-medium transition-colors"
                           >
                             Từ chối
                           </button>
@@ -151,9 +153,9 @@ export default function AdminWithdrawals({ token }) {
                       {w.status === 'approved' && (
                         <button 
                           onClick={() => setActionModal({ id: w.id, action: 'paid' })}
-                          className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white text-xs rounded font-medium transition-colors"
+                          className="px-2 py-1 sm:px-3 sm:py-1 bg-green-500 hover:bg-green-600 text-white text-[9px] sm:text-xs rounded font-medium transition-colors whitespace-nowrap"
                         >
-                          Xác nhận đã chuyển khoản
+                          Xác nhận CK
                         </button>
                       )}
                     </td>

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosClient from '../../api/axiosClient';
 import { Shield, ShieldAlert, UserCheck, UserX, Loader2, Search, Edit2, User, Key, UserPlus, Trash2 } from 'lucide-react';
-import { AuthContext } from '../../App';
+import { useSelector } from 'react-redux';
 
 export default function AdminManageUsers() {
-  const { token, userId: currentUserId } = useContext(AuthContext);
+  const { token, userId: currentUserId } = useSelector((state) => state.auth);
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [roleFilter, setRoleFilter] = useState('all');
@@ -97,8 +97,8 @@ export default function AdminManageUsers() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2">
-            <User className="w-5 h-5 text-amber-500" />
+          <h2 className="text-lg sm:text-xl font-bold text-slate-100 flex items-center gap-2">
+            <User className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />
             Quản lý người dùng
           </h2>
           <p className="text-sm text-slate-400 mt-1">Quản lý tài khoản, trạng thái và phân quyền hệ thống.</p>
@@ -106,13 +106,13 @@ export default function AdminManageUsers() {
       </div>
 
       {/* Filters */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row gap-4">
+      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div className="flex-1">
-          <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 block">Vai trò</label>
+          <label className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5 sm:mb-2 block">Vai trò</label>
           <select 
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-200 focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm text-slate-200 focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
           >
             <option value="all">Tất cả vai trò</option>
             <option value="student">Học viên</option>
@@ -121,11 +121,11 @@ export default function AdminManageUsers() {
           </select>
         </div>
         <div className="flex-1">
-          <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 block">Trạng thái</label>
+          <label className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5 sm:mb-2 block">Trạng thái</label>
           <select 
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-200 focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+            className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm text-slate-200 focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
           >
             <option value="all">Tất cả trạng thái</option>
             <option value="active">Đang hoạt động</option>
@@ -137,14 +137,14 @@ export default function AdminManageUsers() {
       {/* Users List */}
       <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse whitespace-nowrap md:whitespace-normal">
             <thead>
               <tr className="bg-slate-950/50 border-b border-slate-800">
-                <th className="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Người dùng</th>
-                <th className="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Vai trò</th>
-                <th className="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Trạng thái</th>
-                <th className="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Ngày tham gia</th>
-                <th className="p-4 text-xs font-semibold text-slate-400 uppercase tracking-wider text-right">Thao tác</th>
+                <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Người dùng</th>
+                <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Vai trò</th>
+                <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Trạng thái</th>
+                <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Ngày tham gia</th>
+                <th className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider text-right">Thao tác</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
@@ -161,22 +161,22 @@ export default function AdminManageUsers() {
               ) : (
                 users.map((user) => (
                   <tr key={user.id} className="hover:bg-slate-800/20 transition-colors">
-                    <td className="p-4">
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden flex-shrink-0">
                           {user.avatar_url ? (
                             <img src={user.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
                           ) : (
-                            <User className="w-5 h-5 text-slate-400" />
+                            <User className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" />
                           )}
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-200">{user.name}</div>
-                          <div className="text-xs text-slate-400">{user.email}</div>
+                          <div className="font-semibold text-slate-200 text-xs sm:text-sm">{user.name}</div>
+                          <div className="text-[10px] sm:text-xs text-slate-400">{user.email}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="p-4">
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4">
                       {user.role === 'admin' ? (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-rose-500/10 text-rose-400 border border-rose-500/20">
                           <ShieldAlert className="w-3.5 h-3.5" />
@@ -194,7 +194,7 @@ export default function AdminManageUsers() {
                         </span>
                       )}
                     </td>
-                    <td className="p-4">
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4">
                       {user.is_active ? (
                         <span className="inline-flex items-center gap-1.5 text-emerald-400 text-xs font-medium">
                           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -207,39 +207,36 @@ export default function AdminManageUsers() {
                         </span>
                       )}
                     </td>
-                    <td className="p-4 text-sm text-slate-400">
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-xs sm:text-sm text-slate-400">
                       {new Date(user.created_at).toLocaleDateString('vi-VN')}
                     </td>
-                    <td className="p-4 text-right">
+                    <td className="px-2 py-1.5 sm:px-3 sm:py-2 md:p-4 text-right">
                       {user.role !== 'admin' && (
-                        <div className="flex items-center justify-end gap-2">
+                        <div className="flex items-center justify-end gap-1.5 sm:gap-2">
                           <select 
                             value={user.role}
                             onChange={(e) => changeRole(user.id, e.target.value)}
-                            className="bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+                            className="bg-slate-950 border border-slate-700 rounded-lg px-1.5 py-1 sm:px-2 sm:py-1.5 text-[10px] sm:text-xs text-slate-300 focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
                           >
                             <option value="student">Học viên</option>
                             <option value="teacher">Giảng viên</option>
+                            <option value="admin">Quản trị viên</option>
                           </select>
                           
                           <button
                             onClick={() => toggleStatus(user.id, user.is_active)}
-                            className={`p-1.5 rounded-lg border transition-colors ${
-                              user.is_active 
-                                ? 'border-amber-500/20 text-amber-500 hover:bg-amber-500/10 bg-slate-950' 
-                                : 'border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/10 bg-slate-950'
-                            }`}
+                            className="p-1 sm:p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-amber-500 hover:bg-slate-700 transition-colors"
                             title={user.is_active ? "Khóa tài khoản" : "Mở khóa tài khoản"}
                           >
-                            {user.is_active ? <UserX className="w-4 h-4" /> : <UserCheck className="w-4 h-4" />}
+                            {user.is_active ? <UserX className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : <UserCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
                           </button>
 
                           <button
                             onClick={() => deleteUser(user.id)}
-                            className="p-1.5 rounded-lg border border-rose-500/20 text-rose-500 hover:bg-rose-500/10 bg-slate-950 transition-colors"
+                            className="p-1 sm:p-1.5 rounded-lg bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 transition-colors"
                             title="Xóa tài khoản"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                           </button>
                         </div>
                       )}

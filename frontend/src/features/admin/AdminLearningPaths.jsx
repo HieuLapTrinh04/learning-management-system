@@ -145,14 +145,14 @@ const AdminLearningPaths = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-100">Quản lý Lộ trình học tập</h1>
-          <p className="text-slate-400 text-sm mt-1">Xây dựng định hướng học tập cho học viên</p>
+          <h1 className="text-lg sm:text-2xl font-bold text-slate-100">Quản lý Lộ trình học tập</h1>
+          <p className="text-slate-400 text-xs sm:text-sm mt-1">Xây dựng định hướng học tập cho học viên</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+          className="px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors whitespace-nowrap"
         >
           + Tạo lộ trình mới
         </button>
@@ -175,59 +175,59 @@ const AdminLearningPaths = () => {
       {loading ? (
         <div className="text-center py-10 text-slate-400">Đang tải dữ liệu...</div>
       ) : paths.length === 0 ? (
-        <div className="text-center py-20 bg-[#161b22] border border-slate-800 rounded-xl">
-          <p className="text-slate-400">Chưa có lộ trình nào. Hãy tạo lộ trình đầu tiên!</p>
+        <div className="text-center py-10 sm:py-20 bg-[#161b22] border border-slate-800 rounded-xl">
+          <p className="text-xs sm:text-sm text-slate-400">Chưa có lộ trình nào. Hãy tạo lộ trình đầu tiên!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
           {paths.map((path) => (
             <div key={path.id} className="bg-[#161b22] border border-slate-800 rounded-xl overflow-hidden shadow-lg flex flex-col">
-              <div className="p-6 border-b border-slate-800 flex justify-between items-start">
-                <div className="flex gap-4">
-                  <div className="w-16 h-16 bg-slate-800 rounded-lg overflow-hidden shrink-0">
+              <div className="p-4 sm:p-6 border-b border-slate-800 flex justify-between items-start">
+                <div className="flex gap-3 sm:gap-4">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-800 rounded-lg overflow-hidden shrink-0">
                     {path.thumbnail_url ? (
                       <img src={path.thumbnail_url} alt={path.title} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-slate-500 text-xs">No img</div>
+                      <div className="w-full h-full flex items-center justify-center text-slate-500 text-[10px] sm:text-xs">No img</div>
                     )}
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-100">{path.title}</h3>
-                    <p className="text-slate-400 text-sm mt-1 line-clamp-2">{path.description}</p>
+                    <h3 className="text-base sm:text-xl font-bold text-slate-100">{path.title}</h3>
+                    <p className="text-slate-400 text-[10px] sm:text-sm mt-0.5 sm:mt-1 line-clamp-2">{path.description}</p>
                   </div>
                 </div>
-                <div className="flex gap-2">
-                  <button onClick={() => handleOpenModal(path)} className="p-2 text-slate-400 hover:text-blue-500 bg-slate-800/50 hover:bg-slate-800 rounded-md">
+                <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2">
+                  <button onClick={() => handleOpenModal(path)} className="p-1.5 sm:p-2 text-[9px] sm:text-xs text-slate-400 hover:text-blue-500 bg-slate-800/50 hover:bg-slate-800 rounded-md">
                     Sửa
                   </button>
-                  <button onClick={() => handleDelete(path.id)} className="p-2 text-slate-400 hover:text-red-500 bg-slate-800/50 hover:bg-slate-800 rounded-md">
+                  <button onClick={() => handleDelete(path.id)} className="p-1.5 sm:p-2 text-[9px] sm:text-xs text-slate-400 hover:text-red-500 bg-slate-800/50 hover:bg-slate-800 rounded-md">
                     Xóa
                   </button>
                 </div>
               </div>
               
-              <div className="p-6 bg-[#0d1117] flex-1">
-                <div className="flex justify-between items-center mb-4">
-                  <h4 className="text-sm font-semibold text-slate-300">Các khóa học trong lộ trình ({path.courses?.length || 0})</h4>
-                  <button onClick={() => handleOpenCourseModal(path)} className="text-xs text-blue-500 hover:text-blue-400">
+              <div className="p-4 sm:p-6 bg-[#0d1117] flex-1">
+                <div className="flex justify-between items-center mb-3 sm:mb-4">
+                  <h4 className="text-xs sm:text-sm font-semibold text-slate-300">Các khóa học trong lộ trình ({path.courses?.length || 0})</h4>
+                  <button onClick={() => handleOpenCourseModal(path)} className="text-[10px] sm:text-xs text-blue-500 hover:text-blue-400">
                     + Thêm khóa học
                   </button>
                 </div>
                 
-                <div className="space-y-3">
+                <div className="space-y-2 sm:space-y-3">
                   {path.courses && path.courses.sort((a,b) => a.sequence_order - b.sequence_order).map((pc) => (
-                    <div key={pc.id} className="flex justify-between items-center p-3 bg-[#161b22] border border-slate-800 rounded-lg">
-                      <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-xs font-bold shrink-0">
+                    <div key={pc.id} className="flex justify-between items-center p-2 sm:p-3 bg-[#161b22] border border-slate-800 rounded-lg">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-[10px] sm:text-xs font-bold shrink-0">
                           {pc.sequence_order}
                         </div>
-                        <div className="text-sm text-slate-300 font-medium truncate max-w-[200px]">
+                        <div className="text-xs sm:text-sm text-slate-300 font-medium truncate max-w-[150px] sm:max-w-[200px]">
                           {pc.course?.title || `Course #${pc.course_id}`}
                         </div>
                       </div>
                       <button 
                         onClick={() => handleRemoveCourse(path.id, pc.course_id)}
-                        className="text-xs text-red-500 hover:text-red-400"
+                        className="text-[10px] sm:text-xs p-1 sm:p-1.5 text-red-500 hover:text-red-400"
                       >
                         Gỡ
                       </button>
