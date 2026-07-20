@@ -41,7 +41,11 @@ func BuildVNPayURL(baseURL, secret string, params url.Values) string {
 	signature := hex.EncodeToString(h.Sum(nil))
 
 	// DEBUG LOGGING (Temporarily added to diagnose production hash mismatch)
-	fmt.Printf("[VNPAY DEBUG] Secret length: %d\n", len(secret))
+	maskedSecret := secret
+	if len(secret) >= 8 {
+		maskedSecret = secret[:4] + "************************" + secret[len(secret)-4:]
+	}
+	fmt.Printf("[VNPAY DEBUG] Secret length: %d, Value: %s\n", len(secret), maskedSecret)
 	fmt.Printf("[VNPAY DEBUG] Query String being hashed:\n%s\n", queryStr)
 	fmt.Printf("[VNPAY DEBUG] Signature generated: %s\n", signature)
 
