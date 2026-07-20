@@ -48,8 +48,11 @@ func BuildVNPayURL(baseURL, secret string, params url.Values) string {
 	fmt.Printf("[VNPAY DEBUG] Secret length: %d, Value: %s\n", len(secret), maskedSecret)
 	fmt.Printf("[VNPAY DEBUG] Query String being hashed:\n%s\n", queryStr)
 	fmt.Printf("[VNPAY DEBUG] Signature generated: %s\n", signature)
+	
+	finalUrl := baseURL + "?" + queryStr + "&vnp_SecureHash=" + signature
+	fmt.Printf("[VNPAY DEBUG] FULL URL:\n%s\n", finalUrl)
 
-	return baseURL + "?" + queryStr + "&vnp_SecureHash=" + signature
+	return finalUrl
 }
 
 // VerifyVNPayHash validates that the incoming callback parameters match the secure hash signature.
