@@ -651,7 +651,7 @@ export default function CourseBuilder() {
       {apiError && (
         <div className="p-4 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2">
           <AlertCircle className="w-5 h-5 flex-shrink-0" />
-          <span>{apiError}</span>
+          <span>{typeof apiError === 'object' ? (apiError.message || JSON.stringify(apiError)) : apiError}</span>
         </div>
       )}
 
@@ -1007,7 +1007,7 @@ export default function CourseBuilder() {
             <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">{modalMode === 'create' ? 'Tạo Khóa Học Mới' : 'Cập Nhật Khóa Học'}</h3>
 
             {formError && (
-              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span></div>
             )}
 
             <form onSubmit={handleCourseSubmit} className="space-y-4 text-xs">
@@ -1070,7 +1070,7 @@ export default function CourseBuilder() {
             <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">{modalMode === 'create' ? 'Thêm Chương Học Mới' : 'Sửa Chương Học'}</h3>
 
             {formError && (
-              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span></div>
             )}
 
             <form onSubmit={handleSectionSubmit} className="space-y-4 text-xs">
@@ -1102,7 +1102,7 @@ export default function CourseBuilder() {
             <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">{modalMode === 'create' ? 'Tạo Bài Giảng Mới' : 'Cập Nhật Bài Giảng'}</h3>
 
             {formError && (
-              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span></div>
             )}
 
             <form onSubmit={handleLessonSubmit} className="space-y-4 text-xs">
@@ -1379,7 +1379,7 @@ export default function CourseBuilder() {
             <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">Thêm Bài Thi Trắc Nghiệm Mới</h3>
 
             {formError && (
-              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span></div>
             )}
 
             <form onSubmit={handleQuizSubmit} className="space-y-4 text-xs">
@@ -1451,7 +1451,7 @@ export default function CourseBuilder() {
             <p className="text-[10px] text-slate-400 mb-6">Thêm câu hỏi cho bài thi: <span className="text-amber-500 font-semibold">{activeQuizForQuestions?.title}</span></p>
 
             {formError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span></div>
             )}
 
             <form onSubmit={handleQuestionSubmit} className="space-y-4 text-xs">
@@ -1538,7 +1538,7 @@ export default function CourseBuilder() {
             <h3 className="font-serif text-sm md:text-base font-bold text-slate-100 mb-4 md:mb-6">Thêm Bài Tập Tự Luận Mới</h3>
 
             {formError && (
-              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-3 md:mb-4 p-2 md:p-3 rounded-lg md:rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-[10px] md:text-xs flex gap-2"><AlertCircle className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" /><span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span></div>
             )}
 
             <form onSubmit={handleAssignmentSubmit} className="space-y-4 text-xs">
@@ -1610,7 +1610,7 @@ export default function CourseBuilder() {
             </h3>
 
             {formError && (
-              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{formError}</span></div>
+              <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2"><AlertCircle className="w-5 h-5 flex-shrink-0" /><span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span></div>
             )}
 
             <form onSubmit={handleAttachmentSubmit} className="space-y-4 text-xs">

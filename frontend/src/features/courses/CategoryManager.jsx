@@ -226,7 +226,7 @@ export default function CategoryManager() {
             {formError && (
               <div className="mb-4 p-3 rounded-xl bg-red-950/30 border border-red-900/50 text-red-400 text-xs flex gap-2">
                 <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                <span>{formError}</span>
+                <span>{typeof formError === 'object' ? (formError.message || JSON.stringify(formError)) : formError}</span>
               </div>
             )}
 
