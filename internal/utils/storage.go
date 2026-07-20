@@ -132,6 +132,6 @@ func (s *cloudinaryStorage) uploadLocal(file io.Reader, filename string, folder 
 	}
 
 	// Return local relative URL served by fiber
-	// Need backend host base URL, but for relative path:
-	return fmt.Sprintf("http://localhost:8080/uploads/%s/%s", folder, uniqueName), nil
+	// The frontend will automatically prepend VITE_API_URL
+	return fmt.Sprintf("/uploads/%s/%s", folder, uniqueName), nil
 }

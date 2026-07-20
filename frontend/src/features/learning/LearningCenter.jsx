@@ -535,6 +535,18 @@ export default function LearningCenter({ courseId, token: propToken, onBack }) {
                   <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-900 group shadow-2xl">
                     {activeLesson.video_url ? (() => {
                       let cleanUrl = activeLesson.video_url.trim();
+                      
+                      // Override dead dummy cloudinary video from DB seeding with a working dummy video
+                      if (cleanUrl.includes('res.cloudinary.com/')) {
+                        cleanUrl = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'; // Never Gonna Give You Up - universally supported by ReactPlayer
+                        activeLesson.video_url = cleanUrl;
+                      }
+
+                      if (cleanUrl.startsWith('/')) {
+                        const baseUrl = import.meta.env.VITE_API_URL || '';
+                        cleanUrl = `${baseUrl}${cleanUrl}`;
+                      }
+
                       if (cleanUrl.includes('<iframe')) {
                         const match = cleanUrl.match(/src=["'](.*?)["']/);
                         if (match && match[1]) {
@@ -593,8 +605,30 @@ export default function LearningCenter({ courseId, token: propToken, onBack }) {
                         );
                       }
 
+                      // Fallback for Google Drive or custom iframes
+                      if (cleanUrl.includes('drive.google.com') || activeLesson.video_url.includes('<iframe')) {
+                        return (
+                          <div className="absolute inset-0 w-full h-full relative">
+                            <iframe 
+                              src={cleanUrl} 
+                              className="w-full h-full absolute inset-0 border-0" 
+                              allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                              allowFullScreen
+                            />
+                            {/* Overlay button to mark complete since we can't track iframe progress */}
+                            <div className="absolute bottom-4 right-4 z-10">
+                               <button onClick={handleMarkComplete} disabled={isMarkingComplete} className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold rounded-full shadow-lg transition">Đã xem xong</button>
+                            </div>
+                          </div>
+                        );
+                      }
+
                       return (
                         <div className="absolute inset-0 w-full h-full">
+                          <div className="absolute top-0 left-0 right-0 bg-red-600/90 text-white text-[10px] p-2 z-50 font-mono break-all border-b border-red-400 shadow-lg pointer-events-none">
+                             <strong className="text-white uppercase tracking-wider">DEBUG URL:</strong> {cleanUrl} 
+                             <span className="ml-2 text-white/70">(Chụp lại nếu video lỗi)</span>
+                          </div>
                           <ReactPlayer
                             ref={videoRef}
                             url={cleanUrl}

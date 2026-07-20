@@ -224,7 +224,7 @@ func SetupRoutes(
 	teacher.Delete("/attachments/:id", attachmentHandler.DeleteAttachment)
 
 	// Upload routes
-	teacher.Post("/lessons/upload-video", middleware.UploadSecurity(100*1024*1024, []string{"video/mp4", "video/webm"}, "video"), courseHandler.UploadVideo) // Legacy backend upload
+	teacher.Post("/lessons/upload-video", middleware.UploadSecurity(600*1024*1024, []string{"video/mp4", "video/webm"}, "video"), courseHandler.UploadVideo) // Legacy backend upload
 	teacher.Post("/courses/upload-image", middleware.UploadSecurity(5*1024*1024, []string{"image/jpeg", "image/png", "image/webp"}, "image"), courseHandler.UploadImage)
 	teacher.Get("/upload-signature", courseHandler.GenerateUploadSignature) // Direct cloud upload
 

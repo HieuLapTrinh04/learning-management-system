@@ -546,7 +546,7 @@ export default function CourseBuilder() {
     if (!file) return;
 
     if (file.size > 500 * 1024 * 1024) {
-      setFormError('Dung lượng video tối đa là 500MB');
+      setFormError('Dung lượng video tối đa là 500MB (Vượt quá giới hạn máy chủ)');
       return;
     }
 
