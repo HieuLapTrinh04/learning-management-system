@@ -11,6 +11,7 @@ import (
 
 // BuildVNPayURL signs and returns the full VNPay checkout URL.
 func BuildVNPayURL(baseURL, secret string, params url.Values) string {
+	secret = strings.TrimSpace(secret)
 	var keys []string
 	for k := range params {
 		if k == "vnp_SecureHash" || k == "vnp_SecureHashType" {
@@ -42,6 +43,7 @@ func BuildVNPayURL(baseURL, secret string, params url.Values) string {
 
 // VerifyVNPayHash validates that the incoming callback parameters match the secure hash signature.
 func VerifyVNPayHash(secret string, params url.Values) bool {
+	secret = strings.TrimSpace(secret)
 	secureHash := params.Get("vnp_SecureHash")
 	if secureHash == "" {
 		return false

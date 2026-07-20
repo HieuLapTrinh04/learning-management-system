@@ -144,7 +144,7 @@ func (u *paymentUseCase) CreateCheckoutUrl(ctx context.Context, studentID uint, 
 	vnpayParams := url.Values{}
 	vnpayParams.Set("vnp_Version", "2.1.0")
 	vnpayParams.Set("vnp_Command", "pay")
-	vnpayParams.Set("vnp_TmnCode", u.cfg.VNPayTmnCode)
+	vnpayParams.Set("vnp_TmnCode", strings.TrimSpace(u.cfg.VNPayTmnCode))
 	vnpayParams.Set("vnp_Amount", fmt.Sprintf("%d", int64(totalAmount*100)))
 	vnpayParams.Set("vnp_CreateDate", nowInVN.Format("20060102150405"))
 	vnpayParams.Set("vnp_CurrCode", "VND")
