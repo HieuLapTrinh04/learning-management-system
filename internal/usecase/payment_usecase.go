@@ -144,15 +144,15 @@ func (u *paymentUseCase) CreateCheckoutUrl(ctx context.Context, studentID uint, 
 	vnpayParams := url.Values{}
 	vnpayParams.Set("vnp_Version", "2.1.0")
 	vnpayParams.Set("vnp_Command", "pay")
-	vnpayParams.Set("vnp_TmnCode", strings.TrimSpace(u.cfg.VNPayTmnCode))
+	vnpayParams.Set("vnp_TmnCode", strings.Trim(strings.TrimSpace(u.cfg.VNPayTmnCode), `"'`))
 	vnpayParams.Set("vnp_Amount", fmt.Sprintf("%d", int64(totalAmount*100)))
 	vnpayParams.Set("vnp_CreateDate", nowInVN.Format("20060102150405"))
 	vnpayParams.Set("vnp_CurrCode", "VND")
-	vnpayParams.Set("vnp_IpAddr", clientIP)
+	vnpayParams.Set("vnp_IpAddr", "127.0.0.1") // Always use safe IP for VNPay to avoid length/format signature issues
 	vnpayParams.Set("vnp_Locale", "vn")
 	vnpayParams.Set("vnp_OrderInfo", fmt.Sprintf("Thanh toan don hang %s", txnRef))
 	vnpayParams.Set("vnp_OrderType", "other")
-	vnpayParams.Set("vnp_ReturnUrl", u.cfg.VNPayReturnURL)
+	vnpayParams.Set("vnp_ReturnUrl", strings.Trim(strings.TrimSpace(u.cfg.VNPayReturnURL), `"'`))
 	vnpayParams.Set("vnp_TxnRef", txnRef)
 
 	checkoutUrl := utils.BuildVNPayURL(u.cfg.VNPayURL, u.cfg.VNPayHashSecret, vnpayParams)
