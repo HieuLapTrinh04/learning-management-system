@@ -47,8 +47,15 @@ func (h *PaymentHandler) Checkout(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusBadRequest, "invalid request body format")
 	}
 
-	clientIP := c.IP()
-	if clientIP == "" || clientIP == "::1" {
+	clientIP := c.Get("X-Forwarded-For")
+	if clientIP == "" {
+		clientIP = c.IP()
+	}
+	if strings.Contains(clientIP, ",") {
+		clientIP = strings.Split(clientIP, ",")[0]
+	}
+	clientIP = strings.TrimSpace(clientIP)
+	if clientIP == "" || clientIP == "::1" || len(clientIP) > 15 {
 		clientIP = "127.0.0.1"
 	}
 
