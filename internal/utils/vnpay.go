@@ -4,6 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha512"
 	"encoding/hex"
+	"fmt"
 	"net/url"
 	"sort"
 	"strings"
@@ -38,6 +39,11 @@ func BuildVNPayURL(baseURL, secret string, params url.Values) string {
 	h := hmac.New(sha512.New, []byte(secret))
 	h.Write([]byte(queryStr))
 	signature := hex.EncodeToString(h.Sum(nil))
+
+	// DEBUG LOGGING (Temporarily added to diagnose production hash mismatch)
+	fmt.Printf("[VNPAY DEBUG] Secret length: %d\n", len(secret))
+	fmt.Printf("[VNPAY DEBUG] Query String being hashed:\n%s\n", queryStr)
+	fmt.Printf("[VNPAY DEBUG] Signature generated: %s\n", signature)
 
 	return baseURL + "?" + queryStr + "&vnp_SecureHash=" + signature
 }
