@@ -76,7 +76,7 @@ export default function LessonDiscussion({ lessonId, token }) {
   return (
     <div className="space-y-6">
       {/* Input Area */}
-      <div className="bg-slate-900/40 p-4 border border-slate-800 rounded-2xl">
+      <div className="bg-slate-900/40 p-3 md:p-4 border border-slate-800 rounded-xl md:rounded-2xl">
         {replyTo && (
           <div className="flex items-center justify-between bg-slate-800/50 px-3 py-1.5 rounded-lg mb-3 text-[10px]">
             <span className="text-slate-400">
@@ -91,25 +91,25 @@ export default function LessonDiscussion({ lessonId, token }) {
           </div>
         )}
         <form onSubmit={handleSubmit} className="flex gap-3">
-          <div className="w-8 h-8 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+          <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
             {currentUser?.avatar_url ? (
               <img src={currentUser.avatar_url} alt="avt" className="w-full h-full object-cover" />
             ) : (
-              <User className="w-4 h-4 text-amber-500" />
+              <User className="w-3 h-3 md:w-4 md:h-4 text-amber-500" />
             )}
           </div>
-          <div className="flex-1 flex gap-2">
+          <div className="flex-1 flex gap-1.5 md:gap-2">
             <input 
               type="text"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder={replyTo ? "Nhập câu trả lời của bạn..." : "Có thắc mắc? Đặt câu hỏi tại đây..."}
-              className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-slate-200 outline-none focus:border-amber-500/50 transition"
+              className="flex-1 bg-slate-950 border border-slate-800 rounded-lg md:rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-xs text-slate-200 outline-none focus:border-amber-500/50 transition"
             />
             <button 
               type="submit"
               disabled={submitting || !content.trim()}
-              className="bg-amber-500 hover:bg-amber-600 disabled:bg-slate-800 disabled:text-slate-500 text-slate-950 px-4 rounded-xl flex items-center justify-center transition"
+              className="bg-amber-500 hover:bg-amber-600 disabled:bg-slate-800 disabled:text-slate-500 text-slate-950 px-3 md:px-4 rounded-lg md:rounded-xl flex items-center justify-center transition"
             >
               {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
             </button>
@@ -128,12 +128,12 @@ export default function LessonDiscussion({ lessonId, token }) {
           discussions.map(thread => (
             <div key={thread.id} className="space-y-3">
               {/* Root Comment */}
-              <div className="flex gap-3 group">
-                <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0 overflow-hidden border border-slate-700">
+              <div className="flex gap-2 md:gap-3 group">
+                <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-slate-800 flex items-center justify-center flex-shrink-0 overflow-hidden border border-slate-700">
                   {thread.user?.avatar_url ? (
                     <img src={thread.user.avatar_url} alt="avt" className="w-full h-full object-cover" />
                   ) : (
-                    <User className="w-4 h-4 text-slate-500" />
+                    <User className="w-3 h-3 md:w-4 md:h-4 text-slate-500" />
                   )}
                 </div>
                 <div className="flex-1 space-y-1">

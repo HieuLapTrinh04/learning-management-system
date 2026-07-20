@@ -133,6 +133,38 @@ export default function LearningCenter({ courseId, token: propToken, onBack }) {
     }
   }, [courseId]);
 
+  // Handle fullscreen orientation lock for mobile
+  useEffect(() => {
+    const handleFullscreenChange = async () => {
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+      if (isFullscreen) {
+        try {
+          if (screen.orientation && screen.orientation.lock) {
+            await screen.orientation.lock('landscape');
+          }
+        } catch (error) {
+          console.warn('Orientation lock failed:', error);
+        }
+      } else {
+        try {
+          if (screen.orientation && screen.orientation.unlock) {
+            screen.orientation.unlock();
+          }
+        } catch (error) {
+          console.warn('Orientation unlock failed:', error);
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
   const toggleSection = (id) => {
     setExpandedSections(prev => ({
       ...prev,
@@ -748,8 +780,8 @@ export default function LearningCenter({ courseId, token: propToken, onBack }) {
 
               <div className="pt-6">
                 {activeTab === 'overview' && (
-                  <div className="bg-slate-900/10 border border-slate-900/50 rounded-2xl p-4 text-[10px] text-slate-500 flex items-center gap-3">
-                    <Sparkles className="w-4 h-4 text-amber-500/50 flex-shrink-0" />
+                  <div className="bg-slate-900/10 border border-slate-900/50 rounded-xl md:rounded-2xl p-3 md:p-4 text-[9px] md:text-[10px] text-slate-500 flex items-center gap-2 md:gap-3">
+                    <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-amber-500/50 flex-shrink-0" />
                     <p>Khóa học tích hợp hỗ trợ giải đáp từ xa. Bạn có thể để lại thắc mắc ở tab Hỏi đáp và giảng viên sẽ phản hồi trực tiếp cho bạn qua kênh thông báo hệ thống.</p>
                   </div>
                 )}

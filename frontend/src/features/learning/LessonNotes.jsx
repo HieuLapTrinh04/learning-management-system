@@ -96,10 +96,10 @@ export default function LessonNotes({ lessonId, token, currentVideoTime = 0, onS
   };
 
   return (
-    <div className="bg-slate-950 border border-slate-900 rounded-2xl p-6">
-      <div className="flex items-center gap-2 mb-6 border-b border-slate-900 pb-4">
-        <Bookmark className="w-5 h-5 text-emerald-500" />
-        <h3 className="font-bold text-slate-200">Ghi chú của tôi</h3>
+    <div className="bg-slate-950 border border-slate-900 rounded-xl md:rounded-2xl p-4 md:p-6">
+      <div className="flex items-center gap-2 mb-4 md:mb-6 border-b border-slate-900 pb-3 md:pb-4">
+        <Bookmark className="w-4 h-4 md:w-5 md:h-5 text-emerald-500" />
+        <h3 className="font-bold text-sm md:text-base text-slate-200">Ghi chú của tôi</h3>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -115,7 +115,7 @@ export default function LessonNotes({ lessonId, token, currentVideoTime = 0, onS
             </div>
             
             <textarea
-              className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs text-slate-200 focus:outline-none focus:border-emerald-500/50 mb-3 resize-none h-24"
+              className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 md:p-3 text-[10px] md:text-xs text-slate-200 focus:outline-none focus:border-emerald-500/50 mb-3 resize-none h-20 md:h-24"
               placeholder="Nhập ghi chú cho đoạn video này..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
