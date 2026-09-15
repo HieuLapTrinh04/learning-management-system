@@ -222,9 +222,9 @@ func (u *cartUseCase) CheckoutCart(ctx context.Context, studentID uint, couponCo
 	vnpayParams.Set("vnp_Amount", fmt.Sprintf("%d", int64(checkoutAmount*100)))
 	vnpayParams.Set("vnp_CreateDate", nowInVN.Format("20060102150405"))
 	vnpayParams.Set("vnp_CurrCode", "VND")
-	vnpayParams.Set("vnp_IpAddr", clientIP)
+	vnpayParams.Set("vnp_IpAddr", "113.190.233.15") // Force public IP for VNPay to avoid localhost rejection
 	vnpayParams.Set("vnp_Locale", "vn")
-	vnpayParams.Set("vnp_OrderInfo", fmt.Sprintf("Thanh toan gio hang %s", txnRef))
+	vnpayParams.Set("vnp_OrderInfo", fmt.Sprintf("ThanhToanGioHang_%s", txnRef))
 	vnpayParams.Set("vnp_OrderType", "other")
 	vnpayParams.Set("vnp_ReturnUrl", u.cfg.VNPayReturnURL)
 	vnpayParams.Set("vnp_TxnRef", txnRef)

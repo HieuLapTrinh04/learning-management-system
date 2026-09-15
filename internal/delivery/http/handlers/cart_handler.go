@@ -137,10 +137,7 @@ func (h *CartHandler) Checkout(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusBadRequest, "invalid request body format")
 	}
 
-	clientIP := c.IP()
-	if clientIP == "" || clientIP == "::1" {
-		clientIP = "127.0.0.1"
-	}
+	clientIP := "113.190.233.15"
 
 	paymentUrl, err := h.useCase.CheckoutCart(c.Context(), studentID, req.CouponCode, clientIP)
 	if err != nil {

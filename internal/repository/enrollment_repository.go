@@ -57,6 +57,7 @@ func (r *enrollmentRepository) ListByStudent(ctx context.Context, studentID uint
 	err := r.db.WithContext(ctx).Preload("Course").
 		Preload("Course.Teacher").
 		Preload("Course.Category").
+		Preload("Student").
 		Preload("LessonProgresses").
 		Preload("Certificate").
 		Where("student_id = ?", studentID).

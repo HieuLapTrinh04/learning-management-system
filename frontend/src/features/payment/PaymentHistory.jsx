@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPaymentHistory } from './paymentSlice';
-import { CreditCard, Calendar, CheckCircle2, XCircle, AlertCircle, RefreshCw, BookOpen, Loader2, DollarSign, ExternalLink, Download } from 'lucide-react';
+import { CreditCard, Calendar, CheckCircle2, XCircle, AlertCircle, RefreshCw, BookOpen, Loader2, DollarSign, ExternalLink, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 import axios from 'axios';
 
 export default function PaymentHistory({ token }) {
   const dispatch = useDispatch();
   const { history, isLoading, error } = useSelector((state) => state.payment);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     if (token) {
@@ -137,7 +140,7 @@ export default function PaymentHistory({ token }) {
         </div>
       ) : (
         <div className="space-y-4">
-          {history.map((order) => {
+          {history.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((order) => {
             const dateStr = new Date(order.created_at).toLocaleDateString('vi-VN', {
               hour: '2-digit',
               minute: '2-digit',
@@ -222,6 +225,34 @@ export default function PaymentHistory({ token }) {
               </div>
             );
           })}
+          
+          {/* Pagination Controls */}
+          {history.length > itemsPerPage && (
+            <div className="flex items-center justify-between pt-4 pb-2">
+              <span className="text-[10px] md:text-xs text-slate-500">
+                Hiển thị {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, history.length)} trong {history.length} giao dịch
+              </span>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="p-1.5 md:p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-400 hover:text-white disabled:opacity-50 disabled:hover:text-slate-400"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <div className="flex items-center px-2 text-[10px] md:text-xs font-semibold text-slate-300">
+                  {currentPage} / {Math.ceil(history.length / itemsPerPage)}
+                </div>
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(Math.ceil(history.length / itemsPerPage), p + 1))}
+                  disabled={currentPage === Math.ceil(history.length / itemsPerPage)}
+                  className="p-1.5 md:p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-400 hover:text-white disabled:opacity-50 disabled:hover:text-slate-400"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

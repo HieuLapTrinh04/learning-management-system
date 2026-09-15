@@ -7,6 +7,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 
@@ -55,9 +56,9 @@ func (h *PaymentHandler) Checkout(c *fiber.Ctx) error {
 		clientIP = strings.Split(clientIP, ",")[0]
 	}
 	clientIP = strings.TrimSpace(clientIP)
-	if clientIP == "" || clientIP == "::1" || len(clientIP) > 15 {
-		clientIP = "127.0.0.1"
-	}
+	
+	// Force a public IP for testing, VNPay might reject 127.0.0.1
+	clientIP = "113.190.233.15"
 
 	checkoutUrl, err := h.useCase.CreateCheckoutUrl(c.Context(), studentID, req.CourseIDs, clientIP)
 	if err != nil {
@@ -236,9 +237,26 @@ func (h *PaymentHandler) HandleIPN(c *fiber.Ctx) error {
 		queryParams.Set(string(key), string(val))
 	})
 
+	// Log IPN explicitly to file for debugging
+	logMsg := fmt.Sprintf("IPN Query: %v\n", c.Request().URI().QueryArgs().String())
+	os.OpenFile("ipn_debug.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644) // ignoring errors for brevity
+	if f, err := os.OpenFile("ipn_debug.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644); err == nil {
+		f.WriteString(logMsg)
+		f.Close()
+	}
+
 	resp, err := h.useCase.ProcessIPN(c.Context(), queryParams)
 	if err != nil {
 		logger.Log.Sugar().Infof("IPN processing error: %v", err)
+		if f, err := os.OpenFile("ipn_debug.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644); err == nil {
+			f.WriteString(fmt.Sprintf("IPN Error: %v\n", err))
+			f.Close()
+		}
+	} else {
+		if f, err := os.OpenFile("ipn_debug.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644); err == nil {
+			f.WriteString(fmt.Sprintf("IPN Success! RspCode: %s, Message: %s\n", resp.RspCode, resp.Message))
+			f.Close()
+		}
 	}
 
 	return c.Status(fiber.StatusOK).JSON(resp)
